@@ -1,0 +1,14 @@
+books/
+books/*
+resources/*
+resources/
+*.aux
+*.tex
+*.bbl
+*.blg
+*.log
+*.out
+*.gz
+*.toc
+*.fls
+*.fdb_latexmk
