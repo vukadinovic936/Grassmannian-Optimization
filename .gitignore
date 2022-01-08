@@ -12,3 +12,4 @@ resources/
 *.toc
 *.fls
 *.fdb_latexmk
+.Rproj.user
