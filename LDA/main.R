@@ -19,20 +19,23 @@ B <-c(63.2121, -19.534,  165.1647,  71.3631,
    165.1647, -56.0552, 436.6437, 186.9081,
    71.3631, -22.4924, 186.9081,  80.6041)
 
+Q <- c( -0.2049, -0.009,
+        -0.3871, -0.589,
+         0.5465,  0.2543,
+         0.7138, -0.767)
 B <- matrix(B, nrow=4, ncol=4, byrow=TRUE)
 
 objfun <- function(W){value <- f(W)
 return(list(value=value))}
 
-f <- function(U){ return( tr(U$Qt %*% B %*% U$Qt %*% inv(U$Qt %*% V %*% U$Qt)))}
+f <- function(U){ return( tr( t(U$Qt) %*% B %*% U$Qt %*% inv( t(U$Qt) %*% V %*% U$Qt )))}
 
 p=4; d=2; set.seed(234);
-
 
 W <- list(dim=c(d,p) );
 
 W$Qt[,1:d]
 
-ans <- GrassmannOptim(objfun, W, eps_conv=1e-5, verbose=TRUE);
+ans <- GrassmannOptim(objfun, W, eps_conv=1e-8, verbose=TRUE);
 
 ans$Qt[,1:d]
