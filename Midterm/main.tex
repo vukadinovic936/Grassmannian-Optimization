@@ -1,0 +1,147 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+%\usepackage{tabto}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage[margin=1in]{geometry}
+
+\usepackage[colorlinks=true,          % link colors, set to 'false' for print version
+            linkcolor=blue,
+            citecolor=red,
+            urlcolor=blue]{hyperref}
+\onehalfspacing            
+\include{defs}
+\include{biblio}
+\author{Milos Vukadinovic}
+\title{Sphere is a smooth manifold}
+\begin{document}
+
+Let $X \subseteq Mat_{3 \times 3}(\RR)$ 
+$$ X = \{ M \mid M^T = M, \: M^2 = M,\: Tr M = 1 \}$$
+We will describe a bijection between $X$ and $\RR \PP^2$.
+The above statement tells us that matrices are symmetric, idempotent and sum of it's eigenvalues is one.
+Spectral theorem tells us that real symmetric matrix is diagonizable.
+We can also conclude that eigenvectors of symmetric matrices, with distinct eigenvalues, are orthogonal.
+Let $x$ and $y$ be eigenvectors of a symmetric matrix $M$, with distinct eigenvalues $\lambda$ and $\mu$:
+$$ \lambda (x y) = (\lambda x) y =  (M x) y = x (M^T y) = x (M y) = x (\mu y) = \mu (x y ) $$
+Therefore $(\lambda - \mu) xy = 0$, since $\lambda$ and $\mu$ are distinct $xy$=0, thus orthogonal.
+Next, we can show that the eigenvalues of $M$ can be only $0$ and $1$.
+Let $v$ be an eigenvector, and $\lambda$ a corresponding eigenvalue.
+$$ M v = \lambda v $$
+$$ M^2 v = M (\lambda v) = \lambda M (v) = \lambda^2 v $$
+Then solving for $\lambda^2-\lambda = 0$, we get that $\lambda$ can only be $0$ or $1$.
+Finally, the fact that $Tr(M)=1$ tells us that eigenvalues of $M$ are $0$,$0$ and $1$.
+Therefore $dim(ker(M)) = 2$ and $dim(Im(M)) = 1 $. This is telling us that there is a whole plane,
+that is sent to zero vector, and all vectors in the image are sitting on a line.
+\newline
+Thus, applying a matrix operator $M$ to a vector,
+is equivalent to projecting a vector to a line in $R^3$.
+So $M :R^3 \to R^3$ is the operator of orthogonal projection on the line $Im(M)$.
+\newline
+Now, let's explicitly define a map $\phi$ which given a line in $R^3$ outputs a corresponding matrix operator,
+that will orthogonally project all the vectors in $R^3$ to that line.
+$$ \phi: \RR \PP ^2 \to Mat_{3 \times 3}  \quad \phi([x:y:z]) \to A_{3 \times 3} $$
+To explicitly find $A$, note that we first need to find a unit vector along a line $[x:y:z] \in \RR \PP ^2$,
+we can do that by normalizing coordinates. $n = \frac{1}{\sqrt{x^2 + y^2 + z^2}} [x,y,z]^T $.
+Finally, to orthogonally project any $v \in R^3$ along $n$, we apply $(v n) n = v n^2$. We can then define $\phi$ as follows:
+$$ \phi([x:y:z]) = n^2 = \frac{1}{\sqrt{x^2+y^2+z^2}^2} [x,y,z]^T [x,y,z] = \frac{1}{x^2 + y^2 + z^2} 
+\begin{pmatrix}
+x^2 & xy & xz \\
+xy & y^2 & yz  \\
+xz & yz & z^2
+\end{pmatrix} $$
+Next, we argue that $\phi \RR \PP ^2 \to R^6$ is an embedding ($R^6$ because we are taking only non-symmetric lower triangular entries)
+Namely, we will show that the following function is an embedding.
+$$ \phi([x:y:z]) \to \frac{1}{x^2+y^2+z^2} (x^2,xy, xz, y^2, yz, z^2) $$
+We proved that $\phi$ is injective, and we know that $\RR \PP ^2$ is compact, so we proceed to proving that $\phi$ is an immersion.
+\newline
+We can use the definition with local charts to prove it.
+Consider the following charts and maps.
+$$ u_0 \{ [x:y:z], x \neq 0 \} \simeq \RR^2  $$
+$$ u_1 \{ [x:y:z], y \neq 0 \} \simeq \RR^2  $$
+$$ u_2 \{ [x:y:z], z \neq 0 \} \simeq \RR^2  $$
+$$ \psi_0: v_0 \to \RR^2, \quad
+\psi_0([x:y:z]) \to (\frac{y}{x}, \frac{z}{x}), \quad
+\psi_0^{-1}(s,t) \to [1:s,t]
+$$
+$$ \psi_1: v_1 \to \RR^2, \quad
+\psi_1([x:y:z]) \to (\frac{x}{y}, \frac{z}{y}), \quad
+\psi_1^{-1}(s,t) \to [s:1:t]
+$$
+$$ \psi_2: v_2 \to \RR^2, \quad
+\psi_2([x:y:z]) \to (\frac{x}{z}, \frac{y}{z}), \quad
+\psi_2^{-1}(s,t) \to [s:t:1]
+$$
+These local charts cover all the points in $\RR \PP ^2$, to prove that $\phi$ is an immersion
+we need to show the following, for all $p \in R^2$
+$$ rank(J(\phi \circ \psi_i^{-1}(s,t))) = 2 $$
+for $i \in {1,2,3}$.
+\newline
+We check for $\psi_0$.
+$$\phi \circ \psi_0^{-1}(s,t) = [1:s:t] \to (1,s,t,s^2,st,t^2) \frac{1}{1+s^2+t^2} $$
+$$ J(\phi \circ \psi_0^{-1}(s,t)) = \frac{1}{(1+s^2+t^2)^2} 
+\begin{pmatrix}
+0 & 0 \\
+t^2-s^2+1 & 0 \\
+0 & s^2-t^2+1 \\
+2s(t^2+1)  & 9 \\
+t(t^2-s^2+1) & s(s^2+1-t^2) \\
+0 & 2t(s^2+1)
+\end{pmatrix} 
+$$
+To check for the line $[x:0:0]$, $x \neq 0$, we check when $(s,t) = (0,0)$.
+$
+\begin{pmatrix}
+0 & 0 \\
+1 & 0 \\
+0 & 1 \\
+0 & 0 \\
+0 & 0 \\
+0 & 0
+\end{pmatrix}
+$
+More generally, to check for $[x,0,z]$, $ x\neq 0 $, we check for $(s,t) = (0,t)$, 
+$
+\begin{pmatrix}
+0 & 0 \\
+t^2 & 0 \\
+0 & 1-t^2 \\
+0 & 0 \\
+t(t^2+1) & 0 \\
+0 & 2t
+\end{pmatrix}
+$
+\newline
+Here we have that $\Delta_{2,3} \neq 0$, thus $rank = 2$
+\newline
+Also, we check when $t=0$
+$
+\begin{pmatrix}
+0 & 0 \\
+1-s^2 & 0 \\
+0 & s^2+1 \\
+2s & 0 \\
+0 & s(s^2+1) \\
+0 & 0
+\end{pmatrix}
+$
+$\Delta_{2,5} \neq 0 $
+\newline
+Points in $\RR \PP ^2$ left to check are:
+\begin{itemize}
+    \item $x\neq 0$, which we can check using $\psi_1$ and $v_1$
+    \item After that, the only point left is $[0:0:1]$ which we check using $\psi_2$ and $v_2$.
+\end{itemize}
+\textbf{We can conclude that: The map $\phi$ maps $\RR \PP ^2$ diffeomorphically onto $\RR ^9$}
+\cite{HuangWG16}
+\cite{DBLP}
+\bibliographystyle{alpha}
+\bibliography{biblio} 
+\end{document}          

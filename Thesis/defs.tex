@@ -1,0 +1,375 @@
+
+%\setlength{\topmargin}{30mm}
+%\addtolength{\topmargin}{-1in}
+%\addtolength{\topmargin}{-\headsep}
+%\addtolength{\topmargin}{-\headheight}
+%\addtolength{\topmargin}{-\topskip}
+
+%\setlength{\textheight}{270mm}
+%\addtolength{\textheight}{\topskip}
+%\addtolength{\textheight}{-\footskip}
+%\addtolength{\textheight}{-30pt}
+
+%\setlength{\oddsidemargin}{-1in}
+%\addtolength{\oddsidemargin}{20mm}
+%\setlength{\evensidemargin}{\oddsidemargin}
+
+%\setlength{\textwidth}{170mm}
+
+\newtheorem{defn}{Definition}[section]
+ \newtheorem{thm}{Theorem}[section]
+ \newtheorem{Lemma}{Lemma}[section]
+ \newtheorem{Claim}{Claim}[section]
+ \newtheorem{Prop}{Proposition}[section]
+  \theoremstyle{definition}\newtheorem{Ex}{Example}[section]
+ \newtheorem{Cor}{Corollary}[section]
+ \newtheorem{claim}{Claim}[section]
+ \newtheorem{conj}{Conjecture}  
+
+\usepackage {amsfonts,amssymb}
+%\usepackage{mathbbol}
+\usepackage{latexsym}
+\usepackage{mathrsfs}
+\input xy
+\xyoption{all}
+
+\newcommand {\op}{\mathcal{O}\mathfrak{p}}
+\newcommand {\Def}{\textrm{Def}}
+\newcommand {\MC} {\textrm{MC}}
+\newcommand {\Art}{\textrm{Art}_\CC}
+\newcommand {\Kur}{\textrm{Kur}}
+\newcommand {\LG} {^LG}
+\newcommand{\fart}{\textrm{FArt}_\CC}
+\newcommand{\fun}{\textrm{Fun}}
+\newcommand{\sets}{\textrm{Sets}}
+\newcommand{\tops}{\textrm{Top}}
+
+\newcommand {\BB}{\mathbb{B}}
+\newcommand {\CC}{\mathbb{C}}
+\newcommand {\FF}{\mathbb{F}}
+\newcommand {\KK}{\mathbb{K}}
+\newcommand {\MM}{\mathbb{M}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand {\PP}{\mathbb{P}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand {\RR}{\mathbb{R}}
+\newcommand {\SSS}{\mathbb{S}}
+\newcommand {\VV}{\mathbb{V}}
+\newcommand {\HH}{\mathbb{H}}
+\newcommand {\WW}{\mathbb{W}}
+\newcommand{\YY}{\mathbb{Y}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+
+\newcommand {\bal}{\boldsymbol{\alpha}}
+\newcommand {\bbe}{\boldsymbol{\beta}}
+\newcommand {\bga}{\boldsymbol{\gamma}}
+\newcommand {\bmu}{\boldsymbol{\mu}}
+\newcommand {\bom}{\boldsymbol{\omega}}
+\newcommand {\bth}{\boldsymbol{\theta}}
+\newcommand {\bph}{\boldsymbol{\phi}}
+\newcommand {\bdh}{\boldsymbol{h}}
+\newcommand {\bdk}{\boldsymbol{k}}
+\newcommand {\bdE}{\boldsymbol{E}}
+\newcommand {\bdU}{\boldsymbol{U}}
+\newcommand {\bdP}{\boldsymbol{P}}
+\newcommand {\ba}{{\bf a}}
+\newcommand {\bb}{{\bf b}}
+\newcommand {\bc}{{\bf c}}
+\newcommand {\bd}{{\bf d}}
+\newcommand {\bg}{{\bf g}}
+\newcommand {\be}{{\bf e}}
+\newcommand {\bdf}{{\bf f}}
+\newcommand {\bp}{{\bf p}}
+\newcommand {\bq}{{\bf q}}
+\newcommand {\bv}{{\bf v}}
+\newcommand {\bh}{{\bf h}}
+\newcommand {\bk}{{\bf k}}
+\newcommand {\br}{{\bf r}}
+\newcommand {\bdu}{{\bf u}}
+\newcommand {\bdv}{{\bf v}}
+\newcommand {\bi}{{\bf i}}
+\newcommand {\bj}{{\bf j}}
+\newcommand {\bn}{{\bf n}}
+\newcommand {\bs}{{\bf s}}
+\newcommand {\bt}{{\bf t}}
+\newcommand {\bu}{{\bf u}}
+\newcommand {\bw}{{\bf w}}
+\newcommand {\bx}{{\bf x}}
+\newcommand{\by}{{\bf y}}
+\newcommand {\bz}{{\bf z}}
+\newcommand {\bB}{{\bf B}}
+\newcommand{\bD}{{\bf D}}
+\newcommand {\bE}{{\bf E}}
+\newcommand {\bF}{{\bf F}}
+\newcommand {\bG}{{\bf G}}
+\newcommand {\bH}{{\bf H}}
+\newcommand {\bK}{{\bf K}}
+\newcommand {\bL}{{\bf L}}
+\newcommand {\bM}{{\bf M}}
+\newcommand {\bN}{{\bf N}}
+\newcommand {\bO}{{\bf O}}
+\newcommand {\bP}{{\bf P}}
+\newcommand {\bQ}{{\bf Q}}
+\newcommand {\bR}{{\bf R}}
+\newcommand {\bT}{{\bf T}}
+\newcommand {\bS}{{\bf S}}
+\newcommand {\bU}{{\bf U}}
+\newcommand {\bV}{{\bf V}}
+\newcommand {\bW}{{\bf W}}
+\newcommand {\bgamma}{\boldsymbol\gamma}
+\newcommand {\bdelta}{\boldsymbol\delta}
+\newcommand {\bDelta}{\boldsymbol\Delta}
+%\newcommand{\qed}{{\ \bf qed}}
+
+\newcommand {\rroot}{\mathbf{root}}
+\newcommand {\coroot}{\mathbf{coroot}}
+\newcommand {\weight}{\mathbf{weight}}
+\newcommand {\coweight}{\mathbf{coweight}}
+ \newcommand{\higgs}{\textrm{Higgs}}
+\newcommand{\bun}{\textrm{Bun}}
+\newcommand{\rk}{\textrm{rk}}
+\newcommand{\ext}{\textrm{Ext}}
+% \newcommand {\id}{\mathbb{1}}
+% Use \id if using mathbbol instead of amssymb
+\newcommand{\range}{\textrm{Range}}
+\newcommand{\arccot}{\textrm{arccot}}
+
+\newcommand{\thickslash}{\mathbin{\!\!\pmb{\fatslash}}}
+
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand {\cM}{\mathcal{M}}
+\newcommand {\cN}{\mathcal{N}}
+\newcommand {\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+\newcommand{\loc}{\mathcal{L}oc}
+\newcommand{\Loc}{\textrm{Loc}}
+\newcommand{\cih}{\mathpzc{h}}
+\newcommand{\cx}{\mathpzc{x}}
+\newcommand{\cy}{\mathpzc{y}}
+\newcommand{\ce}{\mathpzc{e}}
+\newcommand{\cf}{\mathpzc{f}}
+\newcommand{\cl}{\mathpzc{l}}
+
+
+
+
+ 
+
+
+
+
+\newcommand{\scA}{\mathscr{A}}
+\newcommand{\scB}{\mathscr{B}}
+\newcommand{\scC}{\mathscr{C}}
+\newcommand{\scD}{\mathscr{D}}
+\newcommand{\scE}{\mathscr{E}}
+\newcommand{\scF}{\mathscr{F}}
+\newcommand{\scG}{\mathscr{G}}
+\newcommand{\scH}{\mathscr{H}}
+\newcommand{\scI}{\mathscr{I}}
+\newcommand{\scJ}{\mathscr{J}}
+\newcommand{\scK}{\mathscr{K}}
+\newcommand{\scL}{\mathscr{L}}
+\newcommand{\scM}{\mathscr{M}}
+\newcommand{\scP}{\mathscr{P}}
+\newcommand{\scR}{\mathscr{R}}
+\newcommand{\scO}{\mathscr{O}}
+\newcommand{\scS}{\mathscr{S}}
+\newcommand{\scT}{\mathscr{T}}
+\newcommand{\scU}{\mathscr{U}}
+\newcommand{\scV}{\mathscr{V}}
+\newcommand{\scW}{\mathscr{W}}
+\newcommand{\scX}{\mathscr{X}}
+\newcommand{\scY}{\mathscr{Y}}
+\newcommand{\scZ}{\scZ}
+
+\newcommand{\uR}{\underline{\mathbb{R}}}
+\newcommand {\uC}{\underline{\mathbb{C}}}
+
+
+\newcommand{\fh}{\mathfrak{h}}
+\newcommand{\fa}{\mathfrak{a}}
+\newcommand{\fb}{\mathfrak{b}}
+\newcommand{\fc}{\mathfrak{c}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\fk}{\mathfrak{k}}
+\newcommand{\fl}{\mathfrak{l}}
+\newcommand{\fm}{\mathfrak{m}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fo}{\mathfrak{o}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\fr}{\mathfrak{r}}
+\newcommand{\fs}{\mathfrak{s}}
+\newcommand{\fsu}{\mathfrak{su}}
+\newcommand{\ft}{\mathfrak{t}}
+\newcommand{\slt}{\mathfrak{sl}_2(\CC)}
+\newcommand{\sln}{\mathfrak{sl}(n)}
+\newcommand{\fsl}{\mathfrak{sl}}
+\newcommand{\fu}{\mathfrak{u}}
+\newcommand{\fv}{\mathfrak{v}}
+\newcommand{\fx}{\mathfrak{x}}
+\newcommand{\fy}{\mathfrak{y}}
+\newcommand{\fz}{\mathfrak{z}}
+\newcommand{\fA}{\mathfrak{A}}
+\newcommand{\fB}{\mathfrak{B}}
+\newcommand{\fD}{\mathfrak{D}}
+\newcommand{\fM}{\mathfrak{M}}
+\newcommand{\fR}{\mathfrak{R}}
+\newcommand {\fU}{\mathfrak{U}}
+\newcommand {\fV}{\mathfrak{V}}
+\newcommand {\fW}{\mathfrak{W}}
+\newcommand{\fX}{\mathfrak{X}}
+\newcommand{\faff}{\mathfrak{aff}}
+
+\newcommand{\Aff}{\textrm{Aff}}
+
+\newcommand{\sym}{\textrm{Sym}}
+
+\newcommand {\dbar}{\overline{\partial}}
+\newcommand {\zbar}{\overline{z}}
+\newcommand {\zvec}{\underline{z}}
+\newcommand {\dzbar}{d\overline{z}}
+\newcommand {\Nbar}{\overline{N}}
+\newcommand {\Kbar}{\overline{K}}
+\newcommand{\diff}{\textrm{Diff}}
+
+%\newcommand {\hom}{\textrm{Hom}}
+
+\newcommand{\mhom}{\textrm{Hom}}
+\newcommand {\mend}{\textrm{End}}
+\newcommand {\misom}{\textrm{Isom}}
+\newcommand {\maut}{\textrm{Aut}}
+\newcommand{\pr}{\textrm{pr}}
+
+\newcommand {\sisom}{\underline{Isom}}
+\newcommand {\saut}{\underline{Aut}}
+\newcommand {\shom}{\textrm{\underline{Hom}}}
+\newcommand {\send}{\underline{End} }
+
+\newcommand{\dra}{M^{an}_{DR}(X,G)}
+\newcommand{\dr}{M_{DR}(X,G)}
+
+\newcommand {\ad}{\textrm{ad} }
+\newcommand{\Ad}{\textrm{Ad}}
+
+\newcommand{\lspan}{\textrm{span}}
+\newcommand{\img}{\textrm{Im }}
+\newcommand{\spec}{\textrm{Spec }}
+\newcommand{\specan}{\textrm{Spec}^{an}}
+\newcommand{\gspec}{\underline{\textrm{Spec }}}
+\newcommand {\cok}{\textrm{coker}}
+\newcommand{\tot}{\textrm{tot }}
+\newcommand{\tildel}{\widetilde{\delta}}
+\newcommand{\ctimes}{\otimes_\CC}
+\newcommand{\sotimes}{\otimes_{\cO_X}}
+\newcommand{\pic}{\textrm{Pic}}
+\newcommand{\tr}{\textrm{tr }}
+
+\newcommand  {\eps}{\varepsilon}
+\newcommand {\kap}{\varkappa}
+\newcommand {\io}{\iota}
+\newcommand {\fii}{\varphi}
+
+\newcommand{\Higgs}{{\bf Higgs}}
+\newcommand{\Bun}{{\bf Bun}}
+\newcommand{\gHiggs}{\op{\boldsymbol{\mathcal{H}iggs}}}
+\newcommand{\Prym}{{\bf Prym}}
+\newcommand{\Jac}{{\bf Jac}}
+%\newcommand{\bh}{\boldsymbol{h}}
+%\newcommand{\bH}{\boldsymbol{\mathcal{H}}}
+\newcommand{\rts}{{\sf root}}
+\newcommand{\wts}{{\sf weight}}
+\newcommand{\crts}{{\sf coroot}}
+\newcommand{\cwts}{{\sf coweight}}
+\newcommand{\chr}{{\sf char}}
+\newcommand{\cchr}{{\sf cochar}}
+
+\newcommand{\Aut}{\textrm{Aut}}
+\newcommand{\Der}{\textrm{Der}}
+\newcommand{\spin}{\textrm{Spin}}
+\newcommand{\spinc}{\textrm{Spin}^c}
+%\newcommand{\U}{\boldsymbol{U(1)}}
+
+\newcommand{\Mat}{\textrm{Mat}}
+
+\newcommand{\hookr}{\hookrightarrow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Long exact sequence macro
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\les}[9]{
+\xymatrix{
+ 0 \ar[r] & {#1} \ar[r]  &  {#2} \ar[r]  &  {#3}
+\ar@{->}`r/10pt[d] `[l] `^dl[dlll]  `^dr/10pt[dll]    [dll] \\
+ &  {#4} \ar[r] & {#5} \ar[r] & {#6}
+\ar@{->}`r/10pt[d] `[l] `^dl[dlll]  `^dr/10pt[dll]    [dll] \\
+ & {#7} \ar[r]  & {#8} \ar[r] & {#9}
+\ar@{->}`r/10pt[d] `[l] `^dl[dlll]  `^dr/10pt[dll]    [dll] \\
+ & 0 \ar[r] & \cdots & }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\lestwo}[9]{
+\xymatrix{     
+ 0 \ar[r] & {#1} \ar[r]  &  {#2} \ar[r]  &  {#3} 
+\ar@{->}`r/10pt[d] `[l] `^dl[dlll]  `^dr/10pt[dll]    [dll] \\
+ &  {#4} \ar[r] & {#5} \ar[r] & {#6} 
+\ar@{->}`r/10pt[d] `[l] `^dl[dlll]  `^dr/10pt[dll]    [dll] \\
+ & {#7} \ar[r]  & {#8} \ar[r] & {#9} }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Long exact sequence macro
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\lesthree}[5]{
+\xymatrix{     
+ 0 \ar[r] & {#1} \ar[r]  &  {#2} \ar[r]  &  {#3} 
+\ar@{->}`r/10pt[d] `[l] `^dl[dlll]  `^dr/10pt[dll]    [dll] \\
+ &  {#4} \ar[r] & {#5} & }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Long exact sequence macro
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\lesfour}[8]{
+\xymatrix{     
+ 0 \ar[r] & {#1} \ar[r]  &  {#2} \ar[r]  &  {#3} 
+\ar@{->}`r/10pt[d] `[l] `^dl[dlll]  `^dr/10pt[dll]    [dll] \\
+ &  {#4} \ar[r]^-{#8} & {#5} \ar[r] & {#6} 
+\ar@{->}`r/10pt[d] `[l] `^dl[dlll]  `^dr/10pt[dll]    [dll] \\
+ & {#7} \ar[r]  & \cdots  &  }
+}
+
+
+%
+

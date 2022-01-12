@@ -3,7 +3,6 @@ books/*
 resources/*
 resources/
 *.aux
-*.tex
 *.bbl
 *.blg
 *.log
