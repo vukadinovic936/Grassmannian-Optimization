@@ -1,0 +1,72 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+%\usepackage{tabto}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\linespread{1.25}
+\usepackage[colorlinks=true,          % link colors, set to 'false' for print version
+            linkcolor=blue,
+            citecolor=red,
+            urlcolor=blue]{hyperref}
+            
+\include{defs}
+\include{biblio}
+\author{Milos Vukadinovic}
+\title{Fisher's Linear Discriminant Analysis}
+\begin{document}
+\maketitle
+
+\begin{defn}
+Fisher's linear discriminant analysis is a method, used in statistics, to find a linear combination of features that separate classes of objects or events.
+It is also used as dimensionality reduction tehnique and is similar to PCA (but supervised). The goal is to maximize the following function
+$$ f(\alpha) = \frac{\alpha^T  \beta \alpha}{\alpha^T W \alpha}$$
+where $B$ is between class covariance matrix and $W$ is withing class covariance matrix.
+\end{defn}
+Our goal when performing the LDA is to reduce the dimensions of $p$ dimensional dataset to $d$ dimensions.
+And while doing that maximize the difference between means of each class and minimize the withing class variance for each class.
+Traditionally, we perform LDA in the following steps:
+\begin{enumerate}
+    \item Compute the d-dimensional mean vectors for the different classes from the dataset
+    \item Compute the scatter matrices (Namely within class covariance matrix $W$ and between class covariance matrix $B$)
+    \item Compute the eigenvalues and the eigenvectors of the matrix $W^{-1} B$
+    \item Choose the $d$ highest eigenvaluesto for the $d \times k$ matrix name the matrix $T$
+    \item Transition the data $Y = X T$, where $X$ is old data, and $Y$ new after transition
+\end{enumerate}
+TODO: examine the process more closely
+\newline
+Generalized Rayleigh quotient is given by $ f(U) = Tr \{ U^T B U (U^T W U)^{-1} \}$
+We can use manifold optimization to perform LDA. 
+It can be show that for the minimun/maximum $f(U)$, columnds of $U$ will be consisted of the first $d$ eigenvectors of $W^{-1/2} B W^{-1/2}$
+\newline
+To show that we can consider the optimization problem 
+as optimization on Grassmann manifold we need to check the following:
+\begin{enumerate}
+    \item U is a $p \times d$ semi-orthogonal matrix (columns are orthonormal vectors)
+    \item $U^T U = I_d$
+    \item $\forall g \in GL(d) \; f(Ug) = f(U) $
+\end{enumerate}
+First, we expect to find a transformation matrix from $R^p$ to $R^d$ so $U$ must be $p \times d$.
+It is semi-orthogonal because for LDA the best transformation matrix is orthonormal.
+(2) follows from the fact that it's semi orthonogal
+
+  \begin{figure}[h!]    
+       
+  \minipage{0.50\textwidth}    
+    \includegraphics[width=\linewidth]{LDA.png}    
+    \caption{LDA}\label{fig:original}    
+  \endminipage\hfill    
+  \minipage{0.50\textwidth}    
+    \includegraphics[width=\linewidth]{GrassmannLDA.png}    
+    \caption{Grassmann LDA}\label{fig:iter1}    
+  \endminipage\hfill 
+  \end{figure}
+\setcounter{tocdepth}{1} 
+\bibliographystyle{alpha}
+\bibliography{biblio} 
+\end{document}          

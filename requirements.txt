@@ -1,1 +1,8 @@
 pymanopt
+autograd
+numpy
+scipy
+matplotlib
+pandas
+sklearn
+torch

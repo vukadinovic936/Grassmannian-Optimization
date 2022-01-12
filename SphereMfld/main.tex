@@ -1,0 +1,145 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+%\usepackage{tabto}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage[margin=1in]{geometry}
+
+\usepackage[colorlinks=true,          % link colors, set to 'false' for print version
+            linkcolor=blue,
+            citecolor=red,
+            urlcolor=blue]{hyperref}
+\onehalfspacing            
+\graphicspath{ {./images/} }
+\include{defs}
+\include{biblio}
+\author{Milos Vukadinovic}
+\title{Sphere is a smooth manifold}
+\begin{document}
+We will show that $S^2$ is a smooth manifold. Let's denote a sphere as:
+$$ M = S^2 = \{(x_1,x_2,x_3) \in \RR^3 \mid x_1^2 + x_2^2 + x_3^2 = 1 \} $$
+Also, we define a disk with a center at $(x_0,y_0)$ and radius $\epsilon$ as:
+$$ D_{\epsilon}(x_0,y_0) = \{(x,y) \in \RR^2 : (x-x_0)^2 + (y-y_0)^2 < \epsilon^2 \} $$
+
+Thus we can cover the sphere with 6 charts and 6 functions, described as follows:
+$$ u_i^{+} = S^2 \cap \{x_i > 0 \}, \quad u_i^{-} = S^2 \cap \{x_i < 0 \} $$
+$$ \varphi_i^{+}: u_i^{+} \to D_{1}(0,0), \quad \varphi(x_1,x_2,x_3) = (\dots \hat{x_i} \dots)$$
+$$ \varphi_i^{-}: u_i^{-} \to D_{1}(0,0), \quad \varphi(x_1,x_2,x_3) = (\dots \hat{x_i} \dots)$$
+Then the atlas covering the sphere is:
+$$ A_1 = \{(u_i^{\pm},\varphi_i^{\pm}) : i \in I \}, \quad I = \{ 1,2,3 \} $$
+For example $\varphi_3^{+}: u_3^{+} \to \RR^2, \quad \varphi_3^{+}(x_1,x_2,x_3) = (x_1,x_2,\hat{x_3}) =(x_1,x_2)$
+\newline
+\newline
+We first show that a function $\varphi_3^{+}: u_3^{+} \to \RR$ is injective. Assume $\exists P_1$ and $P_2$ s.t. $P_1 = (p_1,p_2,p_3)$,
+and $P_2 = (p_1\prime,p_2\prime,p_3\prime)$, $P_1 \neq P2$, and $f(P_1) = f(P_2) \iff  (p_1,p_2) = (p_1\prime, p_2\prime)$
+\newline
+Because $P_1$ and $P_2$ are the points on the sphere:
+$p_3\prime = \pm \sqrt{1-p_1^2-p_2^2} \quad \pm p_3\prime = \pm \sqrt{1-p_1\prime^2-p_2\prime^2}$
+Since $u_3^{+}$ has only positive numbers for a third coordinate $p_3 = p_3\prime \implies (p_1,p_2,p_3) = (p_1\prime,p_2\prime,p_3\prime) \implies P_1=P_2$, and we can conclude that $\varphi_3^{+}$ is injective.
+\newline
+\newline
+To show that $\varphi_i^{\pm}$ is injective, we similarly assume that $ \exists P_1$ and $P_2$, $P_1 \neq P_2$ and 
+$\varphi_i^{\pm}(P_1) = \varphi_i^{\pm}(P_2)$. Let $K= \{1,2,3\}/i$. Then $\forall k \in K, a_k= a_k\prime$ 
+$\quad a_i = \pm \sqrt{1-\sum(a_k^2)} = a_i\prime$. Since $a_i$ and $a_i\prime$ are limited to only positive or only negative values  $P_1 = P_2$, and $\varphi_i^{\pm}$ is injective.
+\newline
+\newline
+To prove surjectivity, consider $(\varphi_i^{\pm})^{-1}$ componentwise. It sends an arbitary point $(b_1,b_2) \in \RR^2$ to a point $(a_1,a_2,a_3) \in S^2$, or componentwise
+\[
+  a_j =
+  \begin{cases}
+                                   b_j & j<i \\
+                                   \sqrt{1-b_1^2-b_2^2} & j=i \\
+                                   b_{j-1} & j>i
+  \end{cases}
+\]
+Since each component in both $S^2$ and the disk varies from $0$ to $1$, each point in the codomain is mapped to, and we have surjectivity for $\varphi_i^{\pm}$
+\newline
+\begin{Lemma}\label{contLemma}
+  Let $f:U \subset \RR^n \to \RR^m $. Suppose the partial derivatives $\frac{\partial f_i}{\partial x_j}$ of $f$ all exist
+  and are continuous in a neighbourhood of a point $x \in U$. Then $f$ is differentiable at $x$. 
+\end{Lemma}
+The function $\varphi_i$ is continous by \ref{contLemma} (polynomials are infinitely differentiable).
+%We can easily check for continuity of $\varphi_i$ since for each open $ \beta_{\epsilon}(x_1,x_2) \in D_1 (0,0) \; \exists \; \beta_{\delta}(x_1,x_2,\sqrt{1-x_1^2-x_2^2}) \in S^2 $ 
+%such that $\epsilon = (\epsilon_1,\epsilon_2) $ and $\delta = (\epsilon_1,\epsilon_2, \sqrt{1-\epsilon_1^2-\epsilon_2^2})$
+%\newline
+%Similarly $\varphi_i^{-1}$ is continuous because $\forall \beta_{\epsilon}(x,y,z) \in S^2 \; \exists \; \beta_{\delta}(x,y) \in D_1(0,0) $ where $\delta = (\epsilon_1, \epsilon_2)$ 
+\newline
+The space is Hausdorff since it is a subset of $\RR^3$, therefore $\varphi_{i}^{\pm}$ are homeomorphisms.
+\newline
+We now show that $A$ is a smooth atlas. First we consider the transition function $ \varphi_3 \; \circ \; \varphi_1^{-1}: u_1^{+} \to u_3^{+}$
+$$(x,y) \to (\sqrt{x^2+y^2},x,y) \to (\sqrt{x^2+y^2},x)$$
+But this is infinitely differentiable since it is a polynomial. Similarly, we can show that all transition functions are $C^{\infty}$
+\newline
+\newline
+\textbf{Stereographic projection} is a map that will allow us to embed the sphere with smooth structure by using 2 charts.
+\newline
+\begin{center}
+      \centering
+      \includegraphics[width=0.90\textwidth]{stereographic_projection.png}
+\end{center}
+$$ v^{+} = S^2 \setminus \{(0,0,-1)\} \quad v^{-} = S^2 \setminus \{ (0,0,1) \} $$
+We think of map $\phi^{-}$ as drawing a line through the point the north pole $(0,0,1)$ and $(x,y,z)$, then the output is the point where the line intersects z plane.
+Similarly for $\phi^{+}$, we project from the south pole $(0,0,-1)$. We get the maps explicitly by parametrizing the line:
+$$ l: (0,0,1) + t ((x_1,x_2,x_3) - (0,0,1)) =  (x_1 t,x_2 t, x_3 t-t+1) $$
+$l$ intersects $x_3=0$ when $x_3t-t+1=$, thus $t = \frac{1}{(1-x_3)}$ It follows that the point of intersection is $(\frac{x_1}{1-x_3},\frac{x_2}{1-x_3},0)$
+Similarly we can explicitly find $\phi^{+}$
+$$ \phi_{+}: v^{+} \to \RR^2, \quad (x_1,x_2,x_3) \to (\frac{x_1}{1+x_3}, \frac{x_2}{1+x_3} )$$
+$$ \phi_{-}: v^{-} \to \RR^2, \quad (x_1,x_2,x_3) \to (\frac{x_1}{1-x_3}, \frac{x_2}{1-x_3} )$$
+We can find the inverses in the similar way.
+Consinder points on the $z=0$ plane in $\RR^3$ $(\alpha, \beta, 0)$. We parametrize the line through this point and north pole:
+$$ l: (0,0,1) + t((\alpha, \beta, 0 ) - (0,0,1)) = (\alpha t, \beta t, -t +1)$$
+We need to see when are these points going to be on the sphere , i.e.
+$$ (\alpha t)^2  + (\beta t)^2 + (-t +1)^2 = 1 $$
+$$ \alpha^2 t^2 + \beta^2 t^2 + t^2 - 2t + 1 = 1 $$
+$$ t^2 (\alpha^2 + \beta^2 +1 - \frac{2}{t} ) = 0 $$
+$$ \therefore t = \frac{2}{\alpha^2 + \beta^2 +1 } $$
+$$ \phi_{+}^{-1}:
+\RR^2 \to v^{+} 
+\quad (\alpha, \beta)  \to
+( \frac{2 \alpha}{1+\alpha^2+\beta^2},
+  \frac{2 \beta}{1+\alpha^2+\beta^2},
+  - \frac{\alpha^2+\beta^2-1}{\alpha^2+\beta^2+1})
+$$
+$$ \phi_{-}^{-1}:
+\RR^2 \to v^{-}
+\quad (\alpha,\beta) \to
+( \frac{2\alpha}{1+\alpha^2+\beta^2}, 
+\frac{2\beta}{1+\alpha^2+\beta^2}, 
+ \frac{\alpha^2 + \beta^2 -1}{\alpha^2+\beta^2+1} )
+$$
+Since we explicitly found an inverse, the function is bijection.
+\newline
+And it's easy to see that $\phi$ is continuous by lemma \ref{contLemma} (denom never zero)
+Thus we equipped the sphere with the following atlas:
+$$ A_2 = \{(v^{\pm},\phi_{\pm}) \} $$
+We can check that the transition maps from $A_1$ to $A_2$ are smooth. \newline
+First we check for $\varphi_3^{+} \circ \phi_{+}^{-1}$ where
+$$ \varphi_3^{+}: S^2 \cap {x_3 > 0} = u_3^{+} \to D_1(0,0) \subset \RR^2 $$
+$$ \phi_{+}^{-1}: \RR^2 \to v^{+} = S^2 \setminus \{ (0,0,-1) \} $$
+Now, since we require that the domain of $\varphi_3^{+}$ is positive, the following is how our transition function will look like
+
+$$\varphi_3^{+} \circ \phi_{+}^{-1}: D_1 (0,0) \to D_1(0,0), \quad \varphi_3^{+}( \phi_{+}^{-1}(x_1,x_2)) = (\frac{2x_1}{1+x_1^2+x_2^2}, \frac{2x_2}{1+x_1^2+x_2^2})$$
+
+$$ \phi_{+}^{-1} \circ \varphi_3^{+}: D_1 (0,0) \to D_1(0,0), \quad  \phi_{+}(\varphi_3^{+}((x_1,x_2) )^{-1}) = (\frac{x_1}{1+\sqrt{1-x_1^2-x_2^2}}, \frac{x_1}{1+\sqrt{1-x_1^2-x_2^2}})$$
+It is continuous componentwise and thus smooth.
+Next, we list the domain and the image of the rest of transition maps.
+$$\varphi_3^{-} \circ \phi_{+}^{-1}: \RR^2 \setminus \bar{D_1} (0,0) \to D_1(0,0) \setminus (0,0)$$
+$$\varphi_2^{+} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_2 > 0 \} \to D_1 (0,0)$$
+$$\varphi_1^{+} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_1 > 0 \} \to D_1 (0,0)$$
+$$\varphi_2^{-} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_2 < 0 \} \to D_1 (0,0)$$
+$$\varphi_1^{-} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_1 < 0 \} \to D_1 (0,0)$$
+$$\varphi_3^{+} \circ \phi_{-}^{-1}: \RR^2 \setminus \bar{D_1} (0,0) \to D_1(0,0) \setminus (0,0)$$
+$$\varphi_3^{-} \circ \phi_{-}^{-1}: D_1 (0,0) \to D_1(0,0) $$
+$$\varphi_2^{+} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_2 > 0 \} \to D_1 (0,0)$$
+$$\varphi_1^{+} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_1 > 0 \} \to D_1 (0,0)$$
+$$\varphi_2^{-} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_2 < 0 \} \to D_1 (0,0)$$
+$$\varphi_1^{-} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_1 < 0 \} \to D_1 (0,0)$$
+\bibliographystyle{alpha}
+\bibliography{biblio} 
+\end{document}          
