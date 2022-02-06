@@ -21,107 +21,129 @@
 \title{G(2,4) is a smooth manifold}
 \begin{document}
 Let us write $G(2,4) = \{ $2-dimensional (vector) subspaces of $\RR^4 \}$ A plane $V \subseteq \RR^4$ is specified by $4\times2$ matrix $A=[\vec{a}_1,\vec{a}_2] \in Mat_{4\times 2}$ where 
-$\{\vec{a}_1, \vec{a}_2\}$ is a basis for V. I.e., given $A \in Mat_{4\times 2}$, $rk A = 2$, we get a 2-plane $V \subseteq \RR^4$ by $V=$span $\{\vec{a}_1,\vec{a}_2\} $. Conversely, given any 2-dim subspace $V\subseteq \RR^4$, there is a $4\times 2$
- matrix A with $rk(A)=2$, from which $V$ is obtained in the above way. Two matrices, $A$ and $B$, determine the same subspace $V \iff \exists g \in GL_2(\RR) $, such that $B = A g$. 
+$\{\vec{a}_1, \vec{a}_2\}$ is a basis for V. I.e., given $A \in Mat_{4\times 2}$, $\rk A = 2$, we get a 2-plane $V \subseteq \RR^4$ by $V=$span $\{\vec{a}_1,\vec{a}_2\} $. Conversely, given any 2-dim subspace $V\subseteq \RR^4$, there is a $4\times 2$
+ matrix A with $\rk(A)=2$, from which $V$ is obtained in the above way. Two matrices, $A$ and $B$, determine the same subspace $V \iff \exists g \in GL_2(\RR) $, such that $B = A g$. 
 \newline
-We thus have the following setup. Let
+We thus have the following setup. Let the set of all \" 2-frames \" be
 $$ F(2,4) = \{ A \; | \;  rkA=2 \} \subseteq Mat_{2\times4}(\RR)  \simeq \RR^8 $$
-and consider on it the equivalence relation.
+and consider on it the equivalence relation
 $$ B \sim A \text{ if } \exists \; g \in GL_2(\RR), \text{ s.t. } B=Ag $$
 We have described a bijection of sets
-$$ \equivclass{F(2,4)} \simeq  G(2,4) $$ 
+$$ \equivclass{F(2,4)} \simeq  G(2,4). $$ 
 In this problem we argue that $G(2,4)$ can be equipped with a natural smooth structure. 
 \newline
 \newline
-First we show that $F(2,4) \subset Mat_{2 \times 4} (\RR) \simeq \RR^8$ is an open subset
+First we show that $F(2,4) \subset Mat_{4 \times 2} (\RR) \simeq \RR^8$ is an open subset
 \begin{Lemma}\label{matrank}
     The rank of an $m \times n$ matrix is $r \iff$ some $r \times r$ minor does not vanish,
     and every $(r+1) \times (r+1)$ minor vanishes.
 \end{Lemma}
-Since we know that $rk(F(2,4)^\complement )<2$, lemma \ref{matrank} tells us all minors
+Since we know that for $M \in F(2,4)^\complement$, $\rk M <2$ lemma \ref{matrank} tells us all $2 \times 2$ minors
 of an arbitary element $ A \in F(2,4)^\complement$ vanish. Let's denote the determinant of each minor of $A$ with $S_i, \; i\in (1,6)$ 
 Then consider a continuous map
-$ \psi: Mat_{2\times4} \to \RR^6, \quad \psi(M) \to (S_1,S_2,S_3,S_4,S_5,S_6)$.
+$ \psi: Mat_{4\times2} \to \RR^6, \quad \psi(M) \to (S_1,S_2,S_3,S_4,S_5,S_6)$.
 We can express $F(2,4)^\complement = \psi ^{-1} (0,0,0,0,0,0)$ because all minors vanish (det=0).
-A point $(0,0,0,0,0,0) \in \RR^6$ is a closed set, and because continuity preserves the closeness, $F(2,4)^\complement$ is closed in $Mat_{2 \times 4}$,
-and since its complement is closed $F(2,4)$ is an open subset of $Mat_{2 \times 4}(\RR)$
+A point $(0,0,0,0,0,0) \in \RR^6$ is a closed set, and because continuity preserves the closedness, $F(2,4)^\complement$ is closed in $Mat_{4 \times 2}$,
+an since its complement is closed, $F(2,4)$ is an open subset of $Mat_{4 \times 2}(\RR)$
 \newline
 \newline
-Next we show that $\simeq$ is an open equivalence relation on $F(2,4)$.
+\begin{Prop}
+    $\sim$ is an open equivalence relation on $F(2,4)$
+\end{Prop}
 In other words we need to show that the map $\pi: F(2,4) \to \equivclass{F(2,4)}$ is an open map.
+Then $\pi$ is a quotient map and is equipped with $\equivclass{F(2,4)} is equipped with quotient topology$
 \newline
 \begin{Lemma} \label{quotientTop}
     A subset of a quotient space is open if and only if its
     preimage under the canonical projection map is open in the original topological space.
 \end{Lemma}
-Let $U \subset F(2,4)$. Then for every $g \in GL_2(\RR)$ the set $U g = \{ x g | x \in u \}$ is an open subet of $F(2,4)$.
-Therefore $\pi^{-1}\pi(u) = \displaystyle \cup \; g u$ is an open in $F(2,4)$ because the union of open sets is open.
-And by \ref{quotientTop} $\pi(U) = [U]$ is open in $G(2,4)$. (obviously $\pi$ is a quotient map, and $G(2,4)$ is open in $\RR^8$)
+Let $U$ be an open in $F(2,4)$. Then for every $g \in GL_2(\RR)$ the set $U g = \{ x g | x \in U \}$ is an open subset of $F(2,4)$.
+Therefore $\pi^{-1}\pi(U) = \displaystyle \bigcup_{g \in G} \; U g$ is an open in $F(2,4)$ because the union of open sets is open.
+And by \ref{quotientTop} $\pi(U) = [U]$ is open in $G(2,4)$. $\pi$ is a canonical quotient map, and $F(2,4)$ is open in $\RR^8$. 
 \newline
 \newline
 \begin{Lemma}
     \label{baset}
-    if $\beta = \{ \beta_\alpha \}_\alpha$ is a base for a topology $T$ on a topological space $S$,
+    if $\beta = \{ \beta_\alpha \}_\alpha$ is a base for a topology $\mathcal{T}$ on a topological space $S$,
     and if $f: S \to X$ is an open map, then the collection $\{ f (\beta_\alpha) \}_\alpha$ is a base for the topology on $X$.
 \end{Lemma}
-\textbf{Proof:} Let $v$ be an open in $X$ and $y \in V$. Choose $x \in f^{-1}(y)$. 
-Since $f^{-1} (V)$ is open there is a basis element $u \in \beta$ s.t. $x \in u \subset f^{-1}(v)$
-which implies that $y \in f(u) \subset v$. Since $y$ is arbitary, and $f(U) \subset f(\beta)$ the collection $\{ f (\beta_\alpha) \}_\alpha$ is a base for the topology on $X$.
+\textbf{Proof:} Let $V$ be an open in $X$ and $y \in V$. Choose $x \in f^{-1}(y)$. 
+Since $f^{-1} (V)$ is open there is a basis element $U \in \beta$ s.t. $x \in U \subset f^{-1}(V)$
+which implies that $y \in f(U) \subset V$. Since $y$ is arbitary, and $f(U) \subset f(\beta)$ the collection $\{ f (\beta_\alpha) \}_\alpha$ is a base for the topology on $X$.
 \newline
 \newline
-We have that $F(2,4)$ has a second countable base since the subsets keep the properties of the space ($\RR^8$).
+We have that $F(2,4)$ has a second countable base since it is a subspace of $\RR^8$.
 Thus by lemma \ref{baset}, we have that the base of $G(2,4)$ is second countable.
 \newline
 \newline
-We show that the graph of the equivalence relation on $F(2,4)$ is a closed subset of $F(2,4) \times F(2,4)$.
-I.e $R = \{ (x,y) \in F(2,4) \times F(2,4) \; | \; y = gx \}$ is closed.
-We can consider $R$ as a set of matrices. $[A B] = [\vec{a}_1, \vec{a}_2, \vec{b}_1, \vec{b}_2]$ of rank 2.
-\ref{matrank} tells us that every $3 \times 3$ minor of an element in $R$ must vanish. So if we take a map:
+\begin{Prop}
+The graph of the equivalence relation on $F(2,4)$ is a closed subset of $F(2,4) \times F(2,4)$. \newline
+I.e. $ R = \{ (A,B) \in F(2,4) \times F(2,4) \; | \; A = Bg \}$ is closed.
+\end{Prop}
+We can consider $R$ as a set of matrices $[A B] = [\vec{a}_1, \vec{a}_2, \vec{b}_1, \vec{b}_2]$ of rank 2.
+Lemma \ref{matrank} tells us that every $3 \times 3$ minor of an element in $R$ must vanish. Consider the map that assigns to $(A,B)$ the values of all $3 \times 3$ minors
 $$ \psi:  F(2,4) \times F(2,4) \to \RR^{16} $$
-$\psi$ takes the determinant of every $3 \times 3$ minor.
-$\psi$ is continuous and thus $R = \psi^{-1}(0,0, \dots ,0)$ is closed.
+Since $\phi$ is continuous ( as all of its components are polynomials )  and $R = \psi^{-1} \setminus 0 $ , then R is closed.
 \newline
 \begin{center}
       \centering
       \includegraphics[width=0.90\textwidth]{graph_int.png}
 \end{center}
-From the previous assertion we can conclude that $G(2,4)$ is Hausdorff. 
-\newline
+
+\begin{Prop}
+$G(2,4)$ is Hausdorff.
+\end{Prop}
+
 That is because $R$ is closed in $F(2,4) \times F(2,4)$, $(F(2,4) \times F(2,4)) \setminus R$ is open.
 $\implies \forall (x,y) \in (F(2,4) \times F(2,4)) \setminus R $ there is a basic open set $u \times v$ containing $(x,y)$ s.t. $ (u \times v) \cap R = \emptyset 
 \implies \forall x \nsim y \in (F(2,4) \times F(2,4)) \setminus R , \exists$ u around x and v around y s.t. $u \cap v = \emptyset$
 Thus for any two points $[x] \neq [y] \in \equivclass{F(2,4)}$ there exist disjoint neighborhood of $x$ and $y$ and $ \equivclass{F(2,4)} $
 \newline
 \newline
-Now that we have Hausdorff property and secound countable basis, we need to prove homeomorphism to claim that $G(2,4)$ is a manifold.
+Now that we have Hausdorff property and secound countable basis, we need to prove that every point lying on a manifold has a neighbourhood that is homeomorphic to an open in $\RR^n$.
+Then we can claim that $G(2,4)$ is a manifold.
 \newline
 For $A \in Mat_{4 \times 2} $ denote by $A_{i,j}$ the $2 \times 2$ matrix, formed by the $i-th$ and $j-th$ rows of A $(1 \leq i \le j \leq 4)$. The set
-$$ u_{i,j} = \{ A \; | \; det(A_{i,j}) \neq 0 \} \subset F(2,4)$$ is open, because its complement is closed. 
-We also have that $\forall g \in GL_2(\RR)$ if $A \in u_{i,j}$ then $ Ag \in u_{i,j}$, because the product of invertible matrices is invertible.
-Next, define $v_{i,j} = \equivclass{u_{i,j}} = \pi (u_{i,j}) \subset G(2,4)$.
-$v_{i,j}$ is open since the equivalence relation is open.$\; \pi$ is an open map.
+$$ U_{i,j} = \{ A \; | \; \det(A_{i,j}) \neq 0 \} \subset F(2,4)$$ is open, because its complement is closed. 
+We also have that $\forall g \in GL_2(\RR)$ if $A \in U_{i,j}$ then $ Ag \in U_{i,j}$. 
+Indeed, because $\det(Ag) = \det(A) \det(g)$, $\det( (Ag)_{i,j}) \neq 0$ which means $Ag$  will belong to a set $U_{i,j}$ 
+Next, define $V_{i,j} = \equivclass{U_{i,j}} = \pi (U_{i,j}) \subset G(2,4)$.
+The set $V_{i,j}$ is open since the equivalence relation is open.$\; ie. \pi$ is an open map.
 Thus $[A]$ has a canonical representative: $A \sim A A_{i,j}^{-1} $
 For example if a minor $A_{2,4}$ is invertible we have that
 $
-A \sim A_{1,3} A_{2,4}^{-1} = 
+A \sim A A_{2,4}^{-1} = 
 \begin{pmatrix}
 * & * \\
 1 & 0 \\
 * & * \\
 0 & 1
 \end{pmatrix}
-$
-Let $I = \{ 1,2,3,4 \}$ and  define a homeomorphism as follows:
-$$ \phi_{i,j}: v_{i,j} \subset G(2,4) \to Mat_{2 \times 2} (\RR) \simeq \RR^4, \quad \phi_{i,j}([A]) = A_{I \setminus \{ i,j \} }A_{i,j}^{-1} $$
-It's easy to see that the map is continous since $\phi$ is just a restriciton of $\pi$
+$.
+Let $I = \{ 1,2,3,4 \}$ and  define a homeomorphism between chart $V_{i,j}$ and opens in $R^4$ as follows:
+$$ \phi_{i,j}: V_{i,j} \subset G(2,4) \to Mat_{2 \times 2} (\RR) \simeq \RR^4, \quad \phi_{i,j}([A]) = \textcolor{red}{A_{I \setminus \{ i,j \} }A_{i,j}^{-1}} $$
+We can show that $\phi$ is well defined. 
 \newline
+Let $A, A^\prime \in [A]$ we will show that $\phi$ is well defined. Equivalently $\phi_{i,j}(A) = \phi_{i,j}(A^\prime])$
+Since $A$ and $A^\prime$ are in the same class, we have that $A^\prime = A g, \quad g \in GL_2(\RR)$, $\phi_{2,4}(A) = A A_{2,4}^{-1}$.
+$$ \phi_{2,4}(A^\prime) = \phi_{2,4}(A g) = Ag ((Ag)_{2,4})^{-1} = Ag( A_{2,4} g )^{-1} = A g g^{-1} A_{2,4}^{-1} = A I A_{2,4}^{-1} = A A_{2,4}^{-1} = \phi_{i,j}(A) $$
+$\phi$ is continuous because matrix multiplication is continous. Next, we can see that $\phi$ is surjective and $\phi^{-1}$ is continuous by explicitly defining inverse.
+$\phi_{1,2}^{-1}(\begin{pmatrix} \alpha_{1,1} & \alpha_{1,2} \\ \alpha_{2,1} & \alpha_{2,2} \end{pmatrix}) =
+\begin{pmatrix} 1 & 0 \\ 0 & 1 \\ \alpha_{1,1} & \alpha_{1,2} \\ \alpha_{2,1} & \alpha_{2,2} \end{pmatrix} $ Finally, to show that $\phi$ is a homeomorphism,
+we have left to shot that $\phi$ is injective. 
+\newline
+Assume that there $\phi_{i,j}$ is not injective then there are $A \in [A]$ and $B \in [B]$ such that there is \textbf{no} $g \in GL_2(\RR)$
+for which $A g =  B$. i.e. $A A_{i,j}^{-1} = B B_{2,4}^{-1} \; \iff  \; 
+ A A_{i,j}^{-1} B_{i,j} = B$ but $A_{i,j}^{-1} B_{i,j} \in GL_2(\RR)$ thus we reach contradiction.
+ Therefore $\phi_{i,j}$ is homeomorphism
+\newline 
 \begin{Ex} \label{ex1}
-    Let $[A] \subset v_{3,4} = \begin{bmatrix}
+    Let $A = \begin{bmatrix}
         2 & 6 \\
         1 & 3 \\
         2 & 1 \\
         4 & 3 \\
-    \end{bmatrix}$
+    \end{bmatrix}, \quad [ A ] \in V_{3,4}$
     $$ A A_{3,4}^{-1} =  \begin{pmatrix} 2 & 6 \\ 1 & 3 \\ 2 & 1 \\ 4 & 3 \\ \end{pmatrix} \begin{pmatrix} \frac{3}{2} & -\frac{1}{2} \\ -2 & 1 \\ \end{pmatrix}
     = \begin{pmatrix} -9 & 5 \\ -\frac{9}{2} & \frac{5}{2} \\ 1 & 0 \\ 0 & 1 \end{pmatrix}
     $$
@@ -129,12 +151,12 @@ It's easy to see that the map is continous since $\phi$ is just a restriciton of
     Then the restriction to $R^4$ is also continuous.
     $$ \phi_{3,4}([A]) = \begin{pmatrix} -9 & 5 \\ -\frac{9}{2} & \frac{5}{2} \end{pmatrix} $$
 \end{Ex}
-Next the inverse map  $\phi_{3,4}(\beta)^{-1} = \phi_{3,4}(A_{1,2} A_{3,4}^{-1} g) = [A] $ for some matrix $A$, such that $A_{1,2} = \beta$.
+Next the inverse map  $\phi_{3,4}(\beta)^{-1} \; \beta \in Mat_{2 \times 2} = \phi_{3,4}(A_{1,2} A_{3,4}^{-1} g) = [A] $ for some matrix $A$, such that $A_{1,2} = \beta$.
 But if we pick $g = A_{3,4}$ then 
 $ \phi_{3,4}(\beta) =
 \begin{bmatrix}
-    \beta{1,1} & \beta{1,2} \\ 
-    \beta{2,1} & \beta{2,2} \\
+    \beta_{1,1} & \beta_{1,2} \\ 
+    \beta_{2,1} & \beta_{2,2} \\
     1 & 0 \\ 
     0 & 1 \\
 \end{bmatrix}
@@ -152,19 +174,19 @@ $\alpha[ (I \setminus \{i,j \})[2] ] = I[2:]$
 \begin{Ex}
    $ \phi_{3,4}^{-1} (\alpha) = [A] $ as defined in \ref{ex1}
    $$ \phi_{3,4}^{-1}  \begin{pmatrix} -9 & 5 \\ -\frac{9}{2} & \frac{5}{2} \end{pmatrix} = \begin{bmatrix} -9 & 5 \\ -\frac{9}{2} & \frac{5}{2} \\ 1 & 0 \\ 0 & 1 \end{bmatrix} $$ 
-   We can confirm that $\begin{bmatrix} -9 & 5 \\ -\frac{9}{2} & \frac{5}{2} \\ 1 & 0 \\ 0 & 1 \end{bmatrix}$ and $A = \begin{bmatrix}
+   We can confirm that $ \alpha = \begin{bmatrix} -9 & 5 \\ -\frac{9}{2} & \frac{5}{2} \\ 1 & 0 \\ 0 & 1 \end{bmatrix}$ and $A = \begin{bmatrix}
         2 & 6 \\
         1 & 3 \\
         2 & 1 \\
         4 & 3 \\
     \end{bmatrix}$
-    are in the same subspace
+    span the same subspace.
     Because if we take $g = \begin{pmatrix} 2 & 1 \\ 4 & 3 \\ \end{pmatrix}$
     then $\alpha g = A$
 \end{Ex}
-Since $\cup u_{i,j}$ covers $F(2,4)$, $\cup v_{i,j}$ covers $G(2,4)$
+Since $\bigcup U_{i,j}$ covers $F(2,4)$, $\cup v_{i,j}$ covers $G(2,4)$
 Finally, we check transition maps.
-$$ \phi_{1,2}([A])^{-1} \to A_{3,4} A_{1,2}^{-1}, \quad \phi_{1,2}^{-1}(u) \to
+$$ \phi_{1,2}([A])^{-1} = A_{3,4} A_{1,2}^{-1}, \quad \phi_{1,2}^{-1}(u) =
 \begin{pmatrix}
 1 & 0 \\
 0 & 1 \\
@@ -173,7 +195,7 @@ v_{2,1} & v_{2,2}
 \end{pmatrix}
 $$
 
-$$ \phi_{2,4}([A]) \to A_{1,3} A_{2,4}^{-1}, \quad \phi_{2,4}^{-1}(v) = 
+$$ \phi_{2,4}([A]) = A_{1,3} A_{2,4}^{-1}, \quad \phi_{2,4}^{-1}(v) = 
 \begin{pmatrix}
 v_{1,1} & v_{1,2} \\
 1 & 0 \\
@@ -185,7 +207,7 @@ $$ \phi_{2,4} \circ \phi_{1,2}^{-1}(v) =
 \begin{pmatrix}
 v_{1,1} & v_{1,2} \\
 v_{2,1} & v_{2,2}
-\end{pmatrix} \to 
+\end{pmatrix} =
 \begin{pmatrix}
     1 & 0 \\
     v_{1,1} & v_{1,2}
@@ -193,16 +215,37 @@ v_{2,1} & v_{2,2}
 \begin{pmatrix}
     0 & 1 \\
     v_{2,1} & v_{2,2}
+\end{pmatrix} ^{-1}
+= 
+\begin{pmatrix}
+    1 & 0 \\
+    v_{1,1} & v_{1,2}
 \end{pmatrix}
-= \begin{pmatrix}
-    0 & 1 \\
-    v_{1,2} v_{2,1} & v_{1,1} + v_{1,2} v_{2,2}
-    \end{pmatrix}
+\begin{pmatrix}
+    v_{2,2} & -1 \\
+    -v_{2,1} & 0
+\end{pmatrix} \frac{1}{-v_{2,1}} = 
+$$
+$$ -\frac{1}{v_{2,1}} \begin{pmatrix} v_{2,2} & -1 \\ v_{1,1} v_{2,2} - v_{1,2} v_{2,1} & -v_{4} \end{pmatrix}
 $$
 Hence $G(2,4)$ can be equipped with the structure of a 4 dimensional smooth manifold
 \newline
-Next, we need to generalize the statements above, so that we get that the dimension of grassmannian is$ G(k,n) = n*k-k^2$.
-We have as many charts as $k \times k$ minors.
+Next, we need to generalize the statements above, so that we get that the dimension of grassmannian is$ G(k,n) = n k-k^2$.
+We have as many charts as $k \times k$ minors. Every $ n \times k$ matrix has ${n \choose k}$ $k\times k$ minors.
+
+%\begin{center}
+%\begin{tabular}{||c || c | c | c | c||} 
+% \hline
+% - & Atrial Fibrillation & Cardiomyopathy & Cardiac Arrest & Heart Failure \\ [0.5ex] 
+% \hline\hline
+%  COEF & 0.328724 & 0.614127 & 0.079845 & 0.329958 \\ 
+%  SE & 0.032362 & 0.106607 & 0.106607  & 0.058412 \\
+%  Hazard Ratio & 1.389194 & 1.848042 & 1.083119 & 1.390909 \\ 
+%  P VALUE & $<$ 2e-16  &  8.38e-09  & 0.625616 & 1.62e-08  \\
+% \hline
+%\end{tabular}
+%\end{center}
+
 \setcounter{tocdepth}{1} 
 \bibliographystyle{alpha}
 \bibliography{biblio} 
