@@ -23,61 +23,98 @@
 \title{Sphere is a smooth manifold}
 \begin{document}
 
-Let $X \subseteq Mat_{3 \times 3}(\RR)$ 
+Let $X \subseteq Mat_{3 \times 3}(\RR)$ be the set
 $$ X = \{ M \mid M^T = M, \: M^2 = M,\: Tr M = 1 \}$$
 We will describe a bijection between $X$ and $\RR \PP^2$.
-The above statement tells us that matrices are symmetric, idempotent and sum of it's eigenvalues is one.
-Spectral theorem tells us that real symmetric matrix is diagonizable.
-We can also conclude that eigenvectors of symmetric matrices, with distinct eigenvalues, are orthogonal.
-Let $x$ and $y$ be eigenvectors of a symmetric matrix $M$, with distinct eigenvalues $\lambda$ and $\mu$:
-$$ \lambda (x y) = (\lambda x) y =  (M x) y = x (M^T y) = x (M y) = x (\mu y) = \mu (x y ) $$
-Therefore $(\lambda - \mu) xy = 0$, since $\lambda$ and $\mu$ are distinct $xy$=0, thus orthogonal.
+The above definition tells us that $X$ consists of matrices that are symmetric, idempotent and whose eigenvalues add up to one.
+Spectral theorem tells us that a real symmetric matrix is diagonizable.
+We can also show that the eigenvectors of symmetric matrices, with distinct eigenvalues, are orthogonal.
+Indeed, let $x$ and $y$ be eigenvectors of a symmetric matrix $M$, with eigenvalues $\lambda$ and $\mu$, $\lambda \neq \mu$:
+$$ \lambda \langle x,y \rangle = \langle \lambda x,  y \rangle = \langle M x, y \rangle = \langle x M^T, y \rangle = \langle x, M y \rangle = \langle x, \mu y \rangle = \mu \langle x, y \rangle  $$
+Therefore $(\lambda - \mu) \langle x , y \rangle = 0$, since $\lambda$ and $\mu$ are distinct $xy$=0, thus orthogonal.
 Next, we can show that the eigenvalues of $M$ can be only $0$ and $1$.
-Let $v$ be an eigenvector, and $\lambda$ a corresponding eigenvalue.
+Let $v$ be an eigenvector, of eigenvalue $\lambda$.
 $$ M v = \lambda v $$
 $$ M^2 v = M (\lambda v) = \lambda M (v) = \lambda^2 v $$
+As $\bar{v} \neq 0$ $(\lambda^2 - \lambda) v = 0 \iff \lambda^2 - \lambda = 0$.
 Then solving for $\lambda^2-\lambda = 0$, we get that $\lambda$ can only be $0$ or $1$.
 Finally, the fact that $Tr(M)=1$ tells us that eigenvalues of $M$ are $0$,$0$ and $1$.
-Therefore $dim(ker(M)) = 2$ and $dim(Im(M)) = 1 $. This is telling us that there is a whole plane,
-that is sent to zero vector, and all vectors in the image are sitting on a line.
+Therefore $\dim \ker M = 2$ and $ \dim Im(M) = 1 $. This is telling us that there is a whole plane,
+that is sent to zero vector by $M$, and all vectors in the image are sitting on a line.
 \newline
 Thus, applying a matrix operator $M$ to a vector,
 is equivalent to projecting a vector to a line in $R^3$.
 So $M :R^3 \to R^3$ is the operator of orthogonal projection on the line $Im(M)$.
 \newline
-Now, let's explicitly define a map $\phi$ which given a line in $R^3$ outputs a corresponding matrix operator,
+Now, let's explicitly define a map $\phi$, which to given line in $R^3$ assigns a corresponding matrix operator,
 that will orthogonally project all the vectors in $R^3$ to that line.
-$$ \phi: \RR \PP ^2 \to Mat_{3 \times 3}  \quad \phi([x:y:z]) \to A_{3 \times 3} $$
+$$ \phi: \RR \PP ^2 \to Mat_{3 \times 3}  \quad \phi([x:y:z]) \to A $$
 To explicitly find $A$, note that we first need to find a unit vector along a line $[x:y:z] \in \RR \PP ^2$,
 we can do that by normalizing coordinates. $n = \frac{1}{\sqrt{x^2 + y^2 + z^2}} [x,y,z]^T $.
-Finally, to orthogonally project any $v \in R^3$ along $n$, we apply $(v n) n = v n^2$. We can then define $\phi$ as follows:
-$$ \phi([x:y:z]) = n^2 = \frac{1}{\sqrt{x^2+y^2+z^2}^2} [x,y,z]^T [x,y,z] = \frac{1}{x^2 + y^2 + z^2} 
+Finally, to orthogonally project any $v \in R^3$ along $n$, we apply $(v n) n = v \; n \otimes n$. We can then define $\phi$ as follows:
+$$ \phi([x:y:z])  = \frac{1}{\sqrt{x^2+y^2+z^2}^2} [x,y,z]^T \otimes [x,y,z] = \frac{1}{x^2 + y^2 + z^2} 
 \begin{pmatrix}
 x^2 & xy & xz \\
 xy & y^2 & yz  \\
 xz & yz & z^2
 \end{pmatrix} $$
+Now, we redefine $\phi: \RR \PP ^2 \to \RR^6$, because  $Mat_{3 \times 3} \supseteq Sym_{3 \times 3} \simeq \RR^6$.
+\begin{defn}{Immersion}
+Let $X$ and $Y$ be smooth manifolds, $\dim X =n $, $\dim Y = k$. Let $f : X \to Y$ be a smooth map.
+We say that $f$ is a
+\begin{itemize}
+    \item submersion, if $df_p$ is surjective $\forall p \in X$
+    \item immersion, if $df_p$ is injective $\forall p in X$ equivalently if $rank D_p f = \dim M$
+\end{itemize}
+\end{defn}
+\begin{defn}
+    Let $f: X \to Y$ be a smooth map of smooth manifolds. We say that $f$ is an embedding if 
+    \begin{itemize}
+        \item f is an injective immersion
+        \item X is homeomorphic to $f(X) \subset Y$ (equipped with the subspace topology)
+    \end{itemize}
+\end{defn}
 Next, we argue that $\phi \RR \PP ^2 \to R^6$ is an embedding ($R^6$ because we are taking only non-symmetric lower triangular entries)
 Namely, we will show that the following function is an embedding.
-$$ \phi([x:y:z]) \to \frac{1}{x^2+y^2+z^2} (x^2,xy, xz, y^2, yz, z^2) $$
-We proved that $\phi$ is injective, and we know that $\RR \PP ^2$ is compact, so we proceed to proving that $\phi$ is an immersion.
+$$ \phi([x:y:z]) = \frac{1}{x^2+y^2+z^2} (x^2,xy, xz, y^2, yz, z^2) $$
+First, we show that $\phi$ is well defined. Take two vectors $a$,$b \in [x:y:z]$ on the same line.
+If $a$ is given by $a=[a_1,a_2,a_3]$ then $b = [k a_1, k a_2, k a_3]$ for $k \in \RR$. We need to show that 
+$\phi([a]) = \phi([b])$.
+$$\phi([a_1,a_2,a_3]) = \frac{(a_1^2, a_1a_2, a_2^2, a_2a_3, a_3^2)}{a_1^2+a_2^2+a_3^2}$$
+$$\phi([ka,kb,kc]) = 
+\frac{(k^2 a_1^2, k^2 a_1a_2, k^2 a_2^2, k^2 a_2a_3, k^2 a_3^2)}{k^2 a_1^2+ k^2 a_2^2+ k^2 a_3^2} 
+=  \frac{ k^2 (a_1^2, a_1 a_2, a_2^2, a_2a_3, a_3^2) }{ k^2 (a_1^2+a_2^2+a_3^2)  }
+= \frac{(a_1^2, a_1a_2, a_2^2, a_2a_3, a_3^2)}{a_1^2+a_2^2+a_3^2} $$
+Now that we showed that $\phi$ is well-defined, we show that it is injective.
+
+Assume that $\phi$ is not injective, then there are unit vectors $a = [a_1,a_2,a_3]$ and $b=[b_1,b_2,b_3]$ lying on different lines 
+such that $\phi([a]) = \phi([b])$ 
+In other words $a \in [x:y:z]$  and $b \in [x\prime:y\prime:z\prime]$
+$$\phi([a_1,a_2,a_3]) = (a_1^2, a_1a_2, a_2^2, a_2a_3, a_3^2)$$
+$$\phi([b_1,b_2,b_3]) = (b_1^2, b_1b_2, b_2^2, b_2b_3, b_3^2)$$
+From $\phi([a_1,a_2,a_3]) = \phi([b_1,b_2,b_3])$ we have that $b_1 = \pm a_1$, $b_2 = \pm a_2$, $b_3 = \pm a_3$, and we know that all $b_i$ have the same sign.
+Therefore  we either have $b = [a_1, a_2, a_3]$ or $b = [-a_1, -a_2,-a_3]$ which both lie on the line $[x:y:z]$. So we have that $b \in [x:y:z]$ which is a contradiction.
 \newline
-We can use the definition with local charts to prove it.
+We proved that $\phi$ is injective, and we know that $\RR \PP ^2$ is compact, so we proceed to proving that $\phi$ is an immersion, 
+once we have that we can claim that $\phi$ is an embedding.
+\newline
+
+We can use the definition with local charts to prove it. 
 Consider the following charts and maps.
-$$ u_0 \{ [x:y:z], x \neq 0 \} \simeq \RR^2  $$
-$$ u_1 \{ [x:y:z], y \neq 0 \} \simeq \RR^2  $$
-$$ u_2 \{ [x:y:z], z \neq 0 \} \simeq \RR^2  $$
-$$ \psi_0: v_0 \to \RR^2, \quad
-\psi_0([x:y:z]) \to (\frac{y}{x}, \frac{z}{x}), \quad
-\psi_0^{-1}(s,t) \to [1:s,t]
+$$ u_0 =  \{ [x:y:z], x \neq 0 \} \simeq \RR^2  $$
+$$ u_1 =  \{ [x:y:z], y \neq 0 \} \simeq \RR^2  $$
+$$ u_2 = \{ [x:y:z], z \neq 0 \} \simeq \RR^2  $$
+$$ \psi_0: RP^2 \to \RR^2, \quad
+\psi_0([x:y:z]) = (\frac{y}{x}, \frac{z}{x}), \quad
+\psi_0^{-1}(s,t) = [1:s,t]
 $$
-$$ \psi_1: v_1 \to \RR^2, \quad
-\psi_1([x:y:z]) \to (\frac{x}{y}, \frac{z}{y}), \quad
-\psi_1^{-1}(s,t) \to [s:1:t]
+$$ \psi_1: RP^2 \to \RR^2, \quad
+\psi_1([x:y:z]) = (\frac{x}{y}, \frac{z}{y}), \quad
+\psi_1^{-1}(s,t) = [s:1:t]
 $$
-$$ \psi_2: v_2 \to \RR^2, \quad
-\psi_2([x:y:z]) \to (\frac{x}{z}, \frac{y}{z}), \quad
-\psi_2^{-1}(s,t) \to [s:t:1]
+$$ \psi_2: RP^2 \to \RR^2, \quad
+\psi_2([x:y:z]) = (\frac{x}{z}, \frac{y}{z}), \quad
+\psi_2^{-1}(s,t) = [s:t:1]
 $$
 These local charts cover all the points in $\RR \PP ^2$, to prove that $\phi$ is an immersion
 we need to show the following, for all $p \in R^2$
@@ -88,58 +125,34 @@ We check for $\psi_0$.
 $$\phi \circ \psi_0^{-1}(s,t) = [1:s:t] \to (1,s,t,s^2,st,t^2) \frac{1}{1+s^2+t^2} $$
 $$ J(\phi \circ \psi_0^{-1}(s,t)) = \frac{1}{(1+s^2+t^2)^2} 
 \begin{pmatrix}
-0 & 0 \\
-t^2-s^2+1 & 0 \\
-0 & s^2-t^2+1 \\
-2s(t^2+1)  & 9 \\
-t(t^2-s^2+1) & s(s^2+1-t^2) \\
-0 & 2t(s^2+1)
+-2s & -2t \\
+-s^2+t^2+1 & -2st \\
+-2st & s^2-t^2+1 \\
+2s (t^2+1) & -2 s^2 t \\
+t (-s^2 + t^2 +1 ) & s (s^2 - t^2 + 1) \\
+-2st^2 & 2t(s^2+1)
 \end{pmatrix} 
 $$
-To check for the line $[x:0:0]$, $x \neq 0$, we check when $(s,t) = (0,0)$.
-$
-\begin{pmatrix}
-0 & 0 \\
-1 & 0 \\
-0 & 1 \\
-0 & 0 \\
-0 & 0 \\
-0 & 0
-\end{pmatrix}
-$
-More generally, to check for $[x,0,z]$, $ x\neq 0 $, we check for $(s,t) = (0,t)$, 
-$
-\begin{pmatrix}
-0 & 0 \\
-t^2 & 0 \\
-0 & 1-t^2 \\
-0 & 0 \\
-t(t^2+1) & 0 \\
-0 & 2t
-\end{pmatrix}
-$
+To see that the rank is always $2$ we can chek the the determinant of minor  $\Delta_{4,6} = 4 s t (s^2 + t^2 + 1)$ which is only zero when $st=0$.
+But when both $s =0$ and  $t=0$ equal to zero, the determinant of the minor $\Delta_{2,3} = 1$, and if $\Delta_{2,3}$ is zero only if $s=1$ and $t=0$ or $s=0$ and $t=1$. 
+But when that is the case $\Delta_{1,5} \neq 0 $. In conclusion there will always be a $2 \times 2$ minor with non-zero determinant, which means that our matrix has rank $2$.
+Similarly we can check that $rank J(\phi_i) = 2$
 \newline
-Here we have that $\Delta_{2,3} \neq 0$, thus $rank = 2$
+\textbf{We can conclude that: The map $\phi$ maps $\RR \PP ^2$ is an immersion, and thus embedding to $\RR^6$}
 \newline
-Also, we check when $t=0$
-$
-\begin{pmatrix}
-0 & 0 \\
-1-s^2 & 0 \\
-0 & s^2+1 \\
-2s & 0 \\
-0 & s(s^2+1) \\
-0 & 0
-\end{pmatrix}
-$
-$\Delta_{2,5} \neq 0 $
+\textbf{Think what happens if we consider:}
+$$ X = \{ M \; | \; M^2 = M = M^T, trM = k \} \subset Mat_{n \times n} $$
+There is an immersion from $G(k,n)$ to $\RR^{n^2}$
+$$ \phi: G(k,n) \to X, \quad \phi([U_{n \times k}]) \to A_{n \times n}  $$
+$$ \phi([U_{n \times k}]) = U U^T  $$
+If bases of $U$ are unit vectors we are good with this formula. If no we need to first normalize each vector in a matrix $U$.
+Where one matrix represent a projection of $2$ dimensional plane to a set of two dimensional subspaces, namely:
+$$ A \; B  = C  $$
+such that $A_{n \times n} \in X$, $ B \in Mat_{n \times k}$ and 
+$ C \in [U_{n\times k}] $
+\textbf{We can quotient to get grassmann}
+\textbf{Normalize and Quotient over G}
 \newline
-Points in $\RR \PP ^2$ left to check are:
-\begin{itemize}
-    \item $x\neq 0$, which we can check using $\psi_1$ and $v_1$
-    \item After that, the only point left is $[0:0:1]$ which we check using $\psi_2$ and $v_2$.
-\end{itemize}
-\textbf{We can conclude that: The map $\phi$ maps $\RR \PP ^2$ diffeomorphically onto $\RR ^9$}
 \cite{HuangWG16}
 \cite{DBLP}
 \bibliographystyle{alpha}
