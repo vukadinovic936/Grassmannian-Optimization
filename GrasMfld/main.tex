@@ -228,6 +228,45 @@ v_{2,1} & v_{2,2}
 $$
 $$ -\frac{1}{v_{2,1}} \begin{pmatrix} v_{2,2} & -1 \\ v_{1,1} v_{2,2} - v_{1,2} v_{2,1} & -v_{4} \end{pmatrix}
 $$
+\newline
+Now let's check the transition map $ \phi_{3,4} \circ \phi_{2,3}^{-1} $ 
+$$ \phi_{3,4} \circ \phi_{2,3}^{-1} (v) =
+\begin{pmatrix} v_{1,1} &  v_{1,2} \\ 1 & 0 \end{pmatrix} 
+\begin{pmatrix} 0 & 1 \\ v_{2,1} & v_{2,2} \end{pmatrix} = 
+-\frac{1}{v_{2,1}} \begin{pmatrix} v_{1,1} v_{2,2} + v_{1,2} v_{2,1} & -v_{1,1} \\ v_{2,2} & -1 \end{pmatrix}
+$$ 
+Let's define tangent spaces on $G(2,4)$. 
+First consider the equivalence relation defined as:
+$$ (p, (U,\phi), v) \sim (p, (V, \psi), w) \text{ if } w = J( \psi \circ \phi^{-1})_{\phi(p)} v $$
+Consider tanget space on $G(2,4)$ at $X$, it's given by 
+$$ T_p X = \equivclass{\{ (p,(U,\phi),v) \;|\; (U,\phi) \text{ is a chart around } p, v \in \RR^n \}} $$
+Hence a tangent vector to $G(2,4)$ at $p \in G(2,4)$ is an equivalece class $ [ (p; (U; \phi); v)] $  
+Whenever we have fixed the chart $(U; \phi)$, the class is represented just by a vector $v \in \RR^n$.
+To represent the same equivalence class in another chart, we multiply $v \in \RR^n$ by the respective Jacobi matrix.
+\newline
+Jacobi matrix of transition map $\phi_{3,4} \circ \phi_{2,3}^{-1}$ is given by:
+$$ J(\phi_{3,4} \circ \phi_{2,3}^{-1}) = 
+\begin{pmatrix} 
+    -v_{2,2} & 1 & 0 & -v_{1,1} \\
+    \frac{1}{v_{2,1}} & 0 & -\frac{v_{1,1}}{v_{2,1}^2} & 0 \\
+    0 & 0 & \frac{v_{2,2}}{v_{2,1}^2} & -\frac{1}{v_{2,1}} \\
+    0 & 0 & -\frac{1}{v_{2,1}^2} & 0 
+\end{pmatrix} $$
+\begin{Ex}\label{tangentSpaces}
+Consider the matrix a from the example \ref{ex1}. 
+We have that $\phi_{3,4}([A]) = \begin{pmatrix} -9 & 5 \\ -\frac{9}{2} & \frac{5}{2} \end{pmatrix}$ and   
+$\phi_{2,3} = \begin{pmatrix} 2 & 0 \\ 0.4 & 1.8 \end{pmatrix}$
+$$ J(\phi_{3,4} \circ \phi_{2,3}^{-1}) =
+\begin{pmatrix} 
+    -1.8 & 1 & 0 & 0 \\
+    2.5 & 0 & -12.5 & 0 \\
+    0 & 0 & 11.25 & -2.5 \\
+    0 & 0 & -6.25 & 0
+\end{pmatrix} $$
+Then 
+$$ (p, (U,\phi_{2,3}), v) \sim (p, (V, \phi_{3,4}), w) \text{ if } w = J( \phi_{3,4} \circ \phi_{2,3}^{-1})_{\phi_{2,3}(p)} v $$
+\end{Ex}
+\textbf{How to project on such tangent spaces ?}
 Hence $G(2,4)$ can be equipped with the structure of a 4 dimensional smooth manifold
 \newline
 Next, we need to generalize the statements above, so that we get that the dimension of grassmannian is$ G(k,n) = n k-k^2$.
