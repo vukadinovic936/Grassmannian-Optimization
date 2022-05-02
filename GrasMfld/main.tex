@@ -6,6 +6,7 @@
 %\usepackage{tabto}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{tikz-cd}
 \usepackage{amsthm}
 \usepackage{xcolor}
 \usepackage[margin=1in]{geometry}
@@ -18,50 +19,51 @@
 \include{defs}
 \include{biblio}
 \author{Milos Vukadinovic}
-\title{G(2,4) is a smooth manifold}
+\title{G(p,n) is a smooth manifold}
 \begin{document}
-Let us write $G(2,4) = \{ $2-dimensional (vector) subspaces of $\RR^4 \}$ A plane $V \subseteq \RR^4$ is specified by $4\times2$ matrix $A=[\vec{a}_1,\vec{a}_2] \in Mat_{4\times 2}$ where 
-$\{\vec{a}_1, \vec{a}_2\}$ is a basis for V. I.e., given $A \in Mat_{4\times 2}$, $\rk A = 2$, we get a 2-plane $V \subseteq \RR^4$ by $V=$span $\{\vec{a}_1,\vec{a}_2\} $. Conversely, given any 2-dim subspace $V\subseteq \RR^4$, there is a $4\times 2$
- matrix A with $\rk(A)=2$, from which $V$ is obtained in the above way. Two matrices, $A$ and $B$, determine the same subspace $V \iff \exists g \in GL_2(\RR) $, such that $B = A g$. 
+Let us write $G(p,n) = \{ $p-dimensional (vector) subspaces of $\RR^{n \times p} \}$. A hyperplane $V \subseteq \RR^{n \times p}$ is specified by $n \times p$ matrix $A=[\vec{a}_1,\vec{a}_2, \dots, \vec{a_p}] \in Mat_{n\times p}$ where 
+$\{\vec{a}_1, \vec{a}_2, \dots , \vec{a}_p \}$ is a basis for V. I.e., given $A \in Mat_{n\times p}$, $\rk A = p$, we get a p-hyperplane $V \subseteq \RR^{n \times p}$ by $V= $span $\{\vec{a}_1,\vec{a}_2, \dots, \vec{a}_p \} $. Conversely, given any p-dim subspace $V\subseteq \RR^{n \times p}$, there is a $n \times p$
+matrix A with $\rk(A)=p$, from which $V$ is obtained in the above way. Two matrices, $A$ and $B$, determine the same subspace $V \iff \exists g \in GL(p) $, such that $B = A g$. $GL(p)$ stands for general linear group of degree $p$ over real field.
 \newline
 We thus have the following setup. Let the set of all \" 2-frames \" be
-$$ F(2,4) = \{ A \; | \;  rkA=2 \} \subseteq Mat_{2\times4}(\RR)  \simeq \RR^8 $$
+$$ F(p,n) = \{ A \; | \;  rkA=p \} \subseteq Mat_{n \times p}(\RR)  \simeq \RR^{n \times p} $$
 and consider on it the equivalence relation
-$$ B \sim A \text{ if } \exists \; g \in GL_2(\RR), \text{ s.t. } B=Ag $$
+$$ B \sim A \text{ if } \exists \; g \in GL(p), \text{ s.t. } B=Ag $$
 We have described a bijection of sets
-$$ \equivclass{F(2,4)} \simeq  G(2,4). $$ 
-In this problem we argue that $G(2,4)$ can be equipped with a natural smooth structure. 
-\newline
-\newline
-First we show that $F(2,4) \subset Mat_{4 \times 2} (\RR) \simeq \RR^8$ is an open subset
+$$ \equivclass{F(p,n)} \simeq  G(p,n). $$ 
+We will show that $G(p,n)$ is a manifold equipped with a natural smooth structure. To achieve that we need to prove that:
+\begin{itemize}
+    \item $G(p,n)$ has a countable base
+    \item $G(p,n)$ is Hausdorff
+    \item $G(p,n)$ is locally euclidean
+\end{itemize}
+\begin{Prop}
+    $F(p,n)$ is an open subset of $\RR^{p \times n}$
+\end{Prop}
 \begin{Lemma}\label{matrank}
     The rank of an $m \times n$ matrix is $r \iff$ some $r \times r$ minor does not vanish,
     and every $(r+1) \times (r+1)$ minor vanishes.
 \end{Lemma}
-Since we know that for $M \in F(2,4)^\complement$, $\rk M <2$ lemma \ref{matrank} tells us all $2 \times 2$ minors
-of an arbitary element $ A \in F(2,4)^\complement$ vanish. Let's denote the determinant of each minor of $A$ with $S_i, \; i\in (1,6)$ 
+Since we know that for $M \in F(p,n)^\complement$, $\rk M <p$ lemma \ref{matrank} tells us all $p \times p$ minors
+of an arbitary element $ A \in F(p,n)^\complement$ vanish. Let's denote the determinant of each minor of $A$ with $S_i, \; i\in (1,2, \dots ,  {n \choose p})$ 
 Then consider a continuous map
-$ \psi: Mat_{4\times2} \to \RR^6, \quad \psi(M) \to (S_1,S_2,S_3,S_4,S_5,S_6)$.
-We can express $F(2,4)^\complement = \psi ^{-1} (0,0,0,0,0,0)$ because all minors vanish (det=0).
-A point $(0,0,0,0,0,0) \in \RR^6$ is a closed set, and because continuity preserves the closedness, $F(2,4)^\complement$ is closed in $Mat_{4 \times 2}$,
-an since its complement is closed, $F(2,4)$ is an open subset of $Mat_{4 \times 2}(\RR)$
-\newline
-\newline
+$ \psi: Mat_{n \times p} \to \RR^{ n \choose p}, \quad \psi(M) \to (S_1,S_2, \dots, S_{n \choose p})$.
+We can express $F(p,n)^\complement = \psi ^{-1} ( \vec{0} )$ because all minors vanish (det=0).
+A point $ \vec{0} \in \RR^{n \choose p}$ is a closed set, and because continuity preserves the closedness, $F(p,n)^\complement$ is closed in $Mat_{n \times p}$,
+an since its complement is closed, $F(p,n)$ is an open subset of $Mat_{n \times p}(\RR)$
 \begin{Prop}
-    $\sim$ is an open equivalence relation on $F(2,4)$
+    $\sim$ is an open equivalence relation on $F(p,n)$
 \end{Prop}
-In other words we need to show that the map $\pi: F(2,4) \to \equivclass{F(2,4)}$ is an open map.
-Then $\pi$ is a quotient map and is equipped with $\equivclass{F(2,4)} is equipped with quotient topology$
+In other words we need to show that the map $\pi: F(p,n) \to \equivclass{F(p,n)}$ is an open map.
+Then $\pi$ is a quotient map and is equipped with $\equivclass{F(p,m)}$ is equipped with quotient topology.
 \newline
 \begin{Lemma} \label{quotientTop}
     A subset of a quotient space is open if and only if its
     preimage under the canonical projection map is open in the original topological space.
 \end{Lemma}
-Let $U$ be an open in $F(2,4)$. Then for every $g \in GL_2(\RR)$ the set $U g = \{ x g | x \in U \}$ is an open subset of $F(2,4)$.
-Therefore $\pi^{-1}\pi(U) = \displaystyle \bigcup_{g \in G} \; U g$ is an open in $F(2,4)$ because the union of open sets is open.
-And by \ref{quotientTop} $\pi(U) = [U]$ is open in $G(2,4)$. $\pi$ is a canonical quotient map, and $F(2,4)$ is open in $\RR^8$. 
-\newline
-\newline
+Let $U$ be an open in $F(p,n)$. Then for every $g \in GL(p)$ the set $U g = \{ x g | x \in U \}$ is an open subset of $F(p,n)$.
+Therefore $\pi^{-1}\pi(U) = \displaystyle \bigcup_{g \in G} \; U g$ is an open in $F(p,n)$ because the union of open sets is open.
+And by \ref{quotientTop} $\pi(U) = [U]$ is open in $G(p,n)$. $\pi$ is a canonical quotient map, and $\equivclass{F(p,n)}$ is open in $\RR^{n \times p}$. 
 \begin{Lemma}
     \label{baset}
     if $\beta = \{ \beta_\alpha \}_\alpha$ is a base for a topology $\mathcal{T}$ on a topological space $S$,
@@ -72,70 +74,83 @@ Since $f^{-1} (V)$ is open there is a basis element $U \in \beta$ s.t. $x \in U 
 which implies that $y \in f(U) \subset V$. Since $y$ is arbitary, and $f(U) \subset f(\beta)$ the collection $\{ f (\beta_\alpha) \}_\alpha$ is a base for the topology on $X$.
 \newline
 \newline
-We have that $F(2,4)$ has a second countable base since it is a subspace of $\RR^8$.
-Thus by lemma \ref{baset}, we have that the base of $G(2,4)$ is second countable.
-\newline
-\newline
+We have that $F(p,n)$ has a second countable base since it is a subspace of $\RR^{n \times p}$.
+Thus by lemma \ref{baset}, we have that the base of $G(p,n)$ is second countable.
 \begin{Prop}
-The graph of the equivalence relation on $F(2,4)$ is a closed subset of $F(2,4) \times F(2,4)$. \newline
-I.e. $ R = \{ (A,B) \in F(2,4) \times F(2,4) \; | \; A = Bg \}$ is closed.
+The graph of the equivalence relation on $F(p,n)$ is a closed subset of $F(p,n) \times F(p,n)$. i.e. $ R = \{ (A,B) \in F(p,n) \times F(p,n) \; | \; A = Bg \}$ is closed.
 \end{Prop}
-We can consider $R$ as a set of matrices $[A B] = [\vec{a}_1, \vec{a}_2, \vec{b}_1, \vec{b}_2]$ of rank 2.
-Lemma \ref{matrank} tells us that every $3 \times 3$ minor of an element in $R$ must vanish. Consider the map that assigns to $(A,B)$ the values of all $3 \times 3$ minors
-$$ \psi:  F(2,4) \times F(2,4) \to \RR^{16} $$
-Since $\phi$ is continuous ( as all of its components are polynomials )  and $R = \psi^{-1} \setminus 0 $ , then R is closed.
-\newline
+We can consider $R$ as a set of matrices $[A B] = [\vec{a}_1, \vec{a}_2, \dots, \vec{a}_p, \vec{b}_1, \vec{b}_2, \dots , \vec{b}_p]$ of rank $p$.
+Lemma \ref{matrank} tells us that every $(p+1) \times (p+1) $ minor of an element in $R$ must vanish. Consider the map that assigns to $(A,B)$ the values of all $ (p+1) \times (p+1) $ minors
+$$ \psi:  F(p,n) \times F(p,n) \to \RR^{ {n \choose 3} (p+2) }$$
+Since $\phi$ is continuous ( as all of its components are polynomials )  and $R = \psi^{-1} (0) $ , then R is closed.
+\begin{Ex}
+    For example take $G(2,4)$, then $\phi: Mat_{4 \times 2} \to \RR^{16}$ 
+\end{Ex}
 \begin{center}
       \centering
       \includegraphics[width=0.90\textwidth]{graph_int.png}
 \end{center}
 
 \begin{Prop}
-$G(2,4)$ is Hausdorff.
+$G(p,n)$ is Hausdorff.
 \end{Prop}
 
-That is because $R$ is closed in $F(2,4) \times F(2,4)$, $(F(2,4) \times F(2,4)) \setminus R$ is open.
-$\implies \forall (x,y) \in (F(2,4) \times F(2,4)) \setminus R $ there is a basic open set $u \times v$ containing $(x,y)$ s.t. $ (u \times v) \cap R = \emptyset 
-\implies \forall x \nsim y \in (F(2,4) \times F(2,4)) \setminus R , \exists$ u around x and v around y s.t. $u \cap v = \emptyset$
-Thus for any two points $[x] \neq [y] \in \equivclass{F(2,4)}$ there exist disjoint neighborhood of $x$ and $y$ and $ \equivclass{F(2,4)} $
+That is because $R$ is closed in $F(p,n) \times F(p,n)$, $(F(p,n) \times F(p,n)) \setminus R = R^{\complement}$ is open.
+$\implies \forall (x,y) \in R^{\complement} $ there is a basic open set $u \times v$ containing $(x,y)$ s.t. $ (u \times v) \cap R = \emptyset 
+\implies \forall x, y \text{ s.t. } (x,y) \not\in R, \exists$ u around x and v around y s.t. $u \cap v = \emptyset$
+Thus for any two points $[x] \neq [y] \in \equivclass{F(p,n)}$ there exist disjoint neighborhood of $x$ and $y$ and $ \equivclass{F(2,4)}$ which is exactly the definition of Hausdorff property.
 \newline
-\newline
+\begin{Prop}
+   $G(p,n)$ is locally euclidean. 
+\end{Prop}
 Now that we have Hausdorff property and secound countable basis, we need to prove that every point lying on a manifold has a neighbourhood that is homeomorphic to an open in $\RR^n$.
-Then we can claim that $G(2,4)$ is a manifold.
+Then we can claim that $G(p,n)$ is a manifold.
 \newline
-For $A \in Mat_{4 \times 2} $ denote by $A_{i,j}$ the $2 \times 2$ matrix, formed by the $i-th$ and $j-th$ rows of A $(1 \leq i \le j \leq 4)$. The set
-$$ U_{i,j} = \{ A \; | \; \det(A_{i,j}) \neq 0 \} \subset F(2,4)$$ is open, because its complement is closed. 
-We also have that $\forall g \in GL_2(\RR)$ if $A \in U_{i,j}$ then $ Ag \in U_{i,j}$. 
-Indeed, because $\det(Ag) = \det(A) \det(g)$, $\det( (Ag)_{i,j}) \neq 0$ which means $Ag$  will belong to a set $U_{i,j}$ 
-Next, define $V_{i,j} = \equivclass{U_{i,j}} = \pi (U_{i,j}) \subset G(2,4)$.
-The set $V_{i,j}$ is open since the equivalence relation is open.$\; ie. \pi$ is an open map.
-Thus $[A]$ has a canonical representative: $A \sim A A_{i,j}^{-1} $
-For example if a minor $A_{2,4}$ is invertible we have that
+First we define charts. Take $A \in Mat_{n \times p} $ denote by $A_{k}$, ($ k \in \text{ all possible picks of p from the set } [1, \dots , n] $) the $p \times p$ minor, formed by the $k_1$th $\dots k_p$th rows of $A$.
+The set
+$$ U_{k} = \{ A \; | \; \det(A_{k}) \neq 0 \} \subset F(p,n)$$ is open, because its complement is closed. 
+We also have that $\forall g \in GL(p)$ if $A \in U_{k}$ then $ Ag \in U_{k}$. 
+Indeed, because $\det(Ag) = \det(A) \det(g)$, $\det( (Ag)_{i,j}) \neq 0$ which means $Ag$  will belong to a set $U_{k}$ 
+Next, define
+$$V_{k} = \equivclass{U_{k}} = \pi (U_{k}) \subset G(p,k)$$
+The set $V_{k}$ is open since the equivalence relation is open. i.e. $\pi$ is an open map.
+\newline
+$U_k$ has a canonical representative $A \sim \widehat{A A_{k}^{-1}}$. $\widehat{\cdot}$ discards all the rows whose index is in $k$.
+Similarly $V_k$ has a canonical representative: $[A] \sim [\widehat{A A_{k}^{-1}}] $
+
+\begin{Ex}
+Following the previous example consider $ [A] \in G(2,4)$.
+If a minor $A_{2,4}$ is invertible we have that
 $
-A \sim A A_{2,4}^{-1} = 
-\begin{pmatrix}
+[A] \sim [\widehat{A A_{2,4}^{-1}}] = 
+\widehat{\begin{bmatrix}
 * & * \\
 1 & 0 \\
 * & * \\
 0 & 1
-\end{pmatrix}
+\end{bmatrix}} = \begin{bmatrix}  * & * \\ * & * \end{bmatrix}
 $.
-Let $I = \{ 1,2,3,4 \}$ and  define a homeomorphism between chart $V_{i,j}$ and opens in $R^4$ as follows:
-$$ \phi_{i,j}: V_{i,j} \subset G(2,4) \to Mat_{2 \times 2} (\RR) \simeq \RR^4, \quad \phi_{i,j}([A]) = \textcolor{red}{A_{I \setminus \{ i,j \} }A_{i,j}^{-1}} $$
+Since charts $ \bigcup U_k$ cover $F(p,n)$, charts $V_k$ cover $G(p,n)$ (because $\pi$ is open).
+\end{Ex}
+Now we define homeomorphisms between charts $V_k$ and opens in $R^{p \times (n-p)}$ as follows:
+$$ \phi_{k}: V_{k} \subset G(p,n) \to Mat_{ (n-p) \times p} (\RR) \simeq \RR^{ (n-p) \times p) }, \quad \phi_{k}([A]) = \widehat{A A_{k}^{-1}} $$
 We can show that $\phi$ is well defined. 
 \newline
-Let $A, A^\prime \in [A]$ we will show that $\phi$ is well defined. Equivalently $\phi_{i,j}(A) = \phi_{i,j}(A^\prime])$
-Since $A$ and $A^\prime$ are in the same class, we have that $A^\prime = A g, \quad g \in GL_2(\RR)$, $\phi_{2,4}(A) = A A_{2,4}^{-1}$.
-$$ \phi_{2,4}(A^\prime) = \phi_{2,4}(A g) = Ag ((Ag)_{2,4})^{-1} = Ag( A_{2,4} g )^{-1} = A g g^{-1} A_{2,4}^{-1} = A I A_{2,4}^{-1} = A A_{2,4}^{-1} = \phi_{i,j}(A) $$
+Let $A, A^\prime \in [A]$ we will show that $\phi$ is well defined. Equivalently $\phi_{k}(A) = \phi_{k}(A^\prime])$
+Since $A$ and $A^\prime$ are in the same class, we have that $A^\prime = A g, \quad g \in GL(p) $, $\phi_{k}(A) = A A_{k}^{-1}$.
+$$ \phi_{k}(A^\prime) = \phi_{k}(A g) = Ag ((Ag)_{k})^{-1} = Ag( A_{k} g )^{-1} = A g g^{-1} A_{k}^{-1} = A I A_{k}^{-1} = A A_{k}^{-1} = \phi_{k}(A) $$
+
 $\phi$ is continuous because matrix multiplication is continous. Next, we can see that $\phi$ is surjective and $\phi^{-1}$ is continuous by explicitly defining inverse.
-$\phi_{1,2}^{-1}(\begin{pmatrix} \alpha_{1,1} & \alpha_{1,2} \\ \alpha_{2,1} & \alpha_{2,2} \end{pmatrix}) =
-\begin{pmatrix} 1 & 0 \\ 0 & 1 \\ \alpha_{1,1} & \alpha_{1,2} \\ \alpha_{2,1} & \alpha_{2,2} \end{pmatrix} $ Finally, to show that $\phi$ is a homeomorphism,
+
+$$\phi_{k}^{-1}(\begin{pmatrix} \text{--- } \alpha_{1} \text{ ---}  \\ \vdots \\ \text{--- }  \alpha_{n-p} \text{ ---} \end{pmatrix}) =
+\begin{pmatrix} 1_1 \\ \vdots  \\ 1_p \\ \alpha_1 \\ \vdots \\  \alpha_{n-p}  \end{pmatrix} $$
+Finally, to show that $\phi$ is a homeomorphism,
 we have left to shot that $\phi$ is injective. 
 \newline
-Assume that there $\phi_{i,j}$ is not injective then there are $A \in [A]$ and $B \in [B]$ such that there is \textbf{no} $g \in GL_2(\RR)$
-for which $A g =  B$. i.e. $A A_{i,j}^{-1} = B B_{2,4}^{-1} \; \iff  \; 
- A A_{i,j}^{-1} B_{i,j} = B$ but $A_{i,j}^{-1} B_{i,j} \in GL_2(\RR)$ thus we reach contradiction.
- Therefore $\phi_{i,j}$ is homeomorphism
+Assume that there $\phi_{k}$ is not injective then there are $A \in [A]$ and $B \in [B]$ such that there is \textbf{no} $g \in GL(p)$
+for which $A g =  B$. i.e. $A A_{k}^{-1} = B B_{k}^{-1} \; \iff  \; 
+ A A_{k}^{-1} B_{k} = B$ but $A_{k}^{-1} B_{k} \in GL(p)$ thus we reach contradiction.
+Therefore $\phi_{k}$ is homeomorphism
 \newline 
 \begin{Ex} \label{ex1}
     Let $A = \begin{bmatrix}
@@ -235,6 +250,25 @@ $$ \phi_{3,4} \circ \phi_{2,3}^{-1} (v) =
 \begin{pmatrix} 0 & 1 \\ v_{2,1} & v_{2,2} \end{pmatrix} = 
 -\frac{1}{v_{2,1}} \begin{pmatrix} v_{1,1} v_{2,2} + v_{1,2} v_{2,1} & -v_{1,1} \\ v_{2,2} & -1 \end{pmatrix}
 $$ 
+Hence $G(2,4)$ can be equipped with the structure of a 4 dimensional smooth manifold.
+\newline
+However, we can also consider $G(2,4)$ as a quotient of Stiefel Manifold.
+We will define a Stiefel manifold as a set of orthonormal $k$ frames. 
+$$V(n,k) \subseteq F(n,k); \quad V(n,k) = \{ A \; | \; rkA=2, \; A^T A = I \}$$
+\begin{center}
+\begin{tikzcd}
+V(2,4) \arrow[r, hook] \arrow[dr, dashrightarrow, "p"]
+& F(2,4) \arrow[d, "\pi"]\\
+& G(2,4)
+\end{tikzcd}
+\end{center}
+Map $p$ is surjective because every subspace has an orthonormal basis.
+I.e. starting with any basis we can construct an orthonormal one via Gram-Schmidt algorithm.
+Now, if we redefine the map $p$ such that $p: { F(2,4) / _{O(2)}} \to G(2,4)$, where $O(2)$
+is the orthogonal group of $2-frames$, we will have a bijection. 
+Therefore there are two ways we can consider $G(2,4)$
+$$ G(2,4) = F(2,4) / _{Gl_2(\RR)} \quad G(2,4) = V(2,4) / _{O(2) }$$
+\chapter{Tangent Spaces}
 Let's define tangent spaces on $G(2,4)$. 
 First consider the equivalence relation defined as:
 $$ (p, (U,\phi), v) \sim (p, (V, \psi), w) \text{ if } w = J( \psi \circ \phi^{-1})_{\phi(p)} v $$
@@ -267,11 +301,62 @@ Then
 $$ (p, (U,\phi_{2,3}), v) \sim (p, (V, \phi_{3,4}), w) \text{ if } w = J( \phi_{3,4} \circ \phi_{2,3}^{-1})_{\phi_{2,3}(p)} v $$
 \end{Ex}
 \textbf{How to project on such tangent spaces ?}
-Hence $G(2,4)$ can be equipped with the structure of a 4 dimensional smooth manifold
 \newline
+\chapter{$Gr(2,4)$ is compact}
+We'll endow $R^{n \times k} $ with the norm induced by the
+Frobenius inner product:
+$$ || A || = \sqrt{tr (A^T A)} = \sqrt{\sum_{i,j} a^2_{i,j}} $$
+$$ <A,B> = \sqrt{tr(A^T B)} $$
+We define the compact Stiefel manifold as
+$$ St(2,4) = \{ A \in F(2,4), \quad  A^T A = I_k \}  $$
+It's closed because under the continuous map $A \to A^T A$ it maps to $I_k$,
+and it's bounded by $\sqrt{k}$ because each column of $A$ has norm 1, so $||A|| = \sqrt{k}$ .
+\chapter{Optimization on Grassmanian as quotient mfld}
+\begin{Def}
+    If the manifold $X \in \RR^N$ happens to be the level set $X = f^{-1} (c)$ of a smooth function
+    $f: U \to \RR^k$ over a regular value $c \in \RR^k$, then 
+    $$ T_p X = \ker d f_p $$
+    We show that defining function is $h: \RR^{n \times p} \to Sym(p): X \to h(X) = X^T X - I_p $ and regular value $0$.
+    Thus tangent spaces are defined as:
+    $$ T_x St(n,p) = ker Dh(X) = \{ V \in \RR^n \times p : X^T V + V^T X = 0 \} $$
+    Also, more explicitly we can arrive to:
+    $$ T_x St(n,p) = \{ X \Omega + X B_{\bot} : \Omega \in Skew(p), \; B \in \RR^{ (n-p)\times p} \} $$
+    $$ R_X(V) = (X + V) (I_p + V^T V)^{-\frac{1}{2}}  $$
+    $$Proj_x(U) = (I - X X^T) U + X \frac{X^T U - U^T X}{2} $$
+    $$ grad f(X) = Proj_{X} (grad \bar{f}(X)) = grad \bar{f}(X) - X sym (X^T grad \bar{f}(X)) $$
+    Wher $sym(M) = \frac{ M + M^T}{2} $
+    \newline
+    \textbf{Gradient Desccent}
+    $$ x_{k+1} = R_{x_k}(-\alpha_k gradf(x_k))$$
+    where $alpha_k$ is the step size, and $x_1$ is some random point.
+\end{Def}
+\chapter{Next Steps}
 Next, we need to generalize the statements above, so that we get that the dimension of grassmannian is$ G(k,n) = n k-k^2$.
-We have as many charts as $k \times k$ minors. Every $ n \times k$ matrix has ${n \choose k}$ $k\times k$ minors.
-
+We have as many charts as $k \times k$ minors. Every $ n \times k$ matrix has ${n \choose p}$ $k\times k$ minors.
+\chapter{Rayleigh Quotient Newton's Method}
+Consider a Rayleigh quotient function $\bar{f} = \frac{x^T M x}{x^T x}$, if we restrict the points to lie on the sphere
+the function comes down to $\bar{f} = x^T M x $. Also we can easily calculate that the $grad \bar{f} = 2 M x$
+Since the gradient on the manifold is given as $grad f = P grad \bar{f}$ we can caculate that
+$grad f = (I - x x^T) 2 M x = 2 Mx - (x^T M x) x$, Next we find the differential of that gradient:
+$ D(grad f) = 2M - 2x^T M x + 4 M x x^T$. We take the canonical dot product defined as
+$g_c( \Delta, \Delta ) = tr \Delta^T (I - \frac{1}{2} Y Y^T) \Delta  $ Therefore
+$g_c(D(grad f), \eta) = 2 M \eta - 2 x^T M x \eta + 2 M x x^T \eta$. Next to get the hessian:
+$$ Hess(f) = P g_c(D(grad f, \eta)) = 2 ( PM \eta -  P x^T M x \eta +  P M x x^T \eta) $$.
+$P = (I - x x^T)$ is a projection operator, and notice that we can write 
+$$ PMP \eta =  PM (I - x x^T)  \eta = PM \eta - PM x x^T \eta  $$
+Also in the term $ - P x^T M x \eta $ we can remove $P$ and put $\eta$ in front becayse $x^T M x$ is a scalar. Therefore we get
+$$ Hess f = P M P \eta - \eta x^T M x $$
+Finally we go to the newton iteration
+$$ Hess(f) \eta = - grad (f) $$
+and replace and get:
+\begin{equation} \label{RayleighIt}
+ P M P \eta - \eta x^T M x = - P M x 
+\end{equation}
+Therefore our Newton iteration is:
+\begin{enumerate}
+    \item Solve \ref*{RayleighIt}}
+    \item Set x_{new} = R_(x_k)(\eta_k)
+\end{enumerate}
 %\begin{center}
 %\begin{tabular}{||c || c | c | c | c||} 
 % \hline

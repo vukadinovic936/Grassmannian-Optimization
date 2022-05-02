@@ -1,0 +1,142 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath,amsthm,amsfonts,amssymb} % packages for math
+\usepackage{graphicx,tikz,pgfplots,setspace} % packages for graphics
+\usepackage[margin=2cm]{geometry}
+\PassOptionsToPackage{hyphens}{url}
+\doublespacing
+\usepackage{caption}
+\usepackage{subcaption}
+%\usepackage{gensymb}
+\usepackage[inline]{enumitem}
+\usepackage{amsmath}
+\usepackage{hanging}
+\usepackage{csvsimple}
+\usepackage{alltt}
+\usepackage{algorithm}
+\usepackage{boxedminipage}
+\usepackage[noend]{algpseudocode}
+\usepackage[colorlinks=true]{hyperref} % creates hyper links for references
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{etoolbox}
+\pgfplotsset{compat=1.16}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows,decorations.markings}
+\usepackage[final]{pdfpages}
+%% Bibliography package
+\usepackage[
+backend=biber,
+style=numeric,
+citestyle=numeric,
+sorting=nty
+]{biblatex}
+
+\addbibresource{sources.bib} %Imports bibliography file
+\usepackage[colorlinks=true]{hyperref}
+\hypersetup{citecolor=red}
+
+
+% ========================================================================
+% Put your lab title, names, and a brief abstract here.
+\title{\vspace{-6em} Newton Algorithms On Grassmann Manifolds \\  Fellowship of the Mind, Milos Vukadinovic  \vspace{-3em} }
+\date{}
+% ========================================================================
+
+\include{defs}
+\begin{document}
+\maketitle % This line creates the title (DO NOT CHANGE)
+\section{Introduction}
+We will present Newton Methods on the functions whose domain lies on the Grassmann Manifolds. 
+Such functions are ubiquitous because data with subspace-structured
+features, orthogonality, or low-rank constraints can be
+naturally expressed using the Grassmann manifold.
+We consider two different representations of the
+Grassmann manifold and define Newton's method for each of them.
+By exploiting the underlying geometry of data, Grassmannian algorithms
+converge faster, generalize better and perform as well as the best-known 
+special (problem-specific) algorithms. 
+\section{Representations of Grassmann Manifold}
+The Grassmannian $G(p,n)$ is the set of linear subspaces of dimension $p$
+in the real coordinate space of dimension $n$. Naturally it can be expressed as $G_0(p,n) = \equivclass{\{ A \in \RR^{n \times p} \; | \; rk A = p \}} $
+Where two elements $A$ and $B$ are equivalent if there exists an invertible $p \times p$ matrix s.t. $B=Ag$. We get a manifold structure on $G_0(p,n)$ by finding charts, atlas and transition maps.
+We will consider two other representations of the Grassmann manifold and develop algorithms for them. We will use subscript labeling to distinguish between them.
+First, as a Riemannian quotient manifold of compact Stiefel manifold $St(p,n)$.
+$$
+ St(p,n) = \{ X \in \RR^{n \times p} : X^T X = I_p \} 
+$$
+\begin{equation} \label{quot}
+ G_1(p,n) = \equivclass{St(p,n)}, \quad  Y \sim X \text{ if } \exists \; Q \in O(p), \text{ s.t. } Y=XQ 
+\end{equation}
+To obtain a manifold structure on \ref{quot}, consider the following setup:
+$$ O(n) \stackrel{\psi}{\to}  St(n,p) \stackrel{\phi}{\to} G(p,n), \quad \psi(Q) = (:,1:p), \quad \phi(X) = X X^T$$
+Second, we identify Grassmann manifold with a set of self-adjoint projection operators.
+\begin{equation}\label{proj}
+G_{2}(p,n) = \{ M \in Mat_{n \times n} \; | \; M^T = M, M^2 = M, TrM=p \}
+\end{equation}
+We obtain a manifold structure on $G_{2}(p,n)$ by considering a map $h: G_0(p,n) \to G_2(p,n), \quad h(A) = A(A^T A^{-1}) A^T$ 
+\section{Algorithms}
+We perform optimization with Newton's root-finding method by applying it to the derivative of the twice differentiable function $f$ to find the critical points.
+Our objective is to minimize $F: G(p,n) \to \RR$. \newline
+For \ref{quot} we have $F: G_1(p,n) \to \RR $, $ \; F(Y) = F(YQ), \; Y \in G_1(p,n), \; Q \in O(p), Y^T Y = I_p$
+\newline
+$F_Y$ is a matrix of partial derivatives of $F$ with respect to $Y$. 
+$(F_{Y})_{ij} = \frac{\delta F}{\delta Y_{i,j}} $, $ F_{YY} = \frac{\delta^2 F}{\delta Y_{i,j}\delta Y_{k,l}}$. 
+\newline
+Delta is in a tangent space $\Delta \in T_{Y} G(p,n)$,
+$ \; Hess F(\Delta_1, \Delta_2) = F_{YY}(\Delta_1, \Delta_2) - tr(\Delta_1^T \Delta_2 Y^T F_Y) $
+\newline
+\begin{algorithm}
+\caption{Newton's method for minimizing $F(Y)$ on $G_1(p,n)$ }\label{alg:quotAlg}
+\begin{algorithmic}[1]
+\State \textcolor{red}{// Input: $F(\cdot)$ and the initial choice of $Y$ such that $Y^T Y = I_p$}
+\State \textcolor{red}{// Output: $Y$ for which $F(Y)$ gives the minimum value}
+\Procedure{MINIMIZE}{}
+\While{$numSteps--$}\Comment{We have to choose the number of steps, or define some stopping criteria}
+\State $G = F_Y - Y Y^T F_Y$
+\State $\Delta = -Hess^{-1} G$ such that $Y^T \Delta = 0$ and $F_{YY}(\Delta) - \Delta(Y^T F_Y) = -G$
+\State
+\State Move from $Y$ in the direction $\Delta$ to $Y(1)$ using the formula 
+\State $Y(t) = Y V \cos(\Sigma t) V^T + U \sin(\sigma t) V^T$ \Comment{$U \Sigma V^T$ is SVD of $\Delta$}
+\EndWhile
+\State \textbf{return} $Y$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+For \ref{proj} we define $F: Sym(n) \to \RR $ and  $f: G_2(p,n) \to \RR$ s.t. $f= F|_{G(p,n)}. \quad$
+$ ad_p(X) = [P, X] = PX -  XP $
+$M_Q$ subscript means that we are taking only $Q$ part from the $QR$ decomposition of $M$
+\begin{algorithm}
+\caption{Newton's method for minimizing $F(M)$ on $G_2(p,n)$ }\label{alg:projAlg}
+\begin{algorithmic}[1]
+\State \textcolor{red}{// Input: $F(\cdot)$ and the initial choice of $M$ such that $M^T=M, M^2=M, TrM=p$}
+\State \textcolor{red}{// Output: $M$ for which $F(M)$ gives the minimum value}
+\Procedure{MINIMIZE}{}
+\While{$numSteps--$}\Comment{We have to choose the number of steps, or define some stopping criteria}
+\State Solve
+\State $ad^2_{M} Hess_{F}(M)(ad_{M}\Omega) - ad_{M} ad_{\nabla F (M) } ad_{M} \Omega = -ad^2_{M} \nabla_{F}(M)$
+\State for $\Omega \in skew_-sym(n) $
+\State
+\State Solve 
+\State $M = \Theta^T \begin{bmatrix} I_m & 0 \\ 0 & 0 \end{bmatrix} \Theta$ \Comment{$\Theta$ is orthonormal}
+\State for $ \Theta \in SO_n$
+\State
+\State $ M = \Theta^T (\Theta( I - ad^2_{M} \Omega ) \Theta^T)_Q     \Theta M \Theta^T    (\Theta (I - ad^2_{M} \Omega) \Theta^T)_Q^T    \Theta$
+\EndWhile
+\State \textbf{return} $M$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\section{Results}
+We adapt both algorithms to compute solutions for the following problems: Rayleigh quotient, Dominant Invariant Subspace, and CS decomposition.
+Our algorithms have the potential for better computational complexity than the best-known algorithms for mentioned problems.
+\section{Discussion}
+Our contribution is the rigorous mathematical derivation, implementation and fine-tuning of the Grassmannian Newton algorithms \cite{edelman_geometry_1998} \cite{helmke_newtons_2007}.
+The author's goal is to define optimization methods that can be used for learning on Grassmannians.
+Once we define neural networks on Grassmannians we will be able to solve subspace learning problems like:  visual domain adaptation and video emotion classification more efficiently \cite{huang_building_2018} \cite{zhang_grassmannian_2018} .
+\newpage
+\section{Sources}
+\printbibliography[heading=none]
+\end{document}
