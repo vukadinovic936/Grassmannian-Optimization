@@ -140,6 +140,79 @@ $$\varphi_2^{+} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_2 > 0 \} \to D_1 (0,0)$$
 $$\varphi_1^{+} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_1 > 0 \} \to D_1 (0,0)$$
 $$\varphi_2^{-} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_2 < 0 \} \to D_1 (0,0)$$
 $$\varphi_1^{-} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_1 < 0 \} \to D_1 (0,0)$$
+\begin{defn}
+We say that $g: V \times V \to \RR $ is an \textbf{inner product} on $V$ if for $u,v,w \in V$
+\begin{itemize}
+  \item $g(u,v) = g(v,u)$ symmetry
+  \item $g(u+v,w) = g(u,w) + g(v,w)$ billinearity
+  \item $g(u,v) \geq 0$ positive definite
+\end{itemize}
+\end{defn}
+\begin{defn}
+Every vector space has a \textbf{dual vector space} which consists of all linear forms on $V$,
+together with the vector space structure of pointwise addition and scalar multiplication.
+\end{defn}
+\begin{defn}
+Given a vector space $V$ with a basis $B$, the dual set of $B$ is a set $B^{*}$ of vectors in $V^{*}$ space.
+Vectors from $B^{*}$ form biorthogonal system with $B$. If the dual set span $V^{*}$ then $B^{*}$ is called the \textbf{dual basis} for the basis $B$. 
+Namely, given $B = \{ v_i \}$ and $B^{*} = \{ v^{i}$, being biorthogonal means that the elements pair to have an inner product equal to 1
+if the indexes are equal, and equal to $0$ otherwise. 
+$$ v^{i} v_{j} = \delta^{i}_{j} =  \begin{cases} 1 \text{ if } i = j  \\ 0 \text{ if } i \neq j  \end{cases} $$
+where $\delta^{i}_{j}$ is the Kronecker delta symbol.
+\end{defn}
+\begin{Ex}
+Consider a vector space on $\RR^3$ with the basis $B = \{e_1, e_2, e_3\}$, and the usual inner product $<u,v> = u^T v$.
+Then the dual basis is $B^{*} = B^T$
+\end{Ex}
+\begin{Ex}
+  Given the basis $B=\{ f_1, f_2, f_3 \}$, where $f_1 = e_1$, $f_2 = 2 e_1+e_2$ and $f_3 = e_1 - e_3$ we will find the inner product on a space spanned by $B$,
+   and the dual basis.
+   \newline
+   Let's denote the space spanned by the given basis with $V$. Each element $u \in V$ can be written as  
+   $u = [f_1 \; f_2 \; f_3] [x_1 \; x_2 \; x_3]^T =
+   [e_1 \; e_2 \; e_3] \begin{pmatrix} 1 & 2 & 1 \\ 0 & 1 & 0 \\ 0 & 0 & -1 \end{pmatrix} [x_1 \; x_2 \; x_3] $ Then take $u,v \in V$ and their inner product:
+   $\langle u,v \rangle = ([e_1 \; e_2 \; e_3] \begin{pmatrix} 1 & 2 & 1 \\ 0 & 1 & 0 \\ 0 & 0 & -1 \end{pmatrix} [x_1 \; x_2 \; x_3])^T  ([e_1 \; e_2 \; e_3] \begin{pmatrix} 1 & 2 & 1 \\ 0 & 1 & 0 \\ 0 & 0 & -1 \end{pmatrix} [y_1 \; y_2 \; y_3]) =
+   [x_1 \; x_2 \; x_3 ]^T \begin{pmatrix} 1 & 2 & 1 \\ 2 & 5 & 2 \\ 1 & 2 & 1 \end{pmatrix} [y_1 \; y_2 \; y_3] $
+   Next, we find the dual basis;
+   $$ \alpha_1(e_1) = 1 \quad \alpha_2(e_1) = 0 \quad \alpha_3(e_1) = 0 $$
+   $$ \alpha_1(2e_1 + e_2) = 0 \quad \alpha_2(e_1 + e_2) = 1 \quad \alpha_3(2e_1 + e_2) = 0 $$
+   $$ \alpha_1(e_1 - e_3) = 0 \quad \alpha_2(e_1 - e_3) = 0 \quad \alpha_3(e_1 - e_3) = 1 $$
+   Solving this system of equations we get:
+
+   $$ \alpha_1(e_1) = 1 \quad \alpha_2(e_1) = 0 \quad \alpha_3(e_1) = 0 $$
+   $$ \alpha_1(e_2) = -2 \quad \alpha_2(e_2) = 1 \quad \alpha_3(e_2) = 0 $$
+   $$ \alpha_1(e_3) = 1 \quad \alpha_2(e_3) = 0 \quad \alpha_3(e_3) = -1 $$
+   Thus our dual basis is $B^{*} = \begin{pmatrix} 1 & 0 & 0 \\ -2 & 1 & 0 \\ 1 & 0 & -1 \end{pmatrix}$
+\end{Ex}
+\begin{defn}
+  For any smooth function $f$ on a Riemannian manifold $(M,g)$, the \textbf{gradient} of $f$ is the vector field
+  $\nabla f$ such that for any vector field $X$,
+  $$ g(\nabla f, X ) = \partial_x f \quad \text{that is} \quad g_x((\nabla f)_x, X_x) = (\partial_X f)(x)$$
+  where $g_x(,)$ denotes the inner product of tangent vectors at $x$ defined by the metric
+  $g$ and $\partial_X f$ is the function that takes any point $x \in M$ to the directional derivative of $f$ in the direction $X$, evaluated at $x$.
+\end{defn}
+The gradient is dual to the differential $df$. The value of the gradient at a point is a tangent vector, a vector at each point
+while the value of the derivative at a point is a cotangent vector - a linear function on vectors. They are related as follows:
+\begin{equation} \label{grad}
+ g(grad f, -) = (grad f)^T G \; - =  df 
+\end{equation}
+Take a chart $v \subseteq \RR^n$, and $f: v \to \RR$. Then $df = \frac{\partial f}{\partial x_1} dx_1 \dots \frac{\partial f}{\partial x_n} dx_n
+= [ \frac{\partial f}{\partial x_1} \; \dots \; \frac{\partial f}{\partial x_n}] [dx_1 \; \dots \; dx_n]^T =
+Jf [dx_1 \; \dots \; dx_n]^T$ but from \ref{grad} we see that this is equal to $ (grad f)^T G [dx_1 \; \dots \; dx_n]^T $.
+Thus, we can conclude that p
+$$ grad f = (G^{-1})^T \; [ \frac{\partial f}{\partial x_1} \; \dots \; \frac{\partial f}{\partial x_n}]^T $$
+\begin{Ex}
+  Consinder a sphere $S^2 \subseteq \RR^3$, then tangent space of the sphere is given by $T_p S^2 = \{ v \; | \; p v = 0 \}$
+  and tangent bundle by $TS^2 = \{ (p,v) \; | \; p^2 = 1, p v = 0 \}$. We will define a metric on a sphere in stereographic projection coordinates, and calculate the gradient for a function
+  $f: S^2 \to \RR \quad f(x,y,z) = z$. We consider a stereographic projection map defined previously a $\phi_{-}$, and we will address it in this example as just $\phi$.
+  For some $\eta, \omega \in$ coordinate chart ($\RR^2$) the dot product will be defined as $\langle \eta, \omega \rangle = (d\phi^{-1}(\eta))^T d\phi^{-1}(\omega) = 
+  (J\phi^{-1} \eta)^T (J \phi^{-1} \omega) = \eta^T (J\phi^{-1})^T J\phi^{-1} \omega $ \newline
+  We can calculate $J \phi^{-1} = \frac{2}{(\alpha^2 + \beta^2 + 1)^2} \begin{bmatrix} -\alpha^2 + \beta^2 +1  & -2\alpha \beta \\ -2 \alpha \beta & \alpha^2 - \beta^2 +1 \\ 2\alpha & 2\beta \end{bmatrix}$
+  Then, $ (J\phi^{-1})^T J\phi^{-1} = \frac{4}{ (\alpha^2+\beta^2+1)^4} \begin{bmatrix} \alpha^4 + \beta^4 + 2 \beta^2 + 2 \alpha^2\beta^2 +1 & 0 \\ 0 & \alpha^4 + \beta^4 +2 \alpha^2 + 2\alpha^2\beta^2 + 1 \end{bmatrix} $
+  \newline
+  $$ (G^{-1})^T = \begin{bmatrix} \frac{2a^4 + a^2 b^2 + a^2 +2b^4 + b^2 +2}{4} & 0 \\ 0 & \frac{2a^4 + a^2b^2 + a^2 + 2b^4 + b^2 +2}{4} \end{bmatrix}$$
+  $$ grad = (G^{-1})^T J(\phi^{-1} \circ f) $$
+\end{Ex}
 \bibliographystyle{alpha}
 \bibliography{biblio} 
 \end{document}          

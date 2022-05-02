@@ -310,7 +310,7 @@ $$ <A,B> = \sqrt{tr(A^T B)} $$
 We define the compact Stiefel manifold as
 $$ St(2,4) = \{ A \in F(2,4), \quad  A^T A = I_k \}  $$
 It's closed because under the continuous map $A \to A^T A$ it maps to $I_k$,
-and it's bounded by $\sqrt{k}$ because $tr(A^TB)=k$.
+and it's bounded by $\sqrt{k}$ because each column of $A$ has norm 1, so $||A|| = \sqrt{k}$ .
 \chapter{Optimization on Grassmanian as quotient mfld}
 \begin{Def}
     If the manifold $X \in \RR^N$ happens to be the level set $X = f^{-1} (c)$ of a smooth function
@@ -333,7 +333,30 @@ and it's bounded by $\sqrt{k}$ because $tr(A^TB)=k$.
 \chapter{Next Steps}
 Next, we need to generalize the statements above, so that we get that the dimension of grassmannian is$ G(k,n) = n k-k^2$.
 We have as many charts as $k \times k$ minors. Every $ n \times k$ matrix has ${n \choose p}$ $k\times k$ minors.
-
+\chapter{Rayleigh Quotient Newton's Method}
+Consider a Rayleigh quotient function $\bar{f} = \frac{x^T M x}{x^T x}$, if we restrict the points to lie on the sphere
+the function comes down to $\bar{f} = x^T M x $. Also we can easily calculate that the $grad \bar{f} = 2 M x$
+Since the gradient on the manifold is given as $grad f = P grad \bar{f}$ we can caculate that
+$grad f = (I - x x^T) 2 M x = 2 Mx - (x^T M x) x$, Next we find the differential of that gradient:
+$ D(grad f) = 2M - 2x^T M x + 4 M x x^T$. We take the canonical dot product defined as
+$g_c( \Delta, \Delta ) = tr \Delta^T (I - \frac{1}{2} Y Y^T) \Delta  $ Therefore
+$g_c(D(grad f), \eta) = 2 M \eta - 2 x^T M x \eta + 2 M x x^T \eta$. Next to get the hessian:
+$$ Hess(f) = P g_c(D(grad f, \eta)) = 2 ( PM \eta -  P x^T M x \eta +  P M x x^T \eta) $$.
+$P = (I - x x^T)$ is a projection operator, and notice that we can write 
+$$ PMP \eta =  PM (I - x x^T)  \eta = PM \eta - PM x x^T \eta  $$
+Also in the term $ - P x^T M x \eta $ we can remove $P$ and put $\eta$ in front becayse $x^T M x$ is a scalar. Therefore we get
+$$ Hess f = P M P \eta - \eta x^T M x $$
+Finally we go to the newton iteration
+$$ Hess(f) \eta = - grad (f) $$
+and replace and get:
+\begin{equation} \label{RayleighIt}
+ P M P \eta - \eta x^T M x = - P M x 
+\end{equation}
+Therefore our Newton iteration is:
+\begin{enumerate}
+    \item Solve \ref*{RayleighIt}}
+    \item Set x_{new} = R_(x_k)(\eta_k)
+\end{enumerate}
 %\begin{center}
 %\begin{tabular}{||c || c | c | c | c||} 
 % \hline
