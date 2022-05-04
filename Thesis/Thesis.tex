@@ -6,6 +6,7 @@
 %\usepackage{tabto}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{tikz-cd}
 \usepackage{amsthm}
 \usepackage{xcolor}
 \usepackage{tabularx}
@@ -44,9 +45,14 @@ We demonstrate the efficiency of Grassmannian algorithms by optimizing Rayleigh 
 
 \setcounter{tocdepth}{1}
 \tableofcontents
+
+
+
+
+
+
 \chapter{Introduction}
 \textit{An overview of the topic} \newline
-
 Constrained optimization is the process of optimizing an objective function with respect to some variables with the presence of constraints on those variables.
 In our paper, we consider geometric constraints, which express that the solution of the optimization problem lies on a manifold.
 Specifically, we consider problems where the solution lies on a Grassmann manifold.
@@ -78,7 +84,13 @@ Describe your contribution
 
 \textit{Outline} \newline
 
-\chapter{Sphere As Manifold}
+
+
+
+
+
+
+\chapter{$G(1,3)$ As Manifold}
 \begin{defn}
      $(X,\mathcal{T})$ is a \textbf{locally Euclidean} topological space of dimension $n$  if $\forall \; p \in X \; \exists \; v \subseteq X$ which is homeomorphic to an open in $\RR^n$.
 \end{defn}
@@ -215,7 +227,11 @@ $$\varphi_1^{+} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_1 > 0 \} \to D_1 (0,0)$$
 $$\varphi_2^{-} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_2 < 0 \} \to D_1 (0,0)$$
 $$\varphi_1^{-} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_1 < 0 \} \to D_1 (0,0)$$
 Therefore, we proved that a sphere $S^2$ is a smooth manifold of dimension $2$.
-\section{ Sphere as quotient manifold} 
+
+
+
+
+\section{$G(1,3)$ as quotient manifold} 
 We define the compact Stiefel manifold as:
 $$ St(p,n) = \{ A \in Mat_{n \times p}(\RR) \; | \; rkA = p, \; A^T A = I_k \}  $$
 Now, if we consider $St(1,3) = \{ A \in \RR^{3 \times 1} \; | \; rkA=1, \; A^T A = 1 \} = \{ A \in \RR^3 \; | \; A^T A = 1 \} = 
@@ -231,7 +247,10 @@ As mentioned in the introduction we consider the Grassmannian as follows:
 $G(p,n) = \{ $p-dimensional (vector) subspaces of $\RR^{n \times p} \}$
 So if we take a line through all the points on $\equivclass{St(1,3)}$ we get a set of all lines in $\RR^3$, which is defined as $G(1,3)$. 
 Hence, we arrive to the conclusion that we can consider a sphere with it's antipodal points identified as a quotient manifold of Stiefel $\equivclass{St(1,3)} \cong G(1,3)$
-\section{Sphere as a set of projectors} 
+\newline
+
+Now let's develop formulas for gradient and Hessian on $G(1,3)$
+\section{$G(1,3)$ as a set of projectors}\label{g13proj}
 We can easily see that $G(1,3) \cong \RR\PP^2$.
 Consider a set of projectors $X \subseteq Mat_{3 \times 3}(\RR)$,
 $$ X = \{ M \mid M^T = M, \: M^2 = M,\: Tr M = 1 \}$$
@@ -349,6 +368,13 @@ But when that is the case $\Delta_{1,5} \neq 0 $. In conclusion there will alway
 Similarly we can check that $rank J(\phi_i) = 2$
 \newline
 We can conclude that $\phi$ is an immersion, and thus embedding to $\RR^9$ and diffeomorphism to $\RR^6$.
+
+\section{Tangent Space}
+\section{Normal Space}
+\section{Parallel Transport}
+\section{Geodesic}
+\section{Gradient}
+\section{Hessian}
 \chapter{Grassman Manifold}
 \section{Proof that Grassmannian is a manifold}
 Let us write $G(p,n) = \{ $p-dimensional (vector) subspaces of $\RR^{n \times p} \}$. A hyperplane $V \subseteq \RR^{n \times p}$ is specified by $n \times p$ matrix $A=[\vec{a}_1,\vec{a}_2, \dots, \vec{a_p}] \in Mat_{n\times p}$ where 
@@ -581,8 +607,176 @@ $$ \phi_{3,4} \circ \phi_{2,3}^{-1} (v) =
 -\frac{1}{v_{2,1}} \begin{pmatrix} v_{1,1} v_{2,2} + v_{1,2} v_{2,1} & -v_{1,1} \\ v_{2,2} & -1 \end{pmatrix}
 $$ 
 Hence $G(p,n)$ can be equipped with the structure of a $p (n-p) $ dimensional smooth manifold.
-\section{Grassmann manifold as a quotient manifold }
+\section{Grassmann manifold as a quotient manifold } \label{grassquot}
+We will describe the Grassmann manifold as a quotient of Stiefel with respect to the ortogonal group.
+\begin{center}
+\begin{tikzcd}
+St(p,n) \arrow[r, hook] \arrow[dr, dashrightarrow, "p"]
+& F(p,n) \arrow[d, "\pi"]\\
+& G(p,n)
+\end{tikzcd}
+\end{center}
+Map $p$ is surjective because every subspace has an orthonormal basis.
+I.e. starting with any basis we can construct an orthonormal one via Gram-Schmidt algorithm.
+Now, if we redefine the map $p$ such that $p: { St(p,n) / _{O(p)}} \to G(p,n)$, where $O(p)$
+is the orthogonal group of $2-frames$, we will have a bijection. 
+To see why is it possible to quotient over $O(p)$ instead $Gl(p)$ consider $A,B \in St(p,n)$ and consider that $A$ and $B$ are in the same subspace (go to the same point under equivalence relation) $A = B g, g \in Gl(p)$.
+We know that $ A^T A = I $, when we substitute we get $ (Bg)^T Bg = I \implies g^T B^T B g = I \implies g^T g = I$ which tells us that $g$ has to be an element of the ortogonal group.
+Therefore 
+$$ G(p,n) = F(p,n) / _{Gl_p(\RR)} \quad G(p,n) = St(p,n) / _{O(p) }$$
 \section{Grassman manifold as a set of projectors }
+Given
+$$ X = \{ M \; | \; M^2 = M = M^T, trM=k \} \subset M_{n \times n} $$
+We will prove that there is an embedding of $G(p,n)$ to $X$.
+Based on the section \ref{g13proj} , we hypothesize that the embedding is given by
+$$ \phi: \; G(p,n) \to X \quad \phi(A) = A(A^T A)^{-1} A^T  $$
+
+\begin{Prop}
+    $\phi$ is well defined
+\end{Prop}
+
+Take $A \in G(p,n)$ and $B \in G(p,n)$ s.t. $B = A g$. We know that $\phi(A) = A (A^T A)^{-1} A^T$ then
+\begin{equation}
+    \phi(B) = A g ((Ag)^T Ag)^{-1} (Ag)^{T} = A g (g^T A^T A g)^{-1} (A g)^{T} = A g g^{-1} (g^T A^T A)^{-1} g^T A^T = A (A^T A)^{-1} A^T
+\end{equation}
+\begin{Prop}
+    $\phi$ is injective
+\end{Prop}
+Assume that a function is not injective, then  $ \exists A, B \in G(p,n) \; $ s.t. $\phi(A) \neq = \phi(B) g$ for any $g$ in $GL(\RR)$ 
+equivalently $A(A^T A)^{-1} A^T = B (B^T B)^{-1} B^T$, we use the fact that any $n times p$ matrix $A$ can be decomposed as $A =  Q R$  where $Q$ is of shape $ p \times p$ and $R$ is of shape $n \times p$
+then 
+$ A(A^T A)^{-1} A^T = (QR) ((QR)^T QR)^{-1} (QR)^T = QR(R^T Q^T Q R)^{-1} R^T Q^T = Q R (R^T R)^{-1} R^T Q^T = QRR^{-1} (R^T)^{-1} R^T Q^T = Q Q^T$
+But we know that there exists $Q$ such that $\exists g$ s.t. $Q = Q'$. Therefore we get that $ A = Q R \quad B = Q' R'$ and $\phi(A) = Q Q^T = \phi(B) = Q' Q'^T$ but since $Q$ is ortogonal
+we know that $exists g \; Q= Q' g \implies A = Bg$. we reach the contradiction and prove that $\phi$ is injective.
+\begin{Prop}
+    $\phi$ is differentiable
+\end{Prop}
+$\phi'(A) = (A (A^T A)^{-1} A)' = A' (A^T A)^{-1} A - A(A^T A)^{-1}(A' A^T) (A^T A)^{-1} A - A (A^T A)^{-1} (A (A^T)') (A^T A)^{-1} A^T + A (A^T A)^{-1} (A^T)'$
+Since we know that $A$ is differentiable this equation shows us that $\phi(A)$ is differentiable.
+\begin{Prop}
+If $phi(A)$ is a projector on a subspace $A$, then $phi(A)$ will have no effect on elements already inside subspace $A$,
+and will project elements ortogonal to $A$ to zero.
+\end{Prop}
+First we show that given a vector that already lies on $A$, the vector won't change.
+Let $u = A v$, then $\phi(u) = A (A^T A)^{-1} A^T A v = A v = u$
+Given a vector ortogonal to $A$ projection will go to zero. Take arbitary $u$ such that
+$$ u = u^{\perp} + u^{\parallel} \quad u^{\parallel} \in Im A \; \implies \; u^{\parallel} = A v $$
+Then $ u^{\perp} = u - u^{parallel}$. Now to show that $\phi(u^{\perp}) = 0$
+$$ \phi(u - u^{\parallel}) = \phi(u) - \phi(u^{\parallel}) = A (A^T A)^{-1} A^T u - A (A^T A)^{-1} A^T A v = Av - Av = 0 $$
+We will in fact show that $X$ can be identified with $\equivclass{St(p,n)}$ which is (as we showed in \ref{grassquot} ) $G(p,n)$
+\begin{center}
+\begin{tikzcd}
+V(2,4) \arrow[r, hook] \arrow[dr, dashrightarrow, "p"]
+& F(2,4) \arrow[d, "\pi"]\\
+& G(2,4) \arrow[r, hook, "\phi"] 
+& X
+\end{tikzcd}
+\end{center}
+\section{Tangent Space}
+\begin{Prop}
+   The tangent space of $G(p,n)$ is given by all the commutators $ [ P, \Omega] = P \Omega - \Omega P \quad \Omega \in \mathfrak{so}_n  $ 
+\end{Prop}
+\textbf{Proof:}
+Consider the map $\delta: O(n) \to G(p,n), \quad \delta(T) = T P_0 T^T$. So that we fix $P_0$ to satisfy the following three conditions:
+\begin{enumerate}
+    \item $P^T = P \quad (T P_0 T^T)^T = T P_0^T T^T$
+    \item $P^2 = P \quad (T P_0 T^T) (T P_0 T^T) = T P_0 T^T$
+    \item $tr(T P_0 T^T) = tr (P_0 T^T T) = tr P_0 = k$
+\end{enumerate}
+Here these three rules are saying that we can get any projector $P_n = T P_0 T^T$
+Note that $\delta$ is a submersion and therefore it induces a surjective map on tangent spaces.
+The tangent space of $O(n)$ at the $n \times n$ identity matrix $I$ is
+$ T_x O(n) = \{ \Omega \in \mathfrak{so}_n \} $ Note that $\Omega \in \mathfrak{so}_n$ means that omega is skew-symmetric $\Omega^T = -\Omega$.
+Now if we take a derivative
+$$ D_{\delta} : Tx O(n) \to T_{P_o} G(p,n), \quad \Omega \to P_0 \Omega - \Omega P_0 $$
+\begin{Ex}{ Tangent space in $G(1,3)$}
+   Take $P = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix} $
+   find all $T_p X = \{ [P,\Omega] \; | \; \Omega \in \mathfrak{so}_n \}$
+   $\Omega = \begin{bmatrix} \Omega_1 & -\Omega_2 & -\Omega_3 \\
+                             \Omega_2 & \Omega_4 & -\Omega_5
+                             \Omega_3 & \Omega_5 & \Omega_6 \\ \end{bmatrix} $
+    $\Omega P = \begin{bmatrix} \Omega_1 & 0 & 0 \\ \Omega_2 & 0 & 0 \\ \Omega_3 & 0 & 0 \end{bmatrix}$
+    $ P \Omega = \begin{bmatrix} \Omega_1 & -\Omega_2 & - \Omega_3 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix} $
+    Thus, the elements in the tangent spaces look like:
+    $ P \Omega - \Omega P  = \begin{bmatrix} 0 & - \Omega_2 & - \Omega_3 \\ \Omega_2 & 0 & 0 \\ \Omega_3 & 0 & 0  \end{bmatrix}$
+\end{Ex}
+\begin{Ex}{Tangent space in $G(2,3)$}
+   $P \in G(2,3) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 0  \end{bmatrix} $
+   $ \Omega = \begin{bmatrix} \Omega_1 & -\Omega_2 & -\Omega_3 \\ \Omega_2 & \Omega_4 & -\Omega_5 \\ \Omega_3 & \Omega_5 & \Omega_6 \end{bmatrix}$
+   $ P \Omega = \begin{bmatrix} \Omega_1 & - \Omega_2 & - \Omega_3 \\ \Omega_2 & \Omega_4 & - \Omega_5 \\ 0 & 0 & 0 \end{bmatrix}$
+   $ \Omega P = \begin{bmatrix} \Omega_1 & - \Omega_2 & 0 \\ \Omega_2 & \Omega_4 & 0 \\ \Omega_3 & \Omega_5 & 0 \end{bmatrix}$
+   Thus, the elements in the tangent space look like:
+   $P \Omega - \Omega P = \begin{bmatrix} 0 & 0 & -\Omega_3 \\ 0 & 0 & -\Omega_5 \\ -\Omega_3 & - \Omega_5 & 0 \end{bmatrix} $
+\end{Ex}
+\begin{Ex}{Tangent space in $G(2,4)$}
+    $P = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$
+    $\Omega = \begin{matrix} \Omega_1 & -\Omega_2 & -\Omega_3 & - \Omega_4 \\
+                              \Omega_2 & \Omega_5 & - \Omega_6 & -\Omega_7 \\ 
+                              \Omega_3 & \Omega_6 & \Omega_8 & - \Omega_9 \\ 
+                              \Omega_4 & \Omega_7 & \Omega_9 & \Omega_{10} 
+                            \end{matrix}  $
+    $P \Omega = \begin{bmatrix} \Omega_1 & -\Omega_2 & -\Omega_3 & -\Omega_4 \\
+                            \Omega_2 & \Omega_5 & -\Omega_6 & -\Omega_7 \\
+                            0 & 0 & 0 & 0 \\
+                            0 & 0 & 0 & 0
+                         \end{bmatrix} $
+    $ \Omega P = \begin{bmatrix}
+                \Omega_1 & -\Omega_2 & 0 & 0 \\
+                \Omega_2 & \Omega_5 & 0 & 0 \\
+                \Omega_3 & \Omega_6 & 0 & 0 \\
+                \Omega_4 & \Omega_7 & 0 & 0 \\
+                \end{bmatrix}$
+    $ [P,\Omega] = \begin{bmatrix}
+                0 & 0 & - \Omega_3 & -\Omega_4 \\
+                0 & 0 & - \Omega_6 & - \Omega_7 \\
+                - \Omega_3 & - \Omega_6 & 0 & 0 \\
+                - \Omega_4 & - \Omega_7  & 0 & 0
+    \end{bmatrix}
+    $
+\end{Ex}
+Now, based on our examples, we can see that:
+$ P_0 = \begin{bmatrix} I_p & 0 \\ 0 & 0 \end{bmatrix}$ where $I_p$ is $p \times p$ identity matrix.
+For $G(p,n)$ we have the result $\begin{bmatrix} 0_p & A^T \\ A & 0_{n-p} \end{bmatrix}$
+$\Omega = \begin{bmatrix} A & -B \\ B & C \end{bmatrix}$ where $A^T = -A$ and it's shape is $p \times p$ and $C^T = -C$ and it's shape is $(n-p) \times (n-p)$
+$ P \Omega = \begin{bmatrix} A & - B^T \\ 0 & 0 \end{bmatrix} $
+$ \Omega P = \begin{bmatrix} A & 0 \\ B & 0 \end{bmatrix}$
+So the tangent space looks like:
+$ [\Omega, P] = \begin{bmatrix} 0 & -B^T \\ B & 0 \end{bmatrix} $
+\section{Normal Space}
+\textbf{Objective: Find Normal Space to Stiefel Manifold} 
+Consider $h: \RR^{n times p} \to Sym(p) \quad X \to h(x) = X^T X - I_p$
+Sym is a manifold of dimension $k = \frac{p (p+1)}{2}$, $h$ is smooth and $h^{-1}(0) = St(p,n)$, so $h$ is a defining function for $St(p,n)$
+We show that $0$ is a regular value, if for all $p \in h^{-1}(0)$ the differential $D h_p: T_p \RR^{n \times p} \to T_{h(x)} Sym P$
+is a surjetive function. And it's surjective if the differential has rank $k$.
+$Dh(X): \RR^{n \times p} \to Sym(p) \quad Dh(X)[V] =  \lim_{t \to 0} \frac{h (X + tV) - h(X)}{t} =
+\lim_{t \to 0} \frac{(X + tV)^T (X+tV) - X^T X}{t} = X^TV + V^T X $
+If we perform polar decomposition we get that $V= \frac{1}{2} XA \quad A \in Sym(p)$
+\newline
+$Dh(X)[V] = \frac{1}{2} X^T X A + \frac{1}{2} A^T X^T X = A$ thus the image of $Dh(X)$ is all of $Sym(p)$ so it has rank $k$.
+So $St(p,n)$ is emedded in $\RR^{n times p}$ and $dim St(p,n) = dim \RR^{n times p} - dim Sym(p) = np - \frac{p (p+1)}{2}$
+$TxSt(p,n) = ker Dh(x) = \{ V \in \RR^{n times p} : X^T V + V^T X = 0 \} $
+Pick $X_{\perp}$ such that
+$$ X^T X = I_p \quad X_{\perp}^T X_{\perp} = I_{n-p} \quad X^T X_{\perp} = 0 $$ 
+Then $V = \begin{bmatrix} X & X_{\perp} \end{bmatrix} \begin{bmatrix} \Omega \\ B \end{bmatrix}$ where $\Omega \in \mathfrak{so}(p) \quad B \in \RR^{ (n-p) \times p} $
+We arrive to the following definition of the tangent space to Stiefel:
+$$ T_x St(p,n) = \{ X \Omega + X_{\perp} B \; | \; \Omega \in \mathfrak{so}(p), B \in \RR^{ (n-p) \times p} \} $$
+Now we proceed on defining a normal space to Stiefel.
+$$ N_x St(p,n) = (T_x St(p,n))^{\perp} = \{ U \in \RR^{n \times p: \langle U, V \rangle = 0 for all V \in TxSt(n,p) } $$ 
+$$ N_x St(p,n) = \{ U \in \RR^{n \times p} : \langle U, X\Omega + X_{\perp} B \rangle = 0$$
+Expand $U = AX + X_{\perp} C, A \in \RR^{p \times p, C \in \RR^{ (n-p) \times p}}$
+$$ NxSt(p,n) = \{ U \in \RR^{n \times p} : \langle XA + X_{\perp} C, X \Omega + X_{\perp} B \rangle = 0$$
+$$ NxSt(p,n) = \{ U \in \RR^{n \times p} : \langle A, \Omega \rangle = 0 and \langle C, B \rangle = 0 \} = \{ XA \; | \; A\in Sym(p) \}$$
+\newline
+$$ U - Proj_{x} (U) = XA$$
+$$ Proj_{x}(U)^T X + X^T Proj_{x} (U) = 0 $$
+$$ (U - XA) ^T X + X^T (U- XA ) = 0$$
+$$ U^T X - A + X^T U - A = 0$$
+$$ U^T X + X^T U = 2A $$
+$$ Proj_{X} (U) = U - X \frac{X^T U + U^T X}{2} = (I - XX^T)U + X \frac{X^T U - U^T X}{2} $$
+\section{Geodesic}
+\section{Parallel Transport}
+\section{Gradient}
+\section{Hessian}
 
 \chapter{Optimization Algorithms}
 \section{Gradient Descent}
@@ -606,12 +800,16 @@ Hence $G(p,n)$ can be equipped with the structure of a $p (n-p) $ dimensional sm
   $St(p,n)$ & $ \{ A \in F(2,4) \; | \; A^T A = I_k \} $ & Stiefel Manifold \\
   \toprule
   $ GL(p)$ &  $ \{ A \in Mat_{n \times n} \; | \; det A \neq 0 \}$ & General Linear Group \\
+  \toprule
+  $ O(p)$ & $ \{ Q \in GL(p) \; | \; Q^T Q = Q Q^T = I \}$  & Ortogonal group \\
+  \toprule
+  $ \mathfrak{so}_n $ & $ \{ \Omega \in \RR^{n \times n} \; | \; \Omega^T = - \Omega \} $ & Real skew-symmetric matrices \\
+  \toprule
+  $ Sym(p) $ & $ \{ A \in \RR^{p \times p} \; | \; A^T = A \} $ & Symmetric matrices \\
 \end{tabularx}\offinterlineskip
 
  
 \bibliographystyle{alpha}
 \bibliography{biblio}
  
- 
-
 \end{document}          
