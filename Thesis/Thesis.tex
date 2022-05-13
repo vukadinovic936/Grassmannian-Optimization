@@ -11,10 +11,10 @@
 \usepackage{xcolor}
 \usepackage{tabularx}
 \usepackage{booktabs}
-\usepackage{algorithm}
+%\usepackage{algorithm}
 %\usepackage{arevmath}
-\usepackage[noend]{algpseudocode}
-\usepackage[margin=1in]{geometry}
+%\usepackage[noend]{algpseudocode}
+%\usepackage[margin=1in]{geometry}
 
 \usepackage[colorlinks=true,          % link colors, set to 'false' for print version
             linkcolor=blue,
@@ -39,7 +39,7 @@
 \maketitle
 
 \begin{abstract}
-We present optimization methods for functions whose domain lies on Grassmann manifold.
+We present optimization methods for functions whose domain lies on Grassmann Manifold.
 Such functions are ubiquitous because data with subspace-structured features, orthogonality, or low-rank constraints is naturally expressed using Grassmann manifold.
 We consider two different representations of the Grassmann manifold: a quotient of the Stiefel manifold and a set of projectors.
 We then develop Grassmannian gradient descent and Grassmannian Newton method on these representations.
@@ -66,7 +66,7 @@ Then, we develop Gradient Descent and Newton’s algorithm on the Grassmann mani
 \par
 A framework for algorithms involving these constraints was first introduced by Edelman et al \cite{edelman_geometry_1998} .
 They used a quotient manifold representation to develop the Newton algorithm, which inspired a line of works that improve the algorithm or find a different application \cite{hamm_grassmann_nodate} \cite{ma_flag_2020} \cite{johnsson_optimization_nodate} \cite{tripuraneni_averaging_2018}.
-A set of projectors approach was introduced by Helmke et al \cite{helmke_newtons_2007}, and used to develop Newton algorithms on Grassman and Lagrange-Grassman manifolds.
+A set of projectors approach was introduced by Helmke et al \cite{helmke_newtons_2007}, and used to develop Newton algorithms on Grassmannand Lagrange--Grassmann manifolds.
 While the mentioned representations (set of projectors and quotient manifold) are employed in our paper, they are certainly not exhaustive.
 For example, Lai et al \cite{lai_simpler_2020} represent the Grassmann manifold as symmetric orthogonal matrices of trace $2k -n$.
 Extensive resources for learning about Riemannian optimization are books by Absil \cite{AbsMahSep2008} and Boumal \cite{boumal2022intromanifolds}
@@ -99,24 +99,58 @@ Finally, in Chapter \ref{RayChapter} we demonstrate all presented algorithms on 
 
 
 \chapter{$G(1,3)$ As Manifold}
+      
+      \section{Preliminaries}
+      
+	    We begin by recalling briefly some standard definitions.
+      
 \begin{defn}
      $(X,\mathcal{T})$ is a \textbf{locally Euclidean} topological space of dimension $n$  if $\forall \; p \in X \; \exists \; v \subseteq X$ which is homeomorphic to an open in $\RR^n$.
 \end{defn}
 \begin{defn}
-      A \textbf{topological manifold} of dimension $n$ is a locally Euclidean space of $dim$ $n$ which is Hasudorff and has a countable base for its topology.
+      A \textbf{topological manifold} of dimension $n$ is a locally Euclidean space of dimension $n$, which is Hasudorff and has a countable base for its topology.
 \end{defn}
 \begin{defn}
-      A \textbf{smooth atlas} is a collection of charts $\{ (v_{\alpha}, \varphi_{\alpha}) \}_{\alpha}$, $\bigcup_{\alpha} v_{\alpha} = X$, s.t. for any two charts $(v_{\alpha} , \varphi_{\alpha})$, and $(v_{\beta} , \varphi_{\beta})$
-      the transition map $\varphi_{\alpha \beta} = \varphi_{\alpha} \circ \varphi_{\beta}^{-1} : \varphi_{\beta}(v_{\alpha} \cap v_{\beta}) \to \varphi_{\alpha}(v_{\alpha} \cap v_{\beta})$ is infinitely differentiable ($C^{\infty})$
+      A \textbf{smooth atlas} is a collection of charts $\{ (v_{\alpha}, \varphi_{\alpha}) \}_{\alpha}$, $\bigcup_{\alpha} v_{\alpha} = X$, s.t. 
+      for any two charts $(v_{\alpha} , \varphi_{\alpha})$, and $(v_{\beta} , \varphi_{\beta})$
+      the transition map 
+      $\varphi_{\alpha \beta} = \varphi_{\alpha} \circ \varphi_{\beta}^{-1} : \varphi_{\beta}(v_{\alpha} \cap v_{\beta}) \to \varphi_{\alpha}(v_{\alpha} \cap v_{\beta})$ 
+      is infinitely differentiable ($C^{\infty})$. An atlas is \textbf{maximal} if it is not contained in another atlas.
 \end{defn}
+	 
+	 It is not hard to see that each atlas is contained in a unique maximal atlas.
+
 \begin{defn}
-  A \textbf{smooth manifold} is a manifold together with a maximal atlas defined on it. We call the atlas maximal if is not contained in another atlas.
+  A \textbf{smooth manifold} is a manifold together with a maximal smooth atlas on it. The choice of maximal atlas is also called a \textbf{smooth structure}
+  on the manifold.
 \end{defn}
-\section{Sphere as a smooth manifold}
+
+     Practically, one never works directly with the chosen maximal atlas. In fact, it is usually preferable to work with an atlas that
+     contains as few charts as possible. To specify the smooth structure (maximal atlas) it is enough to choose one particular smooth atlas -- and
+     that determines (implicitly) a maximal atlas.
+     
+     For different problems different atlasses may be appropriate. To see that two smooth atlasses belong to (determine) the same maximal atlas, one needs
+     to verify that their union is again a smooth atlas. In such a case one also says that the two atlasses are equivalent.
+     %
+     This determines an equivalence relation on the set of all atlasses, and the choice of maximal atlas corresponds to a choice of an equivalence
+     class of smooth atlasses.
+     
+     Let us reiterate that, for a given topological space $X$, being a topological manifold is a \textbf{property} -- $X$ either is or is not one, 
+     while being a smooth manifold is an \textbf{additional data} on $X$ -- the data of a maximal atlas (smooth structure).
+     Some spaces admit such an extra structure, while others do not.  Those topological manifolds that admit smooth structure in fact admit infinitely many
+     smooth structures.
+     
+     Occasionally in this text we are going to abuse the terminology and say, e.g., \emph{$X$ is a smooth manifold}, which will mean \emph{$X$ can be equipped
+     with a smooth structure} -- and a particular choice of smooth structure will be given.
+     
+      
+	
+
+\section{Example: the $2$-sphere as a smooth manifold}
 \begin{Prop}
     Sphere $S^2$ is a smooth manifold. 
 \end{Prop}
-\noindent First let's define a lemma that will help us prove the proposition.
+\noindent First let's state a lemma that will help us prove the proposition.
 \begin{Lemma}\label{contLemma}
   Let $f:U \subset \RR^n \to \RR^m $. Suppose the partial derivatives $\frac{\partial f_i}{\partial x_j}$ of $f$ all exist
   and are continuous in a neighbourhood of a point $x \in U$. Then $f$ is differentiable at $x$. 
@@ -141,7 +175,7 @@ For example $\varphi_3^{+}: u_3^{+} \to \RR^2, \quad \varphi_3^{+}(x_1,x_2,x_3) 
 We first show that a function $\varphi_3^{+}: u_3^{+} \to \RR$ is injective.
 \newline
 Assume $ \; \exists \; P_1$ and $P_2$ s.t. $P_1 = (p_1,p_2,p_3)$,
-and $P_2 = (p_1',p_2',p_3')$, $P_1 \neq P2$, and $f(P_1) = f(P_2)$ implies that $(p_1,p_2) = (p_1 ', p_2 ')$
+and $P_2 = (p_1',p_2',p_3')$, $P_1 \neq P_2$, and $f(P_1) = f(P_2)$ implies that $(p_1,p_2) = (p_1 ', p_2 ')$
 Because $P_1$ and $P_2$ are the points on the sphere:
 $$p_3 ' = \pm \sqrt{1-p_1^2-p_2^2} \quad \pm p_3' = \pm \sqrt{1-(p_1')^2-(p_2')^2}$$
 Since $u_3^{+}$ has only positive numbers for a third coordinate
@@ -151,10 +185,11 @@ We can conclude that $\varphi_3^{+}$ is injective.
 \newline
 To show that $\varphi_i^{\pm}$ is injective, we similarly assume that $ \; \exists \; P_1 P_2$, s.t. $P_1 \neq P_2$ and 
 $\varphi_i^{\pm}(P_1) = \varphi_i^{\pm}(P_2)$. Let $K= \{1,2,3\}/i$. Then $ \; \forall \; k \in K, a_k= a_k '$ 
-$\quad a_i = \pm \sqrt{1-\sum(a_k^2)} = a_i '$. Since $a_i$ and $a_i '$ are limited to only positive or only negative values  $P_1 = P_2$, and $\varphi_i^{\pm}$ is injective.
+$\quad a_i = \pm \sqrt{1-\sum(a_k^2)} = a_i '$. Since $a_i$ and $a_i '$ are limited to only positive or only
+negative values  $P_1 = P_2$, and $\varphi_i^{\pm}$ is injective.
 \newline
 \newline
-To prove surjectivity, consider $(\varphi_i^{\pm})^{-1}$ componentwise. It sends an arbitary point $(b_1,b_2) \in \RR^2$ to a point $(a_1,a_2,a_3) \in S^2$, or componentwise
+To prove surjectivity, consider $(\varphi_i^{\pm})^{-1}$ componentwise. It sends an arbitary point $(b_1,b_2) \in D_1(0,0)$ to a point $(a_1,a_2,a_3) \in S^2$, or componentwise
 \[
   a_j =
   \begin{cases}
@@ -163,25 +198,52 @@ To prove surjectivity, consider $(\varphi_i^{\pm})^{-1}$ componentwise. It sends
                                    b_{j-1} & j>i
   \end{cases}
 \]
-Since each component in both $S^2$ and the disk varies from $0$ to $1$, each point in the codomain is mapped to, and we have surjectivity for $\varphi_i^{\pm}$
+Since each component in both $S^2$ and the disk varies from $0$ to $1$, each point in the codomain is mapped to, and we have surjectivity for $\varphi_i^{\pm}$.
 \newline
-The function $\varphi_i$ is continous by \ref{contLemma} (polynomials are infinitely differentiable).
+Each function $\varphi_i^{\pm}$ is continuous (and in fact differentiable) since it is the restriction to $u_i^{\pm}$ of a linear
+map $\RR^3\to \RR^2$, and $S^2$ is equipped with the subspace topology.  The maps $\left(\varphi_i^{\pm}\right)^{-1}$ are continuous (and in fact, differentiable),
+since they are continuous (in fact, differentiable) as maps $D_1(0,0)\to \RR^3$ by Lemma
+%
+ \ref{contLemma}.
+  Therefore $\varphi_{i}^{\pm}$ are homeomorphisms.
+% 
 %We can easily check for continuity of $\varphi_i$ since for each open $ \beta_{\epsilon}(x_1,x_2) \in D_1 (0,0) \; \exists \; \beta_{\delta}(x_1,x_2,\sqrt{1-x_1^2-x_2^2}) \in S^2 $ 
 %such that $\epsilon = (\epsilon_1,\epsilon_2) $ and $\delta = (\epsilon_1,\epsilon_2, \sqrt{1-\epsilon_1^2-\epsilon_2^2})$
 %\newline
 %Similarly $\varphi_i^{-1}$ is continuous because $\forall \beta_{\epsilon}(x,y,z) \in S^2 \; \exists \; \beta_{\delta}(x,y) \in D_1(0,0) $ where $\delta = (\epsilon_1, \epsilon_2)$ 
 \newline
-The space is Hausdorff since it is a subset of $\RR^3$, therefore $\varphi_{i}^{\pm}$ are homeomorphisms.
+The shere $S^2$ is Hausdorff and second countable since it is a subspace of $\RR^3$.
 \newline
-We now show that $A$ is a smooth atlas. First we consider the transition function $ \varphi_3 \; \circ \; \varphi_1^{-1}: u_1^{+} \to u_3^{+}$
-$$(x,y) \to (\sqrt{x^2+y^2},x,y) \to (\sqrt{x^2+y^2},x)$$
-But this is infinitely differentiable since it is a polynomial. Similarly, we can show that all transition functions are $C^{\infty}$.
+We now show that $A$ is a smooth atlas. First we consider the transition function
+%
+%
+%
+ \[ 
+	\varphi_3 \; \circ \; \varphi_1^{-1}: \phi_1(u_1^{+}\cap u_3^+) \longrightarrow \phi_3(u_1^+\cap u_3^{+})
+ \]
+$$(x,y) \mapsto (\sqrt{x^2+y^2},x,y) \mapsto (\sqrt{x^2+y^2},x).$$
+%
+
+    Both $\phi_1(u_1^{+}\cap u_3^+)$ and $\phi_3(u_1^{+}\cap u_3^+)$ are open half-disks in $\RR^2$:
+    \[
+    	\phi_1(u_1^{+}\cap u_3^+)=\{(x_1,x_2)\in D_1(0,0), x_2>0\},\]
+    \[ \phi_3(u_1^{+}\cap u_3^+)=\{(x_1,x_2)\in D_1(0,0),  x_1>0\},
+    \]
+    and so both transition functions are infinitely differentiable, by Lemma \ref{contLemma}. Notice that on the boundary of
+    $D_1(0,0)$ differentiability is lost.
+
+
+
+
+Similarly, we can show that all transition functions are $C^{\infty}$.
 This proves that the sphere is a smooth manifold.
 \end{proof}
-\noindent In the next section we provide an alternative proof that uses fewer charts.
+\noindent In the next section we provide another (equivalent) atlas  that uses fewer charts.
+
+
 \section{Sphere as a smooth manifold using stereographic projection}
 \begin{proof}
-Stereographic projection \ref{ster_proj} is a map that will allow us to embed the sphere with smooth structure by using 2 charts.
+Stereographic projection \ref{ster_proj} is a map that will allow us to endow the sphere with smooth structure by using 2 charts.
 \newline
 \begin{figure}[h] \label{ster_proj}
     \centering
@@ -232,7 +294,7 @@ Now, since we require that the domain of $\varphi_3^{+}$ is positive, the follow
 $$\varphi_3^{+} \circ \phi_{+}^{-1}: D_1 (0,0) \to D_1(0,0), \quad \varphi_3^{+}( \phi_{+}^{-1}(x_1,x_2)) = (\frac{2x_1}{1+x_1^2+x_2^2}, \frac{2x_2}{1+x_1^2+x_2^2})$$
 
 $$ \phi_{+}^{-1} \circ \varphi_3^{+}: D_1 (0,0) \to D_1(0,0), \quad  \phi_{+}(\varphi_3^{+}((x_1,x_2) )^{-1}) = (\frac{x_1}{1+\sqrt{1-x_1^2-x_2^2}}, \frac{x_1}{1+\sqrt{1-x_1^2-x_2^2}})$$
-It is continuous componentwise and thus smooth.
+It is smooth componentwise and thus smooth.
 Next, we list the domain and the image for the rest of transition maps.
 $$\varphi_3^{-} \circ \phi_{+}^{-1}: \RR^2 \setminus \bar{D_1} (0,0) \to D_1(0,0) \setminus (0,0)$$
 $$\varphi_2^{+} \circ \phi_{+}^{-1}: \RR^2 \cap \{ x_2 > 0 \} \to D_1 (0,0)$$
@@ -249,25 +311,92 @@ Therefore, we proved that a sphere $S^2$ is a smooth manifold of dimension $2$.
 \end{proof}
 
 
+The two smooth atlasses  -- the one from this section and the one described earlier -- are in fact equivalent, i.e., determine the
+same maximal atlas.
+
+
 
 \section{$G(1,3)$ as quotient manifold} 
-We define the compact Stiefel manifold as:
+
+As mentioned in the introduction, we define the Grassmannian of $p$-dimensional subspaces in $\RR^n$ as the set
+\[
+	G(p,n)= \left\{V\subseteq \RR^n \textrm{ vector subspace, }\dim V=p \right\}.
+\]
+Each $p$-dimensional subspace $V\subseteq \RR^n$ is spanned by $p$ linearly independent vectors in $\RR^n$, and such  a
+$p$-tuple of vectors can be thought of as an $n\times p$ matrix of rank $p$.
+Let $F(n,p)\subseteq \Mat_{n\times p}(\RR)$ be the set of all such matrices, i.e., all ``$p$-frames'' in $\RR^n$. There
+are infinitely many different matrices that determine the same subspace $V$ -- since there are infinitely many choices of basis.
+In section \ref{Gr_smooth} we show that there is a bijection between $G(p,n)$ and a suitable quotient of $F(n,p)$ -- and hence 
+$G(p,n)$ can be equipped with a natural topology. It is in fact  a topological manifold and admits a smooth structure, that we describe in
+section \ref{Gr_smooth}.
+
+
+
+
+
+Let us also  define the  Stiefel manifold as:
 \begin{equation}
-St(p,n) = \{ A \in Mat_{n \times p}(\RR) \; | \; rkA = p, \; A^T A = I_k \}
+St(p,n) = \{ A \in Mat_{n \times p}(\RR) \; | \; \rk A = p, \; A^T A = I_k \}\subseteq \Mat_{n\times p}(\RR).
 \end{equation}
-But if we consider the following $St(1,3) = \{ A \in \RR^{3 \times 1} \; | \; rkA=1, \; A^T A = 1 \} = \{ A \in \RR^3 \; | \; A^T A = 1 \} = 
+%
+This is in fact a compact embedded submanifold of $\Mat_{n\times p}(\RR)\simeq \RR^{np}$, and its points are
+\emph{orthonormal} $p$-frames in $\RR^n$. Every $p$-dimensional subspace of $\RR^n$ has an orthonormal basis,
+so there is a set-theoretical (in fact, smooth!) map
+\[
+	St(p,n) \longrightarrow G(p,n),
+\]
+sending each orthonormal frame to the plane that it spans. If $p>1$, 
+%
+there are infinitely many different orthonormal frames that span the same $p$-dimensional subspace,
+and one can represent $G(p,n)$ as a quotient space of $St(p,n)$.
+%
+In the literature, the Stiefel manifold is usually
+denoted $V_p(\RR^n)$ or $V_{n,p}$.
+
+Let us spell out these objects in the simple case $n=3$, $p=1$.
+
+      First, $F(3,1)=\RR^3\backslash\{\mathbf{0}\}$, the set of non-zero vectors in $\RR^3$. Two non-zero vectors  span the
+      same line if they are related through rescaling by a non-zero number $\lambda\in \RR^\times=\RR\backslash\{0\}$, hence
+      \[
+      	G(1,3)= \left. (\RR^3\backslash\{0\})\right/{\sim}=  \left. (\RR^3\backslash\{0\})\right/\RR^\times = \RR\PP^2.
+      \]
+      
+      Next, $St(1,3)$ is just the $2$-sphere in $\RR^3$.
+%
+%
+%
+      Indeed, $St(1,3) = \{ A \in \RR^{3 \times 1} \; | \; rkA=1, \; A^T A = 1 \} = \{ A \in \RR^3 \; | \; A^T A = 1 \} = 
 \{ (A_1, A_2, A_3) \in \RR^3 \; | \; A_1^2 + A_2^2 + A_3^2 = 1) \} $ 
-we see that this is exactly the equation of the sphere from \ref{s2}. Thus, $S^2 \cong St(1,3)$.
-Now we will introduce an equivalence relation $ \sim $.
-$$ \forall A,B \in St(1,3) \; B \sim A \text{ if } \; \exists \; g \in \RR, s.t. \; B = A g $$
-which will identify antipodal points on the sphere.
-If we quotient the Stiefel manifold with this relation, we get a sphere with antipodal points identified, namely: 
+we see that this is exactly the equation of the sphere from \ref{s2}. Thus, $S^2=St(1,3)$.
+
+
+      Two unit vectors in $\RR^3$ span the same line if and only if they differ by a sign, so if we introduce on $S^2$
+      the equivalence relation $\sim$ by declaring $u\sim v$ when $v=-u$ (or $u=v$), we get
+      
+      \[
+      	 G(1,3)= \RR\PP^2 \simeq \left. St(1,3)\right/{\sim}= \left. S^2\right/{\ZZ/2\ZZ}.
+      \]
+
+      
+%Now we will introduce an equivalence relation $ \sim $.
+%$$ \forall A,B \in St(1,3) \; B \sim A \text{ if } \; \exists \; g \in \RR, s.t. \; B = A g $$
+%which will identify antipodal points on the sphere.
+I.e., if we quotient the Stiefel manifold with this relation, we get a sphere with antipodal points identified, namely: 
 $$ \equivclass{St(1,3)} = \{ (A_1, A_2, A_3) \; | A_3 \geq 0 \} \cup \{ (A_1, A_2, 0) \; | \; A_2 \geq 0) \cup \{ (A_1, 0, 0) \}  $$
 
-As mentioned in the introduction we consider the Grassmannian as follows:
-$G(p,n) = \{ $p-dimensional (vector) subspaces of $\RR^{n \times p} \}$.
-So if we take a line through all the points on $\equivclass{St(1,3)}$ we get a set of all lines in $\RR^3$, which is defined as $G(1,3)$. 
-Hence, we arrive to the conclusion that we can consider a sphere with it's antipodal points identified as a quotient manifold of Stiefel $\equivclass{St(1,3)} \cong G(1,3)$
+	
+	The Stiefel manifold $St(1,3)=S^2$ can be described as a quotient, $St(1,3)\simeq O_3(\RR)/O_2(\RR)$. Here
+	we identify $O_2(\RR)$ as the subgroup of $O_3(\RR)$, consisting of matrices $\begin{pmatrix}
+	                                                                               	1&0\\
+	                                                                               	0&Q\\
+	                                                                               \end{pmatrix}$,
+	where $Q\in O_2(\RR)$. In this description, a unit vector $A\in St(1,3)=S^2$, 
+	corresponds to an equivalence class of $3\times 3$ matrices, all having the same first column equal to $A$.
+	
+	Correspondingly, $G(1,3)=\RR\PP^2$ is identified with either $O_3/O_1\times O_2$ or $S^2/O_1$.
+
+
+
 \newline
 
 \section{$G(1,3)$ as a set of projectors}\label{g13proj}
@@ -327,7 +456,14 @@ We say that $f$ is a
         \item X is homeomorphic to $f(X) \subset Y$ (equipped with the subspace topology)
     \end{itemize}
 \end{defn}
-Next, we argue that $\phi \RR \PP ^2 \to R^6$ is an embedding ($R^6$ because we are taking only non-symmetric lower triangular entries)
+
+\begin{thm}
+	If $X$ is a compact smooth manifold, and injective immersion $f:X\to Y$ is an embedding.
+\end{thm}
+
+
+
+Next, we argue that $\phi: \RR \PP ^2 \to \RR^6$ is an embedding ($\RR^6$ because we are taking only non-symmetric lower triangular entries)
 Namely, we will show that the following function is an embedding.
 $$ \phi([x:y:z]) = \frac{1}{x^2+y^2+z^2} (x^2,xy, xz, y^2, yz, z^2) $$
 First, we show that $\phi$ is well defined. Take two vectors $a$,$b \in [x:y:z]$ on the same line.
@@ -396,9 +532,9 @@ Similarly we can check that $rank J(\phi_i) = 2$
 \section{Gradient and Hessian on the sphere}
 
 Tangent space of the sphere is given by 
-$$ T_x St(1,3) = \{ v \in \RR^3 \; | \; xu^T V = 0 \} $$
+$$ T_x St(1,3) = \{ v \in \RR^3 \; | \; x^T v = 0 \} $$
 Normal space is given as
-$$ NxSt(1,3) = \{ a X \; | \; a \in \RR \} $$
+$$ N_xSt(1,3) = \{ a X \; | \; a \in \RR \} $$
 We take the metric:
 $$ g_c(\Delta,\Delta) = \tr \Delta^T (I - \frac{1}{2} X X^T ) \Delta  $$
 We pick $\nabla$ to be the Levi-Civita connetion.
@@ -414,13 +550,15 @@ $$\nabla f (x) =  grad f(x) = P_{x} grad \bar{f} (x) $$
 Using this identity, we can now realize Levi-Civita connection by:
 $$ \nabla_{\eta} grad f = P_{x} D (grad f(x))[\eta] = Hess f(x) \eta $$
 We take the following projection $P_x = (I - xx^T)$.
-\chapter{Grassman Manifold}\label{GrassChapter}
-\section{Grassmannian as a smooth manifold}
+
+
+\chapter{Grassmann Manifold}\label{GrassChapter}
+\section{Grassmannian as a smooth manifold}\label{Gr_smooth}
 Let us write $G(p,n) = \{ $p-dimensional (vector) subspaces of $\RR^{n \times p} \}$. A hyperplane $V \subseteq \RR^{n \times p}$ is specified by $n \times p$ matrix $A=[\vec{a}_1,\vec{a}_2, \dots, \vec{a_p}] \in Mat_{n\times p}$ where 
 $\{\vec{a}_1, \vec{a}_2, \dots , \vec{a}_p \}$ is a basis for V. I.e., given $A \in Mat_{n\times p}$, $\rk A = p$, we get a p-hyperplane $V \subseteq \RR^{n \times p}$ by $V= $span $\{\vec{a}_1,\vec{a}_2, \dots, \vec{a}_p \} $. Conversely, given any p-dim subspace $V\subseteq \RR^{n \times p}$, there is a $n \times p$
 matrix A with $\rk(A)=p$, from which $V$ is obtained in the above way. Two matrices, $A$ and $B$, determine the same subspace $V \iff \exists g \in GL(p) $, such that $B = A g$. $GL(p)$ stands for general linear group of degree $p$ over real field.
 \newline
-We thus have the following setup. Let the set of all  2-frames be
+We thus have the following setup. Let the set of all \" 2-frames \" be
 $$ F(p,n) = \{ A \; | \;  rkA=p \} \subseteq Mat_{n \times p}(\RR)  \simeq \RR^{n \times p} $$
 and consider on it the equivalence relation
 $$ B \sim A \text{ if } \exists \; g \in GL(p), \text{ s.t. } B=Ag $$
@@ -464,10 +602,11 @@ And by \ref{quotientTop} $\pi(U) = [U]$ is open in $G(p,n)$. $\pi$ is a canonica
     if $\beta = \{ \beta_\alpha \}_\alpha$ is a base for a topology $\mathcal{T}$ on a topological space $S$,
     and if $f: S \to X$ is an open map, then the collection $\{ f (\beta_\alpha) \}_\alpha$ is a base for the topology on $X$.
 \end{Lemma}
-\begin{proof} Let $V$ be an open in $X$ and $y \in V$. Choose $x \in f^{-1}(y)$. 
+\textbf{Proof:} Let $V$ be an open in $X$ and $y \in V$. Choose $x \in f^{-1}(y)$. 
 Since $f^{-1} (V)$ is open there is a basis element $U \in \beta$ s.t. $x \in U \subset f^{-1}(V)$
 which implies that $y \in f(U) \subset V$. Since $y$ is arbitary, and $f(U) \subset f(\beta)$ the collection $\{ f (\beta_\alpha) \}_\alpha$ is a base for the topology on $X$.
-\end{proof}
+\newline
+\newline
 \begin{Prop}\label{secondCount}
     $G(p,n)$ has a second countable base.
 \end{Prop}
@@ -478,28 +617,25 @@ Thus by lemma \ref{baset}, we have that the base of $G(p,n)$ is second countable
 \begin{Prop}
 The graph of the equivalence relation on $F(p,n)$ is a closed subset of $F(p,n) \times F(p,n)$. i.e. $ R = \{ (A,B) \in F(p,n) \times F(p,n) \; | \; A = Bg \}$ is closed.
 \end{Prop}
-\begin{proof}
 We can consider $R$ as a set of matrices $[A B] = [\vec{a}_1, \vec{a}_2, \dots, \vec{a}_p, \vec{b}_1, \vec{b}_2, \dots , \vec{b}_p]$ of rank $p$.
 Lemma \ref{matrank} tells us that every $(p+1) \times (p+1) $ minor of an element in $R$ must vanish. Consider the map that assigns to $(A,B)$ the values of all $ (p+1) \times (p+1) $ minors
 $$ \psi:  F(p,n) \times F(p,n) \to \RR^{ {n \choose 3} (p+2) }$$
 Since $\phi$ is continuous ( as all of its components are polynomials )  and $R = \psi^{-1} (0) $ , then R is closed.
-\end{proof}
 \begin{Ex}
     For example take $G(2,4)$, then $\phi: Mat_{4 \times 2} \to \RR^{16}$ 
 \end{Ex}
 \begin{Prop}\label{HausP}
 $G(p,n)$ is Hausdorff.
 \end{Prop}
-\begin{proof}
-Because $R$ is closed in $F(p,n) \times F(p,n)$, $(F(p,n) \times F(p,n)) \setminus R = R^{\complement}$ is open.
+
+That is because $R$ is closed in $F(p,n) \times F(p,n)$, $(F(p,n) \times F(p,n)) \setminus R = R^{\complement}$ is open.
 $\implies \forall (x,y) \in R^{\complement} $ there is a basic open set $u \times v$ containing $(x,y)$ s.t. $ (u \times v) \cap R = \emptyset 
 \implies \forall x, y \text{ s.t. } (x,y) \not\in R, \exists$ u around x and v around y s.t. $u \cap v = \emptyset$
 Thus for any two points $[x] \neq [y] \in \equivclass{F(p,n)}$ there exist disjoint neighborhood of $x$ and $y$ and $ \equivclass{F(2,4)}$ which is exactly the definition of Hausdorff property.
-\end{proof}
+\newline
 \begin{Prop}\label{locEc}
    $G(p,n)$ is locally euclidean. 
 \end{Prop}
-\begin{proof}
 Now that we have Hausdorff property and secound countable basis, we need to prove that every point lying on a manifold has a neighbourhood that is homeomorphic to an open in $\RR^n$.
 Then we can claim that $G(p,n)$ is a manifold.
 \newline
@@ -547,8 +683,8 @@ we have left to shot that $\phi$ is injective.
 Assume that there $\phi_{k}$ is not injective then there are $A \in [A]$ and $B \in [B]$ such that there is \textbf{no} $g \in GL(p)$
 for which $A g =  B$. i.e. $A A_{k}^{-1} = B B_{k}^{-1} \; \iff  \; 
  A A_{k}^{-1} B_{k} = B$ but $A_{k}^{-1} B_{k} \in GL(p)$ thus we reach contradiction.
-Therefore $\phi_{k}$ is homeomorphism and we proved that $G(p,n)$ is locally Euclidean.
-\end{proof}
+Therefore $\phi_{k}$ is homeomorphism
+\newline 
 \begin{Ex} \label{ex1}
     Let $A = \begin{bmatrix}
         2 & 6 \\
@@ -652,8 +788,9 @@ $G(p,n)$ can be equipped with the structure of a $p (n-p) $ dimensional smooth m
 \end{Prop}
 The proof for the proposition follows from propositions \ref{locEc}, \ref{HausP}, \ref{secondCount},
 and by checking that transition maps are infinitely differentiable.
+
 \section{Grassmann manifold as a quotient manifold } \label{grassquot}
-We will describe the Grassmann manifold as a quotient of the Stiefel manifold with respect to the orthogonal group.
+We will describe the Grassmann manifold as a quotient of Stiefel with respect to the orthogonal group.
 \begin{center}
 \begin{tikzcd}
 St(p,n) \arrow[r, hook] \arrow[dr, dashrightarrow, "p"]
@@ -665,13 +802,26 @@ Map $p$ is surjective because every subspace has an orthonormal basis.
 I.e. starting with any basis we can construct an orthonormal one via Gram-Schmidt algorithm.
 Now, if we redefine the map $p$ such that $p: { St(p,n) / _{O(p)}} \to G(p,n)$, where $O(p)$
 is the orthogonal group of $2-frames$, we will have a bijection. 
-To see why is it possible to quotient over $O(p)$ instead $GL(p)$ consider $A,B \in St(p,n)$ and consider that $A$ and $B$ are in the same subspace (go to the same point under equivalence relation) $A = B g, g \in GL(p)$.
+To see why is it possible to quotient over $O(p)$ instead $Gl(p)$ consider $A,B \in St(p,n)$ and consider that $A$ and $B$ are in the same subspace (go to the same point under equivalence relation) $A = B g, g \in Gl(p)$.
 We know that $ A^T A = I $, when we substitute we get $ (Bg)^T Bg = I \implies g^T B^T B g = I \implies g^T g = I$ which tells us that $g$ has to be an element of the orthogonal group.
 Therefore 
 $$ G(p,n) = F(p,n) / _{Gl_p(\RR)} \quad G(p,n) = St(p,n) / _{O(p) }$$
-\section{Grassman manifold as a set of projectors }
+%
+%
+    We also have the diffeomorphism $St(p,n)\simeq\left. O_n(\RR)\right/O_{n-p}(\RR)$.
+    
+     Here
+	we identify $O_{n-p}(\RR)$ as the subgroup of $O_n(\RR)$, consisting of matricess $\begin{pmatrix}
+	                                                                               	1&0\\
+	                                                                               	0&Q\\
+	                                                                               \end{pmatrix}$,
+	where $Q\in O_{n-p}(\RR)$. In this description, a matrix $A\in St(p,n)$, with mutually orthogonal and orthonormal
+	column, 
+	corresponds to an equivalence class of $n\times n$ matrices, all having the same first $n\times p$ block  equal to $A$.
+
+\section{Grassmann manifold as a set of projectors }
 Given
-$$ X = \{ M \; | \; M^2 = M = M^T, trM=p \} \subset M_{n \times n} $$
+$$ X = \{ M \; | \; M^2 = M = M^T, trM=k \} \subset M_{n \times n} $$
 We will prove that there is an embedding of $G(p,n)$ to $X$.
 Based on the section \ref{g13proj} , we hypothesize that the embedding is given by
 $$ \phi: \; G(p,n) \to X \quad \phi(A) = A(A^T A)^{-1} A^T  $$
@@ -679,80 +829,53 @@ $$ \phi: \; G(p,n) \to X \quad \phi(A) = A(A^T A)^{-1} A^T  $$
 \begin{Prop}
     $\phi$ is well defined
 \end{Prop}
-\begin{proof}
+
 Take $A \in G(p,n)$ and $B \in G(p,n)$ s.t. $B = A g$. We know that $\phi(A) = A (A^T A)^{-1} A^T$ then
 \begin{equation}
     \phi(B) = A g ((Ag)^T Ag)^{-1} (Ag)^{T} = A g (g^T A^T A g)^{-1} (A g)^{T} = A g g^{-1} (g^T A^T A)^{-1} g^T A^T = A (A^T A)^{-1} A^T
 \end{equation}
-\end{proof}
 \begin{Prop}
     $\phi$ is injective
 \end{Prop}
-\begin{proof}
 Assume that a function is not injective, then  $ \exists A, B \in G(p,n) \; $ s.t. $\phi(A) \neq = \phi(B) g$ for any $g$ in $GL(\RR)$ 
-equivalently $A(A^T A)^{-1} A^T = B (B^T B)^{-1} B^T$, we use the fact that any $n \times p$ matrix $A$ can be decomposed as $A =  Q R$  where $Q$ is of shape $ p \times p$ and $R$ is of shape $n \times p$
+equivalently $A(A^T A)^{-1} A^T = B (B^T B)^{-1} B^T$, we use the fact that any $n times p$ matrix $A$ can be decomposed as $A =  Q R$  where $Q$ is of shape $ p \times p$ and $R$ is of shape $n \times p$
 then 
- $$ A(A^T A)^{-1} A^T =(QR) ((QR)^T QR)^{-1} (QR)^T = QR(R^T Q^T Q R)^{-1} R^T Q^T = $$
- $$ Q R (R^T R)^{-1} R^T Q^T = QRR^{-1} (R^T)^{-1} R^T Q^T = Q Q^T $$
-But we know that there exists $Q$ such that $ \; \exists \; g$ s.t. $Q = Q'$. Therefore we get that $ A = Q R \quad B = Q' R'$ and $\phi(A) = Q Q^T = \phi(B) = Q' Q'^T$ but since $Q$ is orthogonal
-we know that $ \; \exists \; g \; Q= Q' g \implies A = Bg$. we reach the contradiction and prove that $\phi$ is injective.
-\end{proof}
+\begin{equation}
+ A(A^T A)^{-1} A^T = (QR) ((QR)^T QR)^{-1} (QR)^T = QR(R^T Q^T Q R)^{-1} R^T Q^T = Q R (R^T R)^{-1} R^T Q^T = QRR^{-1} (R^T)^{-1} R^T Q^T = Q Q^T
+\end{equation}
+But we know that there exists $Q$ such that $\exists g$ s.t. $Q = Q'$. Therefore we get that $ A = Q R \quad B = Q' R'$ and $\phi(A) = Q Q^T = \phi(B) = Q' Q'^T$ but since $Q$ is orthogonal
+we know that $exists g \; Q= Q' g \implies A = Bg$. we reach the contradiction and prove that $\phi$ is injective.
 \begin{Prop}
     $\phi$ is differentiable
 \end{Prop}
-\begin{proof}
-
-$$\phi'(A) = (A (A^T A)^{-1} A)' = A' (A^T A)^{-1} A - A(A^T A)^{-1}(A' A^T) (A^T A)^{-1} A - $$
-$$ A (A^T A)^{-1} (A (A^T)') (A^T A)^{-1} A^T + A (A^T A)^{-1} (A^T)'$$
+$\phi'(A) = (A (A^T A)^{-1} A)' = A' (A^T A)^{-1} A - A(A^T A)^{-1}(A' A^T) (A^T A)^{-1} A - A (A^T A)^{-1} (A (A^T)') (A^T A)^{-1} A^T + A (A^T A)^{-1} (A^T)'$
 Since we know that $A$ is differentiable this equation shows us that $\phi(A)$ is differentiable.
-
-\end{proof}
 \begin{Prop}
-$P$ is a projection matrix to the subspace $A$, if given a vector $u$ that lies in the subspace, and $v$ that is perpendicular to the subspace $A$,
-$Pu=u$ and $P v= 0$.
-Show that $\phi(A)$ is a projector.
+If $phi(A)$ is a projector on a subspace $A$, then $phi(A)$ will have no effect on elements already inside subspace $A$,
+and will project elements orthogonal to $A$ to zero.
 \end{Prop}
-\begin{proof}
 First we show that given a vector that already lies on $A$, the vector won't change.
 Let $u = A v$, then $\phi(u) = A (A^T A)^{-1} A^T A v = A v = u$
 Given a vector orthogonal to $A$ projection will go to zero. Take arbitary $u$ such that
 $$ u = u^{\perp} + u^{\parallel} \quad u^{\parallel} \in Im A \; \implies \; u^{\parallel} = A v $$
-Then $ u^{\perp} = u - u^{\parallel}$. Now to show that $\phi(u^{\perp}) = 0$
+Then $ u^{\perp} = u - u^{parallel}$. Now to show that $\phi(u^{\perp}) = 0$
 $$ \phi(u - u^{\parallel}) = \phi(u) - \phi(u^{\parallel}) = A (A^T A)^{-1} A^T u - A (A^T A)^{-1} A^T A v = Av - Av = 0 $$
 We will in fact show that $X$ can be identified with $\equivclass{St(p,n)}$ which is (as we showed in \ref{grassquot} ) $G(p,n)$
-\end{proof}
 \begin{center}
 \begin{tikzcd}
-St(p,n) \arrow[r, hook] \arrow[dr, dashrightarrow, "p"]
-& F(p,n) \arrow[d, "\pi"]\\
-& G(p,n) \arrow[r, hook, "\phi"] 
+V(2,4) \arrow[r, hook] \arrow[dr, dashrightarrow, "p"]
+& F(2,4) \arrow[d, "\pi"]\\
+& G(2,4) \arrow[r, hook, "\phi"] 
 & X
 \end{tikzcd}
 \end{center}
-In this setup $A \in St(p,n)$ $\phi(A) = A(A^T A)^{-1} A^T = A A^T$
-$$
-D \phi (X) [V] = \lim_{t \to 0} \frac{ \phi( X + tV) - \phi(X) }{t} = 
-\lim_{t \to 0} \frac{ (X + tV) (X + tV)^T - XX^T }{t} =
-$$
-
-$$
-\lim_{t \to 0} \frac{ (X + tV) - (X^T + (tV)^T) - XX^T}{t} = \lim_{t \to 0} \frac{ XX^T X(tV)^T + tVX^T + tV(tV)^T - XX^T}{t} =
-$$
-$$
-\lim_{t \to 0} \frac{ tXV^T + tVX^T + t^2 V V^T}{t} = XV^T + VX^T
-$$
-Take $V=\frac{1}{2} X B \quad B \in Sym(p)$
-$$ \frac{1}{2} X A^T X^T + \frac{1}{2} X A X^T = X A X^T $$
-It can be checked that $X A X^T \in X$ In other words for any matrix $X A X^T \in X$ there exists a matrix
-$V \in \RR^{n \times p}$, such that $Dh(X)[V] = X A X^T$. 
-Thus, $\phi$ is a defining function for $G(p,n)$ making it an embedded submanifold.
 \section{Tangent Space}
-To define a tangent and a normal space we need the metric.
+To define a tangent and normal space we need the metric. 
 When working on the Stiefel manifold the canonical metric is introduced with the purpose to restrict the orthogonal group metric to the horizontal space the canonical metric is introduced with the purpose to restrict the orthogonal group metric to the horizontal space.
 Canonical metric on Stiefel is given as:
 $$ g_c(\Delta_1, \Delta_2) = \tr \Delta ^T (I - \frac{1}{2} A A^T) \Delta 
 $$
-However the canonical metric on Grassman manifold is equivalent to the Euclidean metric
+However the canonical metric on Grassmann manifold is equivalent to the Euclidean metric
 $$
 g_c(\Delta_1, \Delta_2) = \tr \Delta_1^T (I - \frac{1}{2} Y Y^T) \Delta_2 = \tr \Delta_1^T \Delta_2 = g_e(\Delta_1,\Delta_2) 
 $$
@@ -760,7 +883,7 @@ Thus we proceed with such choice of canonical metric.
 \begin{Prop}
    The tangent space of $G(p,n)$ is given by all the commutators $ [ P, \Omega] = P \Omega - \Omega P \quad \Omega \in \mathfrak{so}_n  $ 
 \end{Prop}
-\begin{proof}
+\textbf{Proof:}
 Consider the map $\delta: O(n) \to G(p,n), \quad \delta(T) = T P_0 T^T$. So that we fix $P_0$ to satisfy the following three conditions:
 \begin{enumerate}
     \item $P^T = P \quad (T P_0 T^T)^T = T P_0^T T^T$
@@ -773,7 +896,6 @@ The tangent space of $O(n)$ at the $n \times n$ identity matrix $I$ is
 $ T_x O(n) = \{ \Omega \in \mathfrak{so}_n \} $ Note that $\Omega \in \mathfrak{so}_n$ means that omega is skew-symmetric $\Omega^T = -\Omega$.
 Now if we take a derivative
 $$ D_{\delta} : Tx O(n) \to T_{P_o} G(p,n), \quad \Omega \to P_0 \Omega - \Omega P_0 $$
-\end{proof}
 \begin{Ex}{ Tangent space in $G(1,3)$}
    Take $P = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix} $
    find all $T_p X = \{ [P,\Omega] \; | \; \Omega \in \mathfrak{so}_n \}$
@@ -795,11 +917,11 @@ $$ D_{\delta} : Tx O(n) \to T_{P_o} G(p,n), \quad \Omega \to P_0 \Omega - \Omega
 \end{Ex}
 \begin{Ex}{Tangent space in $G(2,4)$}
     $P = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$
-    $\Omega = \begin{bmatrix} \Omega_1 & -\Omega_2 & -\Omega_3 & - \Omega_4 \\
+    $\Omega = \begin{matrix} \Omega_1 & -\Omega_2 & -\Omega_3 & - \Omega_4 \\
                               \Omega_2 & \Omega_5 & - \Omega_6 & -\Omega_7 \\ 
                               \Omega_3 & \Omega_6 & \Omega_8 & - \Omega_9 \\ 
-                              \Omega_4 & \Omega_7 & \Omega_9 & \Omega_{10}
-                            \end{bmatrix}  $
+                              \Omega_4 & \Omega_7 & \Omega_9 & \Omega_{10} 
+                            \end{matrix}  $
     $P \Omega = \begin{bmatrix} \Omega_1 & -\Omega_2 & -\Omega_3 & -\Omega_4 \\
                             \Omega_2 & \Omega_5 & -\Omega_6 & -\Omega_7 \\
                             0 & 0 & 0 & 0 \\
@@ -840,7 +962,7 @@ The orthogonal group geodesic is given as
 $$Q(t) = Q(0) \exp t \begin{pmatrix} 0 & -B^T \\ B & 0 \end{pmatrix} $$
 It has a horizontal tangent at every point along the curve $Q(t)$
 $$ \dot{Q}(t) = Q(t) \begin{pmatrix} 0 & -B^T \\ B & 0 \end{pmatrix}$$
-Thus Grassman geodesics = $ [ Q(t) ] $
+Thus Grassmann geodesics = $ [ Q(t) ] $
 The following theorem will be useful for computing the geodesic formula.
 \begin{thm}
     If $Y(t) = Q e^{t \begin{pmatrix} 0 & -B^T \\ B & 0 \end{pmatrix} } I_{n,p} $ with $Y(0) = Y$ and $\dot{Y}(0) = H$, then
@@ -849,7 +971,7 @@ The following theorem will be useful for computing the geodesic formula.
 
 \section{Parallel Transport}
 \begin{thm}
-    Let $H$ and $Delta$ be tangent vectors to the Grassmann manifold at $Y$.
+    Let $H$ and $\Delta$ be tangent vectors to the Grassmann manifold at $Y$.
     Then the parallel translation of $\Delta$ along the geodesic in the direction $\dot{Y}(0) - H$ is
     $$ \tau \Delta(t) = \begin{pmatrix} \begin{pmatrix} YV & U \end{pmatrix} \begin{pmatrix} -\sin \Sigma t \\ \cos \Sigma t \end{pmatrix} U^T + (I - UU^T) \end{pmatrix} \Delta $$
 \end{thm}
@@ -870,33 +992,20 @@ $$ Hess F(\Delta_1, \Delta_2) = F_{YY}(\Delta_1, \Delta_2) - \tr(\Delta_1^T \Del
 For Newton's method, we must determine $\Delta = -Hess^{-1}G$, which for the Grassmann manifold is expressed as the linear problem:
 $$ F_{YY}(\Delta) - \Delta(Y^T F_{Y}) = -G $$
 \chapter{Optimization Algorithms}\label{OptChapter}
-Classical Gradient Descent is defined as follows: 
-\begin{enumerate}
-\item $\Delta x_k = \frac{d}{d x_k} f(x_k) $
-\item $x_{k+1} = x_{k} - lr \cdot \Delta x_k$
-\end{enumerate}
-It computed the gradient of the function, and then in the next steps move in the direction of gradient.
-When the min/max is sufficiently close, it stops.
-\newline
-Newton's root finding method is given in the following two steps
-\begin{enumerate}
-    \item $\Delta x_k = - \frac{f(x_k)}{f'(x_k)}$
-    \item $x_{k+1} = x_k + \Delta x_k$
-\end{enumerate}
-We perform optimization using Newton's method by applying it to the derivative of twice differentiable function $f$ to find the critical points.
-\newline
-Now we proceed by defining Gradient Descent and Newton's method on Grassmann manifolds.
-We perform optimization with Newton's root-finding method by applying it to the derivative of the twice differentiable function $f$ to find the critical points.
+\textbf{Classical Gradient Descent}
+\textbf{Classical Newtons Method}
 \section{Gradient Descent}
+We perform optimization with Newton's root-finding method by applying it to the derivative of the twice differentiable function $f$ to find the critical points.
 Our objective is to minimize $F: G(p,n) \to \RR$. \newline
 \begin{algorithm}
+    WRITE GRADIENT DESCENT FROM GRASSMANOPT
 \caption{Gradient Descent method for minimizing $F(Y)$ on $G_1(p,n)$ }\label{alg:gradG}
     \begin{algorithmic}[1]
         \State \textcolor{red}{// Input: $F(\cdot)$ and the initial choice of $Y$ such that $Y^T Y = I_p$}
         \State \textcolor{red}{// Output: First $p$ columns of $Q$ whose span is the minimal subspace}
         \Procedure{MINIMIZE}{}
         \While{$||B|| < \epsilon$}\Comment{We define a stopping criteria}
-        \State Compute the directional derivative $B$ and get the tangent $\Delta$
+        \State Compute the directional derivative and get the tangent $\Delta$
         \State
         \State Update $Q_{k+1} = Q_{k} \exp\{ \delta \Delta \} \text{ such that } f(U_{k+1}) > f(U_t)$
         \EndWhile
@@ -904,10 +1013,9 @@ Our objective is to minimize $F: G(p,n) \to \RR$. \newline
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-In the given algorithm $\delta$ stands for learning rate and $Q = \begin{pmatrix} U,V \end{pmatrix}$
-\newpage
+
 \section{Newton 1}
-We have $F: G_1(p,n) \to \RR $, $ \; F(Y) = F(YQ), \; Y \in G_1(p,n), \; Q \in O(p), Y^T Y = I_p$
+For this one we have $F: G_1(p,n) \to \RR $, $ \; F(Y) = F(YQ), \; Y \in G_1(p,n), \; Q \in O(p), Y^T Y = I_p$
 \begin{algorithm}
 \caption{Newton's method for minimizing $F(Y)$ on $G_1(p,n)$ }\label{alg:quotAlg}
     \begin{algorithmic}[1]
@@ -951,7 +1059,7 @@ $M_Q$ subscript means that we are taking only $Q$ part from the $QR$ decompositi
     \end{algorithmic}
 \end{algorithm}
 
-\chapter{Minimize Rayleigh Quotient}\label{RayChapter}
+\chapter{Solve Rayleigh Quotient}\label{RayChapter}
 The Rayleigh quotient for a given symmetric matrix $M$ and a nonzero vector $x$ is defined as
 $$ R(M,x) = \frac{x^T M x}{x^T x}$$
 \begin{thm}
@@ -1004,15 +1112,15 @@ Thus algorithm becomes
     \end{algorithmic}
 \end{algorithm}
 \begin{Ex}
-    Find the dominant eigenvector and eigenvalue of $A = \begin{pmatrix} 181 & 101 & 146 \\ 101 & 74 & 103 \\ 146 & 103 & 146 \end{pmatrix} $ 
-    by using gradient decent on Rayleigh quotient.
+    Find the domainant eigenvector and eigenvalue of $A = \begin{pmatrix} 181 & 101 & 146 \\ 101 & 74 & 103 \\ 146 & 103 & 146 \end{pmatrix} $ 
+    by using gradient desent on Rayleigh quotient.
 \end{Ex}
 \begin{figure}[h] \label{gradRay}
     \centering
     \includegraphics[width=0.90\textwidth]{gradientDescent1.png}
     \caption{Convergence of the GD algorithm on Rayleigh quotient example}
 \end{figure}
-\newpage
+
 \section{Newton 1}
 Given the function $\bar{f}= x^T M x \quad grad \bar{f} = 2 M x  - 2 (x^T M x) = 2 (I - xx^T) A x = 2 P M x$
 $$ D(grad f) = 2M - 4 x M x \eta + 2 x^T M x $$
@@ -1038,10 +1146,7 @@ $$ P_x M P_x \eta - \eta x M x = - P M x$$
     \end{algorithmic}
 \end{algorithm}
 $P$ is a projection, $R$ is a retraction.
-\begin{Ex}
-    Find eigenvectors and eigenvalues of $A = \begin{pmatrix} 181 & 101 & 146 \\ 101 & 74 & 103 \\ 146 & 103 & 146 \end{pmatrix} $ using Newton 1
-\end{Ex}
-OUTPUT: $ [-0.74148822,  0.44835462,  0.49917267] $
+
 \begin{figure}[h] \label{gradR1}
     \centering
     \includegraphics[width=0.90\textwidth]{newton1.png}
@@ -1049,7 +1154,6 @@ OUTPUT: $ [-0.74148822,  0.44835462,  0.49917267] $
 \end{figure}
 
 \section{Newton 2}
-
 For the Rayleigh quotient the equation that we need to solve in the first step of \ref{newton2} becomes:
 $$ -ad_{P_j} ad_{A} ad_{P_j} \Omega_j = - ad^2_{P_j} A = \Theta_j(ad_{P_j} ad_A ad_{P_j} \Omega_j) \Theta_j^T = \Theta_j (ad_{P_j}^2 A) \Theta_j^T  $$
 %and using
@@ -1080,16 +1184,12 @@ $$ ad_{\begin{bmatrix} I_m & 0 \\ 0 & 0  \end{bmatrix} } ad_{\Theta_j A \Theta_j
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-\begin{Ex}
-    Find eigenvectors and eigenvalues of $A = \begin{pmatrix} 181 & 101 & 146 \\ 101 & 74 & 103 \\ 146 & 103 & 146 \end{pmatrix} $ using Newton 2
-\end{Ex}
-OUTPUT: $ [-0.74364137,  0.43442584,  0.5082044 ]$
+
 \begin{figure}[h] \label{gradR2}
     \centering
     \includegraphics[width=0.90\textwidth]{newton2.png}
     \caption{Convergence of the Newton 2 algorithm on Rayleigh quotient example}
 \end{figure}
-
 \chapter{Notation}  
 \noindent\begin{tabularx}{\textwidth}{@{}XXX@{}}  \toprule
   Symbol & Matrix Definition & Name \\
@@ -1100,13 +1200,13 @@ OUTPUT: $ [-0.74364137,  0.43442584,  0.5082044 ]$
   \toprule
   $ GL(p)$ &  $ \{ A \in Mat_{n \times n} \; | \; det A \neq 0 \}$ & General Linear Group \\
   \toprule
-  $ O(p)$ & $ \{ Q \in GL(p) \; | \; Q^T Q = I \}$  & Orthogonal group \\
+  $ O(p)$ & $ \{ Q \in GL(p) \; | \; Q^T Q = Q Q^T = I \}$  & Orthogonal group \\
   \toprule
   $ \mathfrak{so}_n $ & $ \{ \Omega \in \RR^{n \times n} \; | \; \Omega^T = - \Omega \} $ & Real skew-symmetric matrices \\
   \toprule
   $ Sym(p) $ & $ \{ A \in \RR^{p \times p} \; | \; A^T = A \} $ & Symmetric matrices \\
   \toprule
-  $ SO(n) $ & $ \{ Q \in O(n) \; | \; \det(Q) = 1 \} $ & Special Orthogonal Group \\
+  $ SO(n) $ & $ \{ Q \in O(n) \; | \; \det(Q) = 1 \} $ Special Orthogonal Group \\
 \end{tabularx}\offinterlineskip
 
  
